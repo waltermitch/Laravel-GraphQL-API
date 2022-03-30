@@ -25,7 +25,7 @@ type User {
     id: ID!
 
     "Non-unique name."
-    name: String!
+    first_name: String!
 
     "Unique email address."
     email: String!
