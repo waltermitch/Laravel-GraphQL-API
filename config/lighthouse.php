@@ -267,7 +267,7 @@ return [
         \Nuwave\Lighthouse\Execution\AuthorizationErrorHandler::class,
         \Nuwave\Lighthouse\Execution\ValidationErrorHandler::class,
         \Nuwave\Lighthouse\Execution\ExtensionErrorHandler::class,
-        \Nuwave\Lighthouse\Execution\ReportingErrorHandler::class,
+        \Nuwave\Lighthouse\Execution\ReportingErrorHandler::class
     ],
 
     /*

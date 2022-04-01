@@ -15,7 +15,18 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'users'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lighthouse Authentication with Sanctum
+    |--------------------------------------------------------------------------
+    | This option controls auth details.
+    |
+    */
+    'lighthouse-sanctum' => [
+        'provider' => 'users'
     ],
 
     /*

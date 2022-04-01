@@ -1,16 +1,42 @@
+enum ForgotPasswordStatus {
+    EMAIL_SENT
+}
+
+"The access token received by the user."
 type AccessToken {
+    "Access token."
     token: String!
 }
 
+type ForgotPasswordResponse {
+    status: ForgotPasswordStatus!
+
+    message: String
+}
+
+"Credentials for authorization."
 input LoginCredentials {
-    email: String!
+    "Email."
+    email: String! @rules(apply: ["email"])
+
+    "Password."
     password: String!
 }
 
+input ForgotPasswordInput {
+    email: String! @rules(apply: ["email"])
+
+    resetPasswordUrl: String @rename(attribute: "reset_password_url") @rules(apply: ["url"])
+}
+
 extend type Mutation {
+    "Attempt to login the user using the provided credentials."
     login(
-        credentials: LoginCredentials @spread
+        "Login credentials."
+        credentials: LoginCredentials! @spread
     ): AccessToken!
-        @namespace(field: "App\\GraphQL\\Mutations")
-        @field(resolver: "Login")
+
+    forgotPassword(
+        forgotPasswordInput: ForgotPasswordInput! @spread
+    ): ForgotPasswordResponse!
 }
