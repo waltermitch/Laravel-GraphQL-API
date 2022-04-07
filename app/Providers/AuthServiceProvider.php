@@ -2,11 +2,23 @@
 
 namespace App\Providers;
 
+use App\Services\Auth\ResetPasswordService;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    /**
+     * All of the container bindings that should be registered.
+     *
+     * @var array
+     */
+    public $bindings = [
+        ResetPasswordService::class => ResetPasswordService::class,
+    ];
+
+
     /**
      * The policy mappings for the application.
      *
@@ -25,6 +37,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // ResetPassword::createUrlUsing(function ($user, string $token) {
+        //     return 'https://example.com/reset-password?token='.$token;
+        // });
     }
 }

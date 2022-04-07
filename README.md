@@ -40,5 +40,5 @@ php artisan migrate
 ```
 #### 7. Run existing seeders:
 ```bash
-php artisan migrate
+php artisan db:seed
 ```

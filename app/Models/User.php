@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,9 +12,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\Contracts\HasApiTokens as HasApiTokensContract;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements HasApiTokensContract
+class User extends Authenticatable implements HasApiTokensContract, CanResetPasswordContract
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -44,4 +46,13 @@ class User extends Authenticatable implements HasApiTokensContract
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean'
     ];
+
+    
+    /**
+     * Get the role that has the user.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
