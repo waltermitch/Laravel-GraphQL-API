@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\PasswordStatus;
+use App\Exceptions\PasswordException;
 use App\Services\Auth\ResetPasswordService;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Illuminate\Support\Facades\Password;
 
@@ -26,14 +29,15 @@ class ForgotPassword
             $this->resetPasswordService->setResetPasswordUrl($args['reset_password_url']);
         }   
 
-        // Todo: handle another statuses
-        $status = Password::sendResetLink([
-            'email' => $args['email']
-        ]);
+        $status = Password::sendResetLink(Arr::only($args, 'email'));
 
-        return [
-            'status' => 'EMAIL_SENT',
-            'message' => __($status)
-        ];
+        if ($status === Password::RESET_LINK_SENT) {
+            return [
+                'status' => PasswordStatus::EMAIL_SENT,
+                'message' => __($status)
+            ];
+        }
+
+        throw new PasswordException(__('passwords.forgot-password-invalid'), __($status));
     }
 }

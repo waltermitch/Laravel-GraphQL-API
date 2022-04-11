@@ -30,7 +30,7 @@ class Login
             'password' => $args['password']
         ]);
 
-        if (!$user) {
+        if (!$user || !$userProvider->validateCredentials($user, $args)) {
             throw new AuthenticationException("These credentials do not match our records.");
         }
 
