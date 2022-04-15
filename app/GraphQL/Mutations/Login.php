@@ -42,7 +42,7 @@ class Login
             throw new ApiTokensException($user);
         }
 
-        $user->tokens()->delete();
+        // $user->tokens()->delete();
 
         return [
             "token" => $user->createToken('default')->plainTextToken

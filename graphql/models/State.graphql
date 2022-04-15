@@ -1,0 +1,59 @@
+type State {
+    "Unique primary key."
+    id: ID!
+
+    "Code."
+    code: String!
+
+    "Sales tax cafeteria."
+    salesTaxCafeteria: Float! @rename(attribute: "sales_tax_cafeteria")
+
+    "Sales Tax Cafeteria."
+    salesTaxVending: Float! @rename(attribute: "sales_tax_vending")
+
+    "Sales Tax Cafeteria."
+    salesTaxRestaurant: Float! @rename(attribute: "sales_tax_restaurant")
+
+    "Sales Tax Cafeteria."
+    salesTaxStore: Float! @rename(attribute: "sales_tax_store")
+
+    "Sales Tax Cafeteria."
+    grossReceiptsTax: Float! @rename(attribute: "gross_receipts_tax")
+
+    "When the state was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the state was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input StateInput {
+    "Code."
+    code: String! @rules(apply: ["required"])
+
+    "Sales Tax Cafeteria."
+    salesTaxCafeteria: Float! @rename(attribute: "sales_tax_cafeteria") @rules(apply: ["required", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    salesTaxVending: Float! @rename(attribute: "sales_tax_vending") @rules(apply: ["required", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    salesTaxRestaurant: Float! @rename(attribute: "sales_tax_restaurant") @rules(apply: ["required", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    salesTaxStore: Float! @rename(attribute: "sales_tax_store") @rules(apply: ["required", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    grossReceiptsTax: Float! @rename(attribute: "gross_receipts_tax") @rules(apply: ["required", "between:0,99.99"])
+}
+
+extend type Query {
+    "List multiple states."
+    states: [State!]! @paginate
+}
+
+extend type Mutation {
+    createState(
+        stateInput: StateInput! @spread
+    ): State @create
+}
