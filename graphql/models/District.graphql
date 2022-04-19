@@ -1,0 +1,69 @@
+type District {
+    "Unique primary key."
+    id: ID!
+
+    "Code."
+    code: String!
+
+    "Name."
+    name: String!
+
+    "Tax."
+    tax: Float
+
+    "When the district was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the distrcit was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateDistrictInput {
+    "Name."
+    name: String! @rules(apply: ["required"])
+
+    "Name."
+    code: String! @rules(apply: ["required"])
+
+    "Tax."
+    tax: Float @rules(apply: ["between:0,99.99"])
+}
+
+input UpdateDistrictInput {
+    "Id."
+    id: ID!
+
+    "Name."
+    code: String @rules(apply: ["filled"])
+
+    "Name."
+    name: String @rules(apply: ["filled"])
+
+    "Tax."
+    tax: Float @rules(apply: ["between:0,99.99"])
+}
+
+extend type Query {
+    "List multiple districts."
+    districts: [District!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new district."
+    createDistrict(
+        "District input."
+        districtInput: CreateDistrictInput! @spread
+    ): District @create
+
+    "Update an existing district."
+    updateDistrict(
+        "District input."
+        districtInput: UpdateDistrictInput! @spread
+    ): District @update
+
+    "Delete an existing district."
+    deleteDistrict(
+        "Id."
+        id: ID!
+    ): District @delete
+}

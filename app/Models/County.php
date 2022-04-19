@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class State extends Model
+class County extends Model
 {
     use HasFactory;
 
@@ -38,18 +38,10 @@ class State extends Model
     ];
 
     /**
-     * Get the counties for the state.
+     * Get the state that owns the county.
      */
-    public function counties(): HasMany
+    public function state(): BelongsTo
     {
-        return $this->hasMany(County::class);
-    }
-
-    /**
-     * Get the counties for the state.
-     */
-    public function cities(): HasMany
-    {
-        return $this->hasMany(City::class);
+        return $this->belongsTo(State::class);
     }
 }

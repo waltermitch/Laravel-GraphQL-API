@@ -5,6 +5,12 @@ type State {
     "Code."
     code: String!
 
+    "The counties for the state."
+    counties: [County!]!
+
+    "The cities for the state."
+    cities: [City!]!
+
     "Sales tax cafeteria."
     salesTaxCafeteria: Float! @rename(attribute: "sales_tax_cafeteria")
 
@@ -27,7 +33,7 @@ type State {
     updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
-input StateInput {
+input CreateStateInput {
     "Code."
     code: String! @rules(apply: ["required"])
 
@@ -47,13 +53,50 @@ input StateInput {
     grossReceiptsTax: Float! @rename(attribute: "gross_receipts_tax") @rules(apply: ["required", "between:0,99.99"])
 }
 
+input UpdateStateInput {
+    "Id."
+    id: ID!
+
+    "Code."
+    code: String @rules(apply: ["filled"])
+
+    "Sales Tax Cafeteria."
+    salesTaxCafeteria: Float @rename(attribute: "sales_tax_cafeteria") @rules(apply: ["filled", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    salesTaxVending: Float @rename(attribute: "sales_tax_vending") @rules(apply: ["filled", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    salesTaxRestaurant: Float @rename(attribute: "sales_tax_restaurant") @rules(apply: ["filled", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    salesTaxStore: Float @rename(attribute: "sales_tax_store") @rules(apply: ["filled", "between:0,99.99"])
+
+    "Sales Tax Cafeteria."
+    grossReceiptsTax: Float @rename(attribute: "gross_receipts_tax") @rules(apply: ["filled", "between:0,99.99"])
+}
+
 extend type Query {
     "List multiple states."
     states: [State!]! @paginate
 }
 
 extend type Mutation {
+    "Create a new state."
     createState(
-        stateInput: StateInput! @spread
+        "State input."
+        stateInput: CreateStateInput! @spread
     ): State @create
+
+    "Update an existing state."
+    updateState(
+        "State input."
+        stateInput: UpdateStateInput! @spread
+    ): State @update
+
+    "Delete an existing state."
+    deleteState(
+        "Id."
+        id: ID!
+    ): State @delete
 }

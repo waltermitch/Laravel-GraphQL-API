@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class State extends Model
+class District extends Model
 {
     use HasFactory;
 
@@ -36,20 +35,4 @@ class State extends Model
     protected $casts = [
         
     ];
-
-    /**
-     * Get the counties for the state.
-     */
-    public function counties(): HasMany
-    {
-        return $this->hasMany(County::class);
-    }
-
-    /**
-     * Get the counties for the state.
-     */
-    public function cities(): HasMany
-    {
-        return $this->hasMany(City::class);
-    }
 }
