@@ -1,0 +1,73 @@
+type Vendor {
+    "Unique primary key."
+    id: ID!
+
+    "Code."
+    code: String!
+
+    "Name."
+    name: String!
+
+    "The term that owns the vendor."
+    term: Term!
+
+    "When the vendor was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the vendor was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateVendorInput {
+    "Code."
+    code: String! @rules(apply: ["required"])
+
+    "Name."
+    name: String! @rules(apply: ["required"])
+
+    "Term."
+    term: ConnectBelongsToTerm!
+}
+
+input UpdateVendorInput {
+    "Id."
+    id: ID!
+
+    "Code."
+    code: String! @rules(apply: ["filled"])
+
+    "Name."
+    name: String! @rules(apply: ["filled"])
+
+    "Term."
+    term: ConnectBelongsToTerm @rules(apply: ["filled"])
+}
+
+input ConnectBelongsToTerm {
+    connect: ID! @rules(apply: ["required", "exists:terms,id"])
+}
+
+extend type Query {
+    "List multiple vendors."
+    vendors: [Vendor!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new vendor."
+    createVendor(
+        "Vendor input."
+        vendorInput: CreateVendorInput! @spread
+    ): Vendor @create
+
+    "Update an existing vendor."
+    updateVendor(
+        "Vendor input."
+        vendorInput: UpdateVendorInput! @spread
+    ): Vendor @update
+
+    "Delete an existing vendor."
+    deleteVendor(
+        "Id."
+        id: ID!
+    ): Vendor @delete
+}

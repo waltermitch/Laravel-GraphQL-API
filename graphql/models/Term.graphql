@@ -1,0 +1,60 @@
+type Term {
+    "Unique primary key."
+    id: ID!
+
+    "Name."
+    name: String!
+
+    "Name."
+    dueDays: String! @rename(attribute: "due_days")
+
+    "When the term was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the term was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateTermInput {
+    "Name."
+    name: String! @rules(apply: ["required"])
+
+    "Name."
+    dueDays: String! @rules(apply: ["required"]) @rename(attribute: "due_days")
+}
+
+input UpdateTermInput {
+    "Id."
+    id: ID!
+
+    "Name."
+    name: String @rules(apply: ["filled"])
+
+    "Name."
+    dueDays: String @rules(apply: ["filled"]) @rename(attribute: "due_days")
+}
+
+extend type Query {
+    "List multiple terms."
+    terms: [Term!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new term."
+    createTerm(
+        "Term input."
+        termInput: CreateTermInput! @spread
+    ): Term @create
+
+    "Update an existing term."
+    updateTerm(
+        "Term input."
+        termInput: UpdateTermInput! @spread
+    ): Term @update
+
+    "Delete an existing term."
+    deleteTerm(
+        "Id."
+        id: ID!
+    ): Term @delete
+}
