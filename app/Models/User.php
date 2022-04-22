@@ -47,6 +47,15 @@ class User extends Authenticatable implements HasApiTokensContract, CanResetPass
         'is_admin' => 'boolean'
     ];
 
+    /**
+     * Determines if user is an administrator.
+     * 
+     * @return bool
+     */
+    public function isAdministrator()
+    {
+        return $this->is_admin;
+    }
     
     /**
      * Get the role that has the user.

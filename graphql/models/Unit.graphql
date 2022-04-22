@@ -1,0 +1,88 @@
+type Unit {
+    "Unique primary key."
+    id: ID!
+
+    "Unique code."
+    code: String!
+
+    "Name."
+    name: String!
+
+    "Address."
+    address: String!
+
+    "Zip."
+    zip: String!
+
+    "Whether the unit is active."
+    isActive: Boolean! @rename(attribute: "is_active")
+
+    "Whether the unit is vending."
+    isVending: Boolean! @rename(attribute: "is_vending")
+
+    "The district that owns the unit."
+    district: District!
+
+    "The county that owns the unit."
+    county: County!
+
+    "The city that own the unit."
+    city: City!
+}
+
+input CreateUnitInput {
+    "Unique code."
+    code: String! @rules(apply: ["required", "unique:units,code"])
+
+    "Name."
+    name: String! @rules(apply: ["required"])
+
+    "Address."
+    address: String! @rules(apply: ["required"])
+
+    "Zip."
+    zip: String! @rules(apply: ["required"])
+
+    "Whether the unit is active."
+    isActive: Boolean! @rename(attribute: "is_active")
+
+    "Whether the unit is vending."
+    isVending: Boolean! @rename(attribute: "is_vending")
+
+    "District."
+    district: ConnectBelongsToDistrict!
+
+    "County."
+    county: ConnectBelongsToCounty!
+
+    "City."
+    city: ConnectBelongsToCity!
+}
+
+input ConnectBelongsToDistrict {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:districts,id"])
+}
+
+input ConnectBelongsToCounty {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:counties,id"])
+}
+
+input ConnectBelongsToCity {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:cities,id"])
+}
+
+extend type Query {
+    "List multiple units."
+    units: [Unit!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new unit."
+    createUnit(
+        "Unit input."
+        unitInput: CreateUnitInput! @spread
+    ): Unit @create
+}

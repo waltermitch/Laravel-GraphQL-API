@@ -78,7 +78,7 @@ extend type Mutation {
     login(
         "Login credentials."
         credentials: LoginCredentials! @spread
-    ): AccessToken!
+    ): AccessToken! @throttle(name: "auth")
 
     "Attempt to sent the user password reset link."
     forgotPassword(
