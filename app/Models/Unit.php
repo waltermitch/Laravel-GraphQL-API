@@ -66,4 +66,12 @@ class Unit extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    /**
+     * Get the unit type owns the unit.
+     */
+    public function unitType(): BelongsTo
+    {
+        return $this->belongsTo(UnitType::class);
+    }
 }

@@ -20,6 +20,9 @@ type Unit {
     "Whether the unit is vending."
     isVending: Boolean! @rename(attribute: "is_vending")
 
+    "The unit type that owns the unit."
+    unitType: UnitType!
+
     "The district that owns the unit."
     district: District!
 
@@ -28,6 +31,84 @@ type Unit {
 
     "The city that own the unit."
     city: City!
+
+    "Start period."
+    startPeriod: Date @rename(attribute: "start_period")
+
+    "Payroll password."
+    payrollPassword: String @rename(attribute: "payroll_password")
+
+    "Management percent."
+    managementPercent: Float @rename(attribute: "management_percent")
+
+    "Management amount."
+    managementAmount: Float @rename(attribute: "management_amount")
+
+    "Management fee type."
+    managementFeeType: FeeType @rename(attribute: "management_fee_type")
+
+    "Administrative percent."
+    administrativePercent: Float @rename(attribute: "administrative_percent")
+
+    "Administrative amount."
+    administrativeAmount: Float @rename(attribute: "administrative_amount")
+
+    "Administrative fee type."
+    administrativeFeeType: FeeType @rename(attribute: "administrative_fee_type")
+
+    "Support percent."
+    supportPercent: Float @rename(attribute: "support_percent")
+
+    "Support amount."
+    supportAmount: Float @rename(attribute: "support_amount")
+
+    "Support fee type."
+    supportFeeType: FeeType @rename(attribute: "support_fee_type")
+
+    "Payroll tax percent."
+    payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent")
+
+    "Benefits percent."
+    benefitsPercent: Float @rename(attribute: "benefits_percent")
+
+    "Benefits amount."
+    benefitsAmount: Float @rename(attribute: "benefits_amount")
+
+    "Vacation amount."
+    vacationAmount: Float @rename(attribute: "vacation_amount")
+
+    "Business unsurance amount."
+    businessInsuranceAmount: Float @rename(attribute: "business_insurance_amount")
+
+    "Vending income."
+    vendingIncome: Float @rename(attribute: "vending_income")
+
+    "Commission amount."
+    commissionAmount: Float @rename(attribute: "commission_amount")
+
+    "Commission percent."
+    commissionPercent: Float @rename(attribute: "commission_percent")
+
+    "Manager first name."
+    managerFirstName: String @rename(attribute: "manager_first_name")
+
+    "Manager last name."
+    managerLastName: String @rename(attribute: "manager_last_name")
+
+    "Population."
+    population: Int
+
+    "Whether the uni is kronos."
+    isKronos: Boolean @rename(attribute: "is_kronos")
+
+    "Sysco."
+    sysco: String
+
+    "When the unit was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the unit was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 input CreateUnitInput {
@@ -49,6 +130,9 @@ input CreateUnitInput {
     "Whether the unit is vending."
     isVending: Boolean! @rename(attribute: "is_vending")
 
+    "Unit type."
+    unitType: ConnectBelongsToUnitType!
+
     "District."
     district: ConnectBelongsToDistrict!
 
@@ -57,6 +141,190 @@ input CreateUnitInput {
 
     "City."
     city: ConnectBelongsToCity!
+
+    "Start period."
+    startPeriod: Date @rename(attribute: "start_period")
+
+    "Payroll password."
+    payrollPassword: String @rename(attribute: "payroll_password")
+
+    "Management percent."
+    managementPercent: Float @rename(attribute: "management_percent")
+
+    "Management amount."
+    managementAmount: Float @rename(attribute: "management_amount")
+
+    "Management fee type."
+    managementFeeType: FeeType @rename(attribute: "management_fee_type")
+
+    "Administrative percent."
+    administrativePercent: Float @rename(attribute: "administrative_percent")
+
+    "Administrative amount."
+    administrativeAmount: Float @rename(attribute: "administrative_amount")
+
+    "Administrative fee type."
+    administrativeFeeType: FeeType @rename(attribute: "administrative_fee_type")
+
+    "Support percent."
+    supportPercent: Float @rename(attribute: "support_percent")
+
+    "Support amount."
+    supportAmount: Float @rename(attribute: "support_amount")
+
+    "Support fee type."
+    supportFeeType: FeeType @rename(attribute: "support_fee_type")
+
+    "Payroll tax percent."
+    payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent")
+
+    "Benefits percent."
+    benefitsPercent: Float @rename(attribute: "benefits_percent")
+
+    "Benefits amount."
+    benefitsAmount: Float @rename(attribute: "benefits_amount")
+
+    "Vacation amount."
+    vacationAmount: Float @rename(attribute: "vacation_amount")
+
+    "Business unsurance amount."
+    businessInsuranceAmount: Float @rename(attribute: "business_insurance_amount")
+
+    "Vending income."
+    vendingIncome: Float @rename(attribute: "vending_income")
+
+    "Commission amount."
+    commissionAmount: Float @rename(attribute: "commission_amount")
+
+    "Commission percent."
+    commissionPercent: Float @rename(attribute: "commission_percent")
+
+    "Manager first name."
+    managerFirstName: String @rename(attribute: "manager_first_name")
+
+    "Manager last name."
+    managerLastName: String @rename(attribute: "manager_last_name")
+
+    "Population."
+    population: Int
+
+    "Whether the uni is kronos."
+    isKronos: Boolean @rename(attribute: "is_kronos")
+
+    "Sysco."
+    sysco: String
+}
+
+input UpdateUnitInput @validator {
+    "Id."
+    id: ID!
+
+    "Unique code."
+    code: String
+
+    "Name."
+    name: String @rules(apply: ["filled"])
+
+    "Address."
+    address: String @rules(apply: ["filled"])
+
+    "Zip."
+    zip: String @rules(apply: ["filled"])
+
+    "Whether the unit is active."
+    isActive: Boolean @rename(attribute: "is_active")
+
+    "Whether the unit is vending."
+    isVending: Boolean @rename(attribute: "is_vending")
+
+    "Unit type."
+    unitType: ConnectBelongsToUnitType
+
+    "District."
+    district: ConnectBelongsToDistrict
+
+    "County."
+    county: ConnectBelongsToCounty
+
+    "City."
+    city: ConnectBelongsToCity
+
+    "Start period."
+    startPeriod: Date @rename(attribute: "start_period")
+
+    "Payroll password."
+    payrollPassword: String @rename(attribute: "payroll_password")
+
+    "Management percent."
+    managementPercent: Float @rename(attribute: "management_percent")
+
+    "Management amount."
+    managementAmount: Float @rename(attribute: "management_amount")
+
+    "Management fee type."
+    managementFeeType: FeeType @rename(attribute: "management_fee_type")
+
+    "Administrative percent."
+    administrativePercent: Float @rename(attribute: "administrative_percent")
+
+    "Administrative amount."
+    administrativeAmount: Float @rename(attribute: "administrative_amount")
+
+    "Administrative fee type."
+    administrativeFeeType: FeeType @rename(attribute: "administrative_fee_type")
+
+    "Support percent."
+    supportPercent: Float @rename(attribute: "support_percent")
+
+    "Support amount."
+    supportAmount: Float @rename(attribute: "support_amount")
+
+    "Support fee type."
+    supportFeeType: FeeType @rename(attribute: "support_fee_type")
+
+    "Payroll tax percent."
+    payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent")
+
+    "Benefits percent."
+    benefitsPercent: Float @rename(attribute: "benefits_percent")
+
+    "Benefits amount."
+    benefitsAmount: Float @rename(attribute: "benefits_amount")
+
+    "Vacation amount."
+    vacationAmount: Float @rename(attribute: "vacation_amount")
+
+    "Business unsurance amount."
+    businessInsuranceAmount: Float @rename(attribute: "business_insurance_amount")
+
+    "Vending income."
+    vendingIncome: Float @rename(attribute: "vending_income")
+
+    "Commission amount."
+    commissionAmount: Float @rename(attribute: "commission_amount")
+
+    "Commission percent."
+    commissionPercent: Float @rename(attribute: "commission_percent")
+
+    "Manager first name."
+    managerFirstName: String @rename(attribute: "manager_first_name")
+
+    "Manager last name."
+    managerLastName: String @rename(attribute: "manager_last_name")
+
+    "Population."
+    population: Int
+
+    "Whether the uni is kronos."
+    isKronos: Boolean @rename(attribute: "is_kronos")
+
+    "Sysco."
+    sysco: String
+}
+
+input ConnectBelongsToUnitType {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:unit_types,id"])
 }
 
 input ConnectBelongsToDistrict {
@@ -85,4 +353,16 @@ extend type Mutation {
         "Unit input."
         unitInput: CreateUnitInput! @spread
     ): Unit @create
+
+    "Update an existing unit."
+    updateUnit(
+        "Unit input."
+        unitInput: UpdateUnitInput! @spread
+    ): Unit @update
+
+    "Delete an existing unit."
+    deleteUnit(
+        "Id."
+        id: ID!
+    ): Unit @delete
 }

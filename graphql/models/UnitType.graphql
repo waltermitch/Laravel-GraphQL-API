@@ -1,0 +1,54 @@
+type UnitType {
+    "Unique primary key."
+    id: ID!
+
+    "Name."
+    name: String!
+
+    "The units for the unit type."
+    units: [Unit!]!
+
+    "When the unit type was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the unit type was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateUnitTypeInput {
+    "Name."
+    name: String! @rules(apply: ["required"])
+}
+
+input UpdateUnitTypeInput {
+    "Id."
+    id: ID!
+
+    "Name."
+    name: String! @rules(apply: ["filled"])
+}
+
+extend type Query {
+    "List multiple unit types."
+    unitTypes: [UnitType!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new unit type."
+    createUnitType(
+        "Unit type."
+        unitTypeInput: CreateUnitTypeInput! @spread
+    ): UnitType @create
+
+    "Update an existing unit type."
+    updateUnitType(
+        "Unit type."
+        unitTypeInput: UpdateUnitTypeInput! @spread
+    ): UnitType @update
+
+    "Delete an existing unit type."
+    deleteUnitType(
+        "Id."
+        id: ID!
+    ): UnitType @delete
+}
