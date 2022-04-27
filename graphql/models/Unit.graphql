@@ -20,6 +20,9 @@ type Unit {
     "Whether the unit is vending."
     isVending: Boolean! @rename(attribute: "is_vending")
 
+    "The users that belongs to unit."
+    users: [User!]!
+
     "The unit type that owns the unit."
     unitType: UnitType!
 
@@ -37,6 +40,9 @@ type Unit {
 
     "Payroll password."
     payrollPassword: String @rename(attribute: "payroll_password")
+
+    "Email account."
+    emailAccount: String @rename(attribute: "email_account")
 
     "Management percent."
     managementPercent: Float @rename(attribute: "management_percent")
@@ -130,6 +136,9 @@ input CreateUnitInput {
     "Whether the unit is vending."
     isVending: Boolean! @rename(attribute: "is_vending")
 
+    "Users."
+    users: CreateUserBelongsToMany
+
     "Unit type."
     unitType: ConnectBelongsToUnitType!
 
@@ -147,6 +156,9 @@ input CreateUnitInput {
 
     "Payroll password."
     payrollPassword: String @rename(attribute: "payroll_password")
+
+    "Email account."
+    emailAccount: String @rename(attribute: "email_account") @rules(apply: ["filled", "email"])
 
     "Management percent."
     managementPercent: Float @rename(attribute: "management_percent")
@@ -237,6 +249,9 @@ input UpdateUnitInput @validator {
     "Whether the unit is vending."
     isVending: Boolean @rename(attribute: "is_vending")
 
+    "Users."
+    users: CreateUserBelongsToMany
+
     "Unit type."
     unitType: ConnectBelongsToUnitType
 
@@ -254,6 +269,9 @@ input UpdateUnitInput @validator {
 
     "Payroll password."
     payrollPassword: String @rename(attribute: "payroll_password")
+
+    "Email account."
+    emailAccount: String @rename(attribute: "email_account") @rules(apply: ["filled", "email"])
 
     "Management percent."
     managementPercent: Float @rename(attribute: "management_percent")
@@ -340,6 +358,17 @@ input ConnectBelongsToCounty {
 input ConnectBelongsToCity {
     "Connect id."
     connect: ID! @rules(apply: ["required", "exists:cities,id"])
+}
+
+input CreateUserBelongsToMany @validator {
+    "Sync existing id's."
+    sync: [ID!]
+
+    "Sync existing id's without detaching."
+    syncWithoutDetaching: [ID!]
+
+    "Disconnect existing id's."
+    disconnect: [ID!]
 }
 
 extend type Query {

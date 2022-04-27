@@ -6,6 +6,7 @@ use App\Enums\FeeType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Unit extends Model
 {
@@ -73,5 +74,13 @@ class Unit extends Model
     public function unitType(): BelongsTo
     {
         return $this->belongsTo(UnitType::class);
+    }
+
+    /**
+     * The users that belong to the unit.
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
     }
 }
