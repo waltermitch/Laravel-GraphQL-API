@@ -83,4 +83,12 @@ class Unit extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * The employees that belong to the unit.
+     */
+    public function employees(): BelongsToMany
+    {
+        return $this->belongsToMany(Employee::class);
+    }
 }

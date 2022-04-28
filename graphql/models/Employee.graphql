@@ -1,0 +1,133 @@
+type Employee {
+    "Unique primary key."
+    id: ID!
+
+    "First name."
+    firstName: String! @rename(attribute: "first_name")
+
+    "First name."
+    lastName: String! @rename(attribute: "last_name")
+
+    "The units that belongs to unit"
+    units: [Unit!]!
+
+    "Salary base."
+    salaryBase: Float! @rename(attribute: "salary_base")
+
+    "Salary overtime."
+    salaryOvertime: Float! @rename(attribute: "salary_overtime")
+
+    "State tax code."
+    stateTaxCode: String! @rename(attribute: "state_tax_code")
+
+    "Local tax code."
+    localTaxCode: String! @rename(attribute: "local_tax_code")
+
+    "Whether is hourly."
+    isHourly: Boolean! @rename(attribute: "is_hourly")
+
+    "Whether is exempt."
+    isExempt: Boolean! @rename(attribute: "is_exempt")
+
+    "Whether is prod eligible."
+    isProdEligible: Boolean! @rename(attribute: "is_prod_eligible")
+
+    "Whether is active."
+    isActive: Boolean! @rename(attribute: "is_active")
+
+    "When the unit was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the unit was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateEmployeeInput {
+    "First name."
+    firstName: String! @rename(attribute: "first_name") @rules(apply: ["required"])
+
+    "First name."
+    lastName: String! @rename(attribute: "last_name") @rules(apply: ["required"])
+
+    "Salary base."
+    salaryBase: Float! @rename(attribute: "salary_base")
+
+    "Salary overtime."
+    salaryOvertime: Float! @rename(attribute: "salary_overtime")
+    "State tax code."
+    stateTaxCode: String! @rename(attribute: "state_tax_code") @rules(apply: ["required"])
+
+    "Local tax code."
+    localTaxCode: String! @rename(attribute: "local_tax_code") @rules(apply: ["required"])
+
+    "Whether is hourly."
+    isHourly: Boolean! @rename(attribute: "is_hourly")
+
+    "Whether is exempt."
+    isExempt: Boolean! @rename(attribute: "is_exempt")
+
+    "Whether is prod eligible."
+    isProdEligible: Boolean! @rename(attribute: "is_prod_eligible")
+
+    "Whether is active."
+    isActive: Boolean! @rename(attribute: "is_active")
+}
+
+input UpdateEmployeeInput {
+    "Id."
+    id: ID!
+
+    "First name."
+    firstName: String @rename(attribute: "first_name") @rules(apply: ["filled"])
+
+    "First name."
+    lastName: String @rename(attribute: "last_name") @rules(apply: ["filled"])
+
+    "Salary base."
+    salaryBase: Float @rename(attribute: "salary_base")
+
+    "Salary overtime."
+    salaryOvertime: Float @rename(attribute: "salary_overtime")
+    "State tax code."
+    stateTaxCode: String @rename(attribute: "state_tax_code") @rules(apply: ["filled"])
+
+    "Local tax code."
+    localTaxCode: String @rename(attribute: "local_tax_code") @rules(apply: ["filled"])
+
+    "Whether is hourly."
+    isHourly: Boolean @rename(attribute: "is_hourly")
+
+    "Whether is exempt."
+    isExempt: Boolean @rename(attribute: "is_exempt")
+
+    "Whether is prod eligible."
+    isProdEligible: Boolean @rename(attribute: "is_prod_eligible")
+
+    "Whether is active."
+    isActive: Boolean @rename(attribute: "is_active")
+}
+
+extend type Query {
+    "List multiple employees."
+    employees: [Employee!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new employee."
+    createEmployee(
+        "Employee Input."
+        employeeInput: CreateEmployeeInput! @spread
+    ): Employee @create
+
+    "Update an existing employee."
+    updateEmployee(
+        "Employee input."
+        employeeInput: UpdateEmployeeInput! @spread
+    ): Employee @update
+
+    "Delete an existing employee."
+    deleteEmployee(
+        "Id."
+        id: ID!
+    ): Employee @delete
+}

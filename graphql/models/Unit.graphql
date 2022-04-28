@@ -23,8 +23,11 @@ type Unit {
     "The users that belongs to unit."
     users: [User!]!
 
+    "The employees that belongs to unit."
+    employees: [Employee!]!
+
     "The unit type that owns the unit."
-    unitType: UnitType!
+    unitType: UnitType
 
     "The district that owns the unit."
     district: District!
@@ -139,8 +142,11 @@ input CreateUnitInput {
     "Users."
     users: CreateUserBelongsToMany
 
+    "Employees."
+    employees: CreateEmployeeBelongsToMany
+
     "Unit type."
-    unitType: ConnectBelongsToUnitType!
+    unitType: ConnectBelongsToUnitType
 
     "District."
     district: ConnectBelongsToDistrict!
@@ -251,6 +257,9 @@ input UpdateUnitInput @validator {
 
     "Users."
     users: CreateUserBelongsToMany
+
+    "Employees."
+    employees: CreateEmployeeBelongsToMany
 
     "Unit type."
     unitType: ConnectBelongsToUnitType
@@ -369,6 +378,17 @@ input CreateUserBelongsToMany @validator {
 
     "Disconnect existing id's."
     disconnect: [ID!]
+}
+
+input CreateEmployeeBelongsToMany {
+    "Sync existing id's."
+    sync: [ID!] @rules(apply: ["exists:employees,id"])
+
+    "Sync existing id's without detaching."
+    syncWithoutDetaching: [ID!] @rules(apply: ["exists:employees,id"])
+
+    "Disconnect existing id's."
+    disconnect: [ID!] @rules(apply: ["exists:employees,id"])
 }
 
 extend type Query {
