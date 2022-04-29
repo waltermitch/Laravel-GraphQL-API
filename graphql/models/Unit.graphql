@@ -392,6 +392,12 @@ input CreateEmployeeBelongsToMany {
 }
 
 extend type Query {
+    "Find a single unit by an identifying attribute."
+    unit(
+        "Search by primary key."
+        id: ID! @eq
+    ): Unit @find
+
     "List multiple units."
     units: [Unit!]! @paginate
 }
