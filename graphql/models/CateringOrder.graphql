@@ -5,8 +5,8 @@ type CateringOrder {
     "Description."
     description: String!
 
-    
-    # items: [CateringOrderItem!]! @belongsTo(relation: "cateringOrderItems")
+    "The catering order items for the catering order."
+    items: [CateringOrderItem!]! @belongsTo(relation: "cateringOrderItems")
 
     "Delivery date."
     deliveryDate: DateTime! @rename(attribute: "delivery_date")
@@ -29,14 +29,8 @@ type CateringOrder {
     "Whether is taxable."
     isTaxable: Boolean! @rename(attribute: "is_taxable")
 
-    "Price."
-    price: Float!
-
     "Tax."
     tax: Float!
-
-    "Total."
-    total: Float!
 
     "Shipt to name."
     shipToName: String! @rename(attribute: "ship_to_name")
@@ -56,10 +50,77 @@ type CateringOrder {
     "Charge number."
     chargeNumber: String! @rename(attribute: "charge_number")
 
+    "When the catering order was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
 
+    "When the catering order was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateCateringOrderInput {
+    "Description."
+    description: String! @rules(apply: ["required"])
+
+    "Unit"
+    unit: ConnectBelongsToUnit!
+
+    "Delivery date."
+    deliveryDate: DateTime! @rename(attribute: "delivery_date")
+
+    "Head count."
+    headCount: Int! @rename(attribute: "head_count")
+
+    "Phone number."
+    phoneNumber: String! @rename(attribute: "phone_number") @rules(apply: ["required"])
+
+    "Order by."
+    orderBy: String! @rename(attribute: "order_by") @rules(apply: ["required"])
+
+    "Order for."
+    orderFor: String! @rename(attribute: "order_for") @rules(apply: ["required"])
+
+    "Order date."
+    orderDate: Date! @rename(attribute: "order_date")
+
+    "Whether is taxable."
+    isTaxable: Boolean! @rename(attribute: "is_taxable")
+
+    "Tax."
+    tax: Float!
+
+    "Shipt to name."
+    shipToName: String! @rename(attribute: "ship_to_name") @rules(apply: ["required"])
+
+    "Ship to address."
+    shipToAddress: String! @rename(attribute: "ship_to_address") @rules(apply: ["required"])
+
+    "Bill to name."
+    billToName: String! @rename(attribute: "bill_to_name") @rules(apply: ["required"])
+
+    "Bill to address."
+    billToAddress: String! @rename(attribute: "bill_to_address") @rules(apply: ["required"])
+
+    "Whether is cash order."
+    isCashOrder: Boolean! @rename(attribute: "is_cash_order")
+
+    "Charge number."
+    chargeNumber: String! @rename(attribute: "charge_number") @rules(apply: ["required"])
+}
+
+input ConnectBelongsToUnit {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:units,id"])
 }
 
 extend type Query {
     "List multiple catering orders."
     cateringOrders: [CateringOrder!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new catering order."
+    createCateringOrder(
+        "Catering order."
+        cateringOrderInput: CreateCateringOrderInput! @spread
+    ): CateringOrder @create
 }

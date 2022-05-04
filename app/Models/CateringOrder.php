@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CateringOrder extends Model
 {
@@ -42,5 +43,13 @@ class CateringOrder extends Model
     public function cateringOrderItems()
     {
         return $this->hasMany(CateringOrderItem::class);
+    }
+
+    /**
+     * Get the unit owns the catering order.
+     */
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
     }
 }

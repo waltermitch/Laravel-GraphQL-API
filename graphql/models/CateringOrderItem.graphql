@@ -1,0 +1,4 @@
+type CateringOrderItem {
+    "Unique primary key."
+    id: ID!
+}
