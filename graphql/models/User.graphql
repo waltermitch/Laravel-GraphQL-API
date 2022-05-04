@@ -12,6 +12,9 @@ type User {
     "Unique email address."
     email: String!
 
+    "The units that belongs to user."
+    units: [Unit!]!
+
     "If user is admin role."
     isAdmin: Boolean! @rename(attribute: "is_admin")
 
