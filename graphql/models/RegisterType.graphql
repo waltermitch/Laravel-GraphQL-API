@@ -1,0 +1,81 @@
+type RegisterType {
+    "Unique primary key."
+    id: ID!
+
+    "Name."
+    name: String!
+
+    "Description."
+    description: String!
+
+    "The registers for the register type."
+    registers: [Register!]!
+
+    "Tax type."
+    taxType: String! @rename(attribute: "tax_type")
+
+    "Whether the register type is vending."
+    isVending: Boolean! @rename(attribute: "is_vending")
+
+    "When the register type was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the register type was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateRegisterTypeInput {
+    "Name."
+    name: String! @rules(apply: ["required"])
+
+    "Description."
+    description: String! @rules(apply: ["required"])
+
+    "Tax type."
+    taxType: String! @rename(attribute: "tax_type") @rules(apply: ["required"])
+
+    "Whether the register type is vending."
+    isVending: Boolean! @rename(attribute: "is_vending")
+}
+
+input UpdateRegisterTypeInput {
+    "Id."
+    id: ID!
+
+    "Name."
+    name: String @rules(apply: ["filled"])
+
+    "Description."
+    description: String @rules(apply: ["filled"])
+
+    "Tax type."
+    taxType: String @rename(attribute: "tax_type") @rules(apply: ["filled"])
+
+    "Whether the register type is vending."
+    isVending: Boolean @rename(attribute: "is_vending") @rules(apply: ["filled"])
+}
+
+extend type Query {
+    "List multiple register types."
+    registerTypes: [RegisterType!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new register type."
+    createRegisterType(
+        "Register type input."
+        registerTypeInput: CreateRegisterTypeInput! @spread
+    ): RegisterType @create
+
+    "Update an existing register type."
+    updateRegisterType(
+        "Register type input."
+        registerTypeInput: UpdateRegisterTypeInput! @spread
+    ): RegisterType @update
+
+    "Delete an existing register type."
+    deleteRegisterType(
+        "Id."
+        id: ID!
+    ): RegisterType @delete
+}
