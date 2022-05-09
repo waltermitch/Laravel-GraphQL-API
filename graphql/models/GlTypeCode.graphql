@@ -1,0 +1,60 @@
+type GlTypeCode {
+    "Unique primary key."
+    id: ID!
+
+    "Code."
+    code: String!
+
+    "Description."
+    description: String!
+
+    "When the gl type code was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the gl type code was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateGlTypeCodeInput {
+    "Code."
+    code: String! @rules(apply: ["required"])
+
+    "Description."
+    description: String! @rules(apply: ["required"])
+}
+
+input UpdateGlTypeCodeInput {
+    "Id."
+    id: ID!
+
+    "Code."
+    code: String @rules(apply: ["filled"])
+
+    "Description."
+    description: String @rules(apply: ["filled"])
+}
+
+extend type Query {
+    "List multiple gl type codes."
+    glTypeCodes: [GlTypeCode!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new Gl type code."
+    createGlTypeCode(
+        "Gl type code."
+        GlTypeCodeInput: CreateGlTypeCodeInput! @spread
+    ): GlTypeCode @create
+
+    "Update an existing Gl type code."
+    updateGlTypeCode(
+        "Gl type code."
+        GlTypeCodeInput: UpdateGlTypeCodeInput! @spread
+    ): GlTypeCode @update
+
+    "Delete an existing Gl type code."
+    deleteGlTypeCode(
+        "Id."
+        id: ID!
+    ): GlTypeCode @delete
+}

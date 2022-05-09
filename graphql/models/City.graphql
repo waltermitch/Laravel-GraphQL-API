@@ -37,7 +37,7 @@ input UpdateCityInput {
     name: String @rules(apply: ["filled"])
 
     "State."
-    state: ConnectBelongsToState @rules(apply: ["filled"])
+    state: ConnectBelongsToState
 
     "Tax."
     tax: Float @rules(apply: ["filled", "between:0,99.99"])

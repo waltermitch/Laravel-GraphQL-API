@@ -1,0 +1,82 @@
+type GlAccount {
+    "Unique primary key."
+    id: ID!
+
+    "Name."
+    name: String!
+
+    "The gl type code that owns the account."
+    glTypeCode: GlTypeCode!
+
+    "The parent Gl ACcount."
+    parent: GlAccount
+
+    "The child Gl ACcount."
+    child: GlAccount
+
+    "When the gl account code was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the gl account code was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateGlAccountInput {
+    "Name."
+    name: String! @rules(apply: ["required"])
+
+    "Gl type code."
+    glTypeCode: ConnectBelongsToGlTypeCode!
+
+    "Parent Gl Account."
+    parent: ConnectBelongsToParentGlAccount
+}
+
+input UpdateGlAccountInput {
+    "Id."
+    id: ID!
+
+    "Name."
+    name: String @rules(apply: ["filled"])
+
+    "Gl type code."
+    glTypeCode: ConnectBelongsToGlTypeCode
+
+    "Parent Gl Account."
+    parent: ConnectBelongsToParentGlAccount
+}
+
+input ConnectBelongsToGlTypeCode {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:gl_type_codes,id"])
+}
+
+input ConnectBelongsToParentGlAccount {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
+}
+
+extend type Query {
+    "List multiple gl accounts."
+    glAccounts: [GlAccount!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new Gl Account."
+    createGlAccount(
+        "Gl Account."
+        GlAccountInput: CreateGlAccountInput! @spread
+    ): GlAccount @create
+
+    "Update an existing Gl Account."
+    updateGlAccount(
+        "Gl Account."
+        GlAccountInput: UpdateGlAccountInput! @spread
+    ): GlAccount @update
+
+    "Delete an existing Gl Account."
+    deleteGlAccount(
+        "Id."
+        id: ID!
+    ): GlAccount @delete
+}
