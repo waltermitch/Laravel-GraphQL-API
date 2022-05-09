@@ -30,7 +30,10 @@ class UpdateUnitInputValidator extends Validator
                 'address' => ['filled'],
                 'zip' => ['filled'],
             ],
-            
+            'name' => ['filled'],
+            'address' => ['filled'],
+            'zip' => ['filled'],
+            'email_account' => ['filled', 'email']
         ];
     }
 }

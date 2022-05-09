@@ -23,6 +23,9 @@ type Unit {
     "The users that belongs to unit."
     users: [User!]!
 
+    "The vendors that belongs to unit."
+    vendors: [Vendor!]!
+
     "The employees that belongs to unit."
     employees: [Employee!]!
 
@@ -142,6 +145,9 @@ input CreateUnitInput {
     "Users."
     users: CreateUserBelongsToMany
 
+    "Vendors."
+    vendors: CreateVendorBelongsToMany
+
     "Employees."
     employees: CreateEmployeeBelongsToMany
 
@@ -241,13 +247,13 @@ input UpdateUnitInput @validator {
     code: String
 
     "Name."
-    name: String @rules(apply: ["filled"])
+    name: String
 
     "Address."
-    address: String @rules(apply: ["filled"])
+    address: String
 
     "Zip."
-    zip: String @rules(apply: ["filled"])
+    zip: String
 
     "Whether the unit is active."
     isActive: Boolean @rename(attribute: "is_active")
@@ -257,6 +263,9 @@ input UpdateUnitInput @validator {
 
     "Users."
     users: CreateUserBelongsToMany
+
+    "Vendors."
+    vendors: CreateVendorBelongsToMany
 
     "Employees."
     employees: CreateEmployeeBelongsToMany
@@ -280,7 +289,7 @@ input UpdateUnitInput @validator {
     payrollPassword: String @rename(attribute: "payroll_password")
 
     "Email account."
-    emailAccount: String @rename(attribute: "email_account") @rules(apply: ["filled", "email"])
+    emailAccount: String @rename(attribute: "email_account")
 
     "Management percent."
     managementPercent: Float @rename(attribute: "management_percent")
@@ -378,6 +387,17 @@ input CreateUserBelongsToMany @validator {
 
     "Disconnect existing id's."
     disconnect: [ID!]
+}
+
+input CreateVendorBelongsToMany {
+    "Sync existing id's."
+    sync: [ID!] @rules(apply: ["exists:vendors,id"])
+
+    "Sync existing id's without detaching."
+    syncWithoutDetaching: [ID!] @rules(apply: ["exists:vendors,id"])
+
+    "Disconnect existing id's."
+    disconnect: [ID!] @rules(apply: ["exists:vendors,id"])
 }
 
 input CreateEmployeeBelongsToMany {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Vendor extends Model
 {
@@ -43,5 +44,13 @@ class Vendor extends Model
     public function term(): BelongsTo
     {
         return $this->belongsTo(Term::class);
+    }
+
+    /**
+     * The units that belong to the vendor.
+     */
+    public function units(): BelongsToMany
+    {
+        return $this->belongsToMany(Unit::class);
     }
 }
