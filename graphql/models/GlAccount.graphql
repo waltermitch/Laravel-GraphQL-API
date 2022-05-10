@@ -51,9 +51,9 @@ input ConnectBelongsToGlTypeCode {
     connect: ID! @rules(apply: ["required", "exists:gl_type_codes,id"])
 }
 
-input ConnectBelongsToParentGlAccount {
+input ConnectBelongsToParentGlAccount @validator {
     "Connect id."
-    connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
+    connect: ID!
 }
 
 extend type Query {
