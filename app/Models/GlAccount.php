@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GlAccount extends Model
 {
@@ -48,7 +50,7 @@ class GlAccount extends Model
     /**
      * Get child account for the parent account.
      */
-    public function child()
+    public function child(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
     }
@@ -59,5 +61,13 @@ class GlAccount extends Model
     public function glTypeCode(): BelongsTo
     {
         return $this->belongsTo(GlTypeCode::class);
+    }
+
+    /**
+     * The units that belong to the gl account.
+     */
+    public function units(): BelongsToMany
+    {
+        return $this->belongsToMany(Unit::class);
     }
 }

@@ -99,4 +99,12 @@ class Unit extends Model
     {
         return $this->belongsToMany(Vendor::class);
     }
+
+    /**
+     * The gl accounts that belong to the unit.
+     */
+    public function glAccounts(): BelongsToMany
+    {
+        return $this->belongsToMany(GlAccount::class);
+    }
 }

@@ -29,6 +29,9 @@ type Unit {
     "The employees that belongs to unit."
     employees: [Employee!]!
 
+    "The gl accounts that belongs to unit."
+    glAccounts: [GlAccount!]!
+
     "The unit type that owns the unit."
     unitType: UnitType
 
@@ -151,6 +154,9 @@ input CreateUnitInput {
     "Employees."
     employees: CreateEmployeeBelongsToMany
 
+    "Gl accounts."
+    glAccounts: CreateGlAccountBelongsToMany
+
     "Unit type."
     unitType: ConnectBelongsToUnitType
 
@@ -269,6 +275,9 @@ input UpdateUnitInput @validator {
 
     "Employees."
     employees: CreateEmployeeBelongsToMany
+
+    "Gl accounts."
+    glAccounts: CreateGlAccountBelongsToMany
 
     "Unit type."
     unitType: ConnectBelongsToUnitType
@@ -409,6 +418,17 @@ input CreateEmployeeBelongsToMany {
 
     "Disconnect existing id's."
     disconnect: [ID!] @rules(apply: ["exists:employees,id"])
+}
+
+input CreateGlAccountBelongsToMany {
+    "Sync existing id's."
+    sync: [ID!] @rules(apply: ["exists:gl_accounts,id"])
+
+    "Sync existing id's without detaching."
+    syncWithoutDetaching: [ID!] @rules(apply: ["exists:gl_accounts,id"])
+
+    "Disconnect existing id's."
+    disconnect: [ID!] @rules(apply: ["exists:gl_accounts,id"])
 }
 
 extend type Query {
