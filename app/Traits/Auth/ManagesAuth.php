@@ -17,7 +17,7 @@ trait ManagesAuth
         return Auth::createUserProvider($provider);
     }
 
-    protected function authenticatedUser()
+    protected static function authenticatedUser()
     {
         $guard = config('lighthouse.guard');
 

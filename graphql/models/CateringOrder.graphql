@@ -8,6 +8,9 @@ type CateringOrder {
     "The catering order items for the catering order."
     items: [CateringOrderItem!]! @belongsTo(relation: "cateringOrderItems")
 
+    "The unit associated with catering order."
+    unit: Unit!
+
     "Delivery date."
     deliveryDate: DateTime! @rename(attribute: "delivery_date")
 
@@ -60,9 +63,6 @@ type CateringOrder {
 input CreateCateringOrderInput {
     "Description."
     description: String! @rules(apply: ["required"])
-
-    "Unit"
-    unit: ConnectBelongsToUnit!
 
     "Delivery date."
     deliveryDate: DateTime! @rename(attribute: "delivery_date")

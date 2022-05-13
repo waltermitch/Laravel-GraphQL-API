@@ -19,7 +19,10 @@ class UnitPolicy
      */
     public function before(User $user, $ability)
     {
-        return $user->isAdministrator();
+        // TODO: refactor dissalow admin select unit action
+        if ($user->isAdministrator()) {
+            return true;
+        }
     }
 
     /**
@@ -30,7 +33,7 @@ class UnitPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return false;
     }
 
     /**
@@ -104,18 +107,19 @@ class UnitPolicy
         //
     }
 
-
     /**
-     * Determine whether the user can attach an user to the model.
+     * Determine whether the user can select the unit.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Unit  $unit
+     * @param  array  $injectedArgs
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function attachUser(User $user, User $attachUser)
+    public function selectUnit(User $user, array $injectedArgs)
     {
-        $attachUser;
+        $hasUnit = $user->units->contains($injectedArgs['id']);
 
-        return false;
+        if ($hasUnit) {
+            return true;
+        }
     }
 }

@@ -73,4 +73,12 @@ class User extends Authenticatable implements HasApiTokensContract, CanResetPass
     {
         return $this->belongsToMany(Unit::class);
     }
+
+    /**
+     * The selected unit.
+     */
+    public function selectedUnit() 
+    {
+        return $this->units()->wherePivot('selected', true)->first();
+    }
 }

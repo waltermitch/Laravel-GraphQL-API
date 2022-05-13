@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\AttachUnit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CateringOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, AttachUnit;
 
     /**
      * The attributes that are mass assignable.

@@ -50,3 +50,11 @@ extend type Query {
     "Return currently authenticated user."
     me: User! @guard @auth
 }
+
+extend type Mutation {
+    "Select unit"
+    selectUnit(
+      "Unit id."
+      id: ID!
+    ): Unit @guard @can(ability: "selectUnit", injectArgs: true)
+}

@@ -21,7 +21,7 @@ class Logout
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $user = $this->authenticatedUser();
+        $user = static::authenticatedUser();
 
         if (!$user instanceof HasApiTokens) {
             throw new ApiTokensException($user);
