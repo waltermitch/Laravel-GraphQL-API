@@ -36,13 +36,13 @@ type Unit {
     unitType: UnitType
 
     "The district that owns the unit."
-    district: District!
+    district: District
 
     "The county that owns the unit."
-    county: County!
+    county: County
 
     "The city that own the unit."
-    city: City!
+    city: City
 
     "Start period."
     startPeriod: Date @rename(attribute: "start_period")

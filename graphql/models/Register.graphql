@@ -24,10 +24,10 @@ type Register {
     commission: Float!
 
     "Register type."
-    registerType: RegisterType!
+    registerType: RegisterType
 
     "Unit."
-    unit: Unit!
+    unit: Unit
 
     "When the register was created."
     createdAt: DateTime! @rename(attribute: "created_at")

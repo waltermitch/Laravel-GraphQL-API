@@ -3,7 +3,7 @@ type County {
     id: ID!
 
     "The state that owns the county."
-    state: State!
+    state: State
 
     "Name."
     name: String!

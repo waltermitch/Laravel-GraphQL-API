@@ -9,7 +9,7 @@ type Vendor {
     name: String!
 
     "The term that owns the vendor."
-    term: Term!
+    term: Term
 
     "When the vendor was created."
     createdAt: DateTime! @rename(attribute: "created_at")

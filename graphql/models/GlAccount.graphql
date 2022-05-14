@@ -6,7 +6,7 @@ type GlAccount {
     name: String!
 
     "The gl type code that owns the account."
-    glTypeCode: GlTypeCode!
+    glTypeCode: GlTypeCode
 
     "The parent Gl ACcount."
     parent: GlAccount

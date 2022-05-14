@@ -9,7 +9,7 @@ type CateringOrder {
     items: [CateringOrderItem!]! @belongsTo(relation: "cateringOrderItems")
 
     "The unit associated with catering order."
-    unit: Unit!
+    unit: Unit
 
     "Delivery date."
     deliveryDate: DateTime! @rename(attribute: "delivery_date")

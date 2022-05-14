@@ -9,6 +9,9 @@ type User {
     "Non-unique last name."
     lastName: String! @rename(attribute: "last_name")
 
+    "Selected unit."
+    selectedUnit: Unit @method(name: "selectedUnit")
+
     "Unique email address."
     email: String!
 
