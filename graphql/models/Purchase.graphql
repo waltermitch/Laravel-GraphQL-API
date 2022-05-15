@@ -36,7 +36,7 @@ input CreatePurchaseInput {
     vendor: ConnectBelongsToVendor!
 
     "Items."
-    items: CreatePurchaseItems!
+    items: UpdatePurchaseItems!
 }
 
 input UpdatePurchaseInput {
@@ -58,8 +58,12 @@ input ConnectBelongsToVendor {
     connect: ID! @rules(apply: ["required", "exists:vendors,id"])
 }
 
-input CreatePurchaseItems {
-    create: [CreatePurchaseChargeInput!]!
+input UpdatePurchaseItems {
+    create: [CreatePurchaseChargeInput!]
+
+    create: [UpdatePurchaseChargeInput!]
+
+    delete: [ID!]
 }
 
 extend type Query {

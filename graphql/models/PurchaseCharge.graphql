@@ -26,6 +26,14 @@ input CreatePurchaseChargeInput {
     amount: Float!
 }
 
+input UpdatePurchaseChargeInput {
+    "Gl Account."
+    glAccount: ConnectBelongsToGlAccount
+
+    "Amount."
+    amount: Float
+}
+
 input ConnectBelongsToGlAccount {
     "Connect id."
     connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])

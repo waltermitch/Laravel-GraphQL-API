@@ -193,4 +193,10 @@ extend type Mutation {
         "Catering order."
         cateringOrderInput: UpdateCateringOrderInput! @spread
     ): CateringOrder @update
+
+    "Delete an existing catering order."
+    deleteCateringOrder(
+        "Id."
+        id: ID!
+    ): CateringOrder @delete
 }
