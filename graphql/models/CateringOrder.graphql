@@ -6,7 +6,7 @@ type CateringOrder {
     description: String!
 
     "The catering order items for the catering order."
-    items: [CateringOrderItem!]! @belongsTo(relation: "cateringOrderItems")
+    items: [CateringOrderItem!]!
 
     "The unit associated with catering order."
     unit: Unit
@@ -88,6 +88,9 @@ input CreateCateringOrderInput {
     "Tax."
     tax: Float!
 
+    "Items."
+    items: UpdateCateringItems
+
     "Shipt to name."
     shipToName: String! @rename(attribute: "ship_to_name") @rules(apply: ["required"])
 
@@ -107,9 +110,70 @@ input CreateCateringOrderInput {
     chargeNumber: String! @rename(attribute: "charge_number") @rules(apply: ["required"])
 }
 
+input UpdateCateringOrderInput {
+    "Id."
+    id: ID!
+
+    "Description."
+    description: String @rules(apply: ["filled"])
+
+    "Delivery date."
+    deliveryDate: DateTime @rename(attribute: "delivery_date")
+
+    "Head count."
+    headCount: Int @rename(attribute: "head_count")
+
+    "Phone number."
+    phoneNumber: String @rename(attribute: "phone_number") @rules(apply: ["filled"])
+
+    "Order by."
+    orderBy: String @rename(attribute: "order_by") @rules(apply: ["filled"])
+
+    "Order for."
+    orderFor: String @rename(attribute: "order_for") @rules(apply: ["filled"])
+
+    "Order date."
+    orderDate: Date @rename(attribute: "order_date")
+
+    "Whether is taxable."
+    isTaxable: Boolean @rename(attribute: "is_taxable")
+
+    "Tax."
+    tax: Float
+
+    "Items."
+    items: UpdateCateringItems
+
+    "Shipt to name."
+    shipToName: String @rename(attribute: "ship_to_name") @rules(apply: ["filled"])
+
+    "Ship to address."
+    shipToAddress: String @rename(attribute: "ship_to_address") @rules(apply: ["filled"])
+
+    "Bill to name."
+    billToName: String @rename(attribute: "bill_to_name") @rules(apply: ["filled"])
+
+    "Bill to address."
+    billToAddress: String @rename(attribute: "bill_to_address") @rules(apply: ["filled"])
+
+    "Whether is cash order."
+    isCashOrder: Boolean @rename(attribute: "is_cash_order")
+
+    "Charge number."
+    chargeNumber: String @rename(attribute: "charge_number") @rules(apply: ["filled"])
+}
+
 input ConnectBelongsToUnit {
     "Connect id."
     connect: ID! @rules(apply: ["required", "exists:units,id"])
+}
+
+input UpdateCateringItems {
+    create: [CreateCateringOrderItemInput!]
+    
+    update: [UpdateCateringOrderItemInput!]
+
+    delete: [ID!]
 }
 
 extend type Query {
@@ -123,4 +187,10 @@ extend type Mutation {
         "Catering order."
         cateringOrderInput: CreateCateringOrderInput! @spread
     ): CateringOrder @create
+
+    "Update an existing catering order."
+    updateCateringOrder(
+        "Catering order."
+        cateringOrderInput: UpdateCateringOrderInput! @spread
+    ): CateringOrder @update
 }

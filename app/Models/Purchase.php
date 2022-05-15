@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\AttachUnit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CateringOrderItem extends Model
+class Purchase extends Model
 {
-    use HasFactory;
+    use HasFactory, AttachUnit;
 
     /**
      * The attributes that are mass assignable.
@@ -38,10 +40,26 @@ class CateringOrderItem extends Model
     ];
 
     /**
-     * Get the catering order that owns the item.
+     * Get the unit owns the purchase.
      */
-    public function cateringOrder(): BelongsTo
+    public function unit(): BelongsTo
     {
-        return $this->belongsTo(CateringOrder::class);
+        return $this->belongsTo(Unit::class);
+    }
+
+    /**
+     * Get the vendor owns the purchase.
+     */
+    public function vendor(): BelongsTo
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
+    /**
+     * Get all of the purchase charges for the purchase.
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(PurchaseCharge::class, 'purchase_id');
     }
 }

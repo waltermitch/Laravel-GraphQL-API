@@ -1,0 +1,32 @@
+type PurchaseCharge {
+    "Unique primary key."
+    id: ID!
+
+    "Amount."
+    amount: Float!
+
+    "Gl ACcount."
+    glAccount: GlAccount
+
+    "Purchase."
+    purchase: Purchase
+
+    "When the purchase charge was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the purchase charge was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreatePurchaseChargeInput {
+    "Gl Account."
+    glAccount: ConnectBelongsToGlAccount!
+
+    "Amount."
+    amount: Float!
+}
+
+input ConnectBelongsToGlAccount {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
+}

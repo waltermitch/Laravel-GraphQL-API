@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CateringOrderItem extends Model
+class PurchaseCharge extends Model
 {
     use HasFactory;
 
@@ -16,7 +16,7 @@ class CateringOrderItem extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-
+        
     ];
 
     /**
@@ -38,10 +38,18 @@ class CateringOrderItem extends Model
     ];
 
     /**
-     * Get the catering order that owns the item.
+     * Get the purchase that owns the purchase charge.
      */
-    public function cateringOrder(): BelongsTo
+    public function purchase(): BelongsTo
     {
-        return $this->belongsTo(CateringOrder::class);
+        return $this->belongsTo(Purchase::class, 'purchase_id');
+    }
+
+    /**
+     * Get the gl account that owns the purchase charge.
+     */
+    public function glAccount(): BelongsTo
+    {
+        return $this->belongsTo(GlAccount::class);
     }
 }
