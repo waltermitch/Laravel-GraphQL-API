@@ -369,7 +369,10 @@ input UpdateUnitInput @validator {
 
 input ConnectBelongsToUnitType {
     "Connect id."
-    connect: ID! @rules(apply: ["required", "exists:unit_types,id"])
+    connect: ID @rules(apply: ["exists:unit_types,id"])
+
+    "Disconnect."
+    disconnect: Boolean
 }
 
 input ConnectBelongsToDistrict {

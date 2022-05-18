@@ -8,6 +8,9 @@ type PurchaseCharge {
     "Gl ACcount."
     glAccount: GlAccount
 
+    "Inventory category."
+    inventoryCategory: InventoryCategory
+
     "Purchase."
     purchase: Purchase
 
@@ -22,6 +25,9 @@ input CreatePurchaseChargeInput {
     "Gl Account."
     glAccount: ConnectBelongsToGlAccount!
 
+    "Inventory category."
+    inventoryCategory: ConnectBelongsToInventoryCategory
+
     "Amount."
     amount: Float!
 }
@@ -30,6 +36,9 @@ input UpdatePurchaseChargeInput {
     "Gl Account."
     glAccount: ConnectBelongsToGlAccount
 
+    "Inventory category."
+    inventoryCategory: ConnectBelongsToInventoryCategory
+
     "Amount."
     amount: Float
 }
@@ -37,4 +46,9 @@ input UpdatePurchaseChargeInput {
 input ConnectBelongsToGlAccount {
     "Connect id."
     connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
+}
+
+input ConnectBelongsToInventoryCategory {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:inventory_categories,id"])
 }

@@ -14,6 +14,7 @@ type Purchase {
     "Unit."
     unit: Unit
 
+    "Items."
     items: [PurchaseCharge!]!
 
     "When the purchase was created."
@@ -29,8 +30,6 @@ input CreatePurchaseInput {
 
     "Date."
     date: Date!
-
-    unit_id: ID!
 
     "Vendor."
     vendor: ConnectBelongsToVendor!
@@ -51,6 +50,9 @@ input UpdatePurchaseInput {
 
     "Vendor."
     vendor: ConnectBelongsToVendor
+
+    "Items."
+    items: UpdatePurchaseItems
 }
 
 input ConnectBelongsToVendor {
@@ -61,7 +63,7 @@ input ConnectBelongsToVendor {
 input UpdatePurchaseItems {
     create: [CreatePurchaseChargeInput!]
 
-    create: [UpdatePurchaseChargeInput!]
+    update: [UpdatePurchaseChargeInput!]
 
     delete: [ID!]
 }

@@ -1,0 +1,74 @@
+type InventoryCategory {
+    "Unique primary key."
+    id: ID!
+
+    "Name."
+    name: String!
+
+    "Vending."
+    vending: String!
+
+    "Gl Account."
+    glAccount: GlAccount
+
+    "When the inventory category was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the inventory category was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateInventoryCategoryInput {
+    "Name."
+    name: String! @rules(apply: ["required"])
+
+    "Vending."
+    vending: String! @rules(apply: ["required"])
+
+    "Gl Account."
+    glAccount: ConnectBelongsToGlAccount!
+}
+
+input UpdateInventoryCategoryInput {
+    "Unique primary key."
+    id: ID!
+
+    "Name."
+    name: String @rules(apply: ["filled"])
+
+    "Vending."
+    vending: String @rules(apply: ["filled"])
+
+    "Gl Account."
+    glAccount: ConnectBelongsToGlAccount
+}
+
+input ConnectBelongsToGlAccount {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
+}
+
+extend type Query {
+    "List multiple inventory categories."
+    inventoryCategories: [InventoryCategory!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new inventory category."
+    createInventoryCategory(
+        "Inventory category input."
+        inventoryCategoryInput: CreateInventoryCategoryInput! @spread
+    ): InventoryCategory @create
+
+    "Update an existing inventoryCategory."
+    updateInventoryCategory(
+        "Inventory category input."
+        inventoryCategoryInput: UpdateInventoryCategoryInput! @spread
+    ): InventoryCategory @update
+
+    "Delete an existing inventory category."
+    deleteInventoryCategory(
+        "Id."
+        id: ID!
+    ): InventoryCategory @delete
+}

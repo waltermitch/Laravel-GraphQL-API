@@ -52,4 +52,12 @@ class PurchaseCharge extends Model
     {
         return $this->belongsTo(GlAccount::class);
     }
+
+    /**
+     * Get the inventory category that owns the purchase charge.
+     */
+    public function inventoryCategory(): BelongsTo
+    {
+        return $this->belongsTo(InventoryCategory::class);
+    }
 }
