@@ -1,0 +1,22 @@
+type Period {
+    "Unique primary key."
+    id: ID!
+
+    "Preiod end."
+    periodEnd: Date! @rename(attribute: "period_end")
+
+    "Year."
+    year: Int!
+
+    "Month."
+    month: Int!
+    
+    "Week."
+    week: Int!
+
+    "When the period was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the period was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}

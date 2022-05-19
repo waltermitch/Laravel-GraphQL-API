@@ -1,0 +1,17 @@
+input InventoryInput {
+    "Id."
+    id: ID! @rules(apply: ["required", "exists:inventory_categories,id"])
+
+    "Amount."
+    amount: Float!
+}
+
+extend type Query {
+    inventories: [InventoryInput!]!
+}
+
+extend type Mutation {
+    updateInventories(
+        inventoriesInput: [InventoryInput!]!
+    ): Boolean
+}

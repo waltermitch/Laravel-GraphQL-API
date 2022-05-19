@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Enums\FeeType;
+use App\Traits\AttachPeriod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Unit extends Model
 {
-    use HasFactory;
+    use HasFactory, AttachPeriod;
 
     /**
      * The attributes that are mass assignable.
@@ -106,5 +108,28 @@ class Unit extends Model
     public function glAccounts(): BelongsToMany
     {
         return $this->belongsToMany(GlAccount::class);
+    }
+
+    /**
+     * The periods that belong to the unit.
+     */
+    public function periods(): BelongsToMany
+    {
+        return $this->belongsToMany(Period::class, 'unit_periods');
+    }
+
+    /**
+     * The active period.
+     */
+    public function activePeriod() 
+    {
+        return $this->periods()->firstWhere('is_closed', false);
+    }
+    /**
+     * The inventories that belong to the unit.
+     */
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(Inventory::class);
     }
 }

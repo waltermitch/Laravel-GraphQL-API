@@ -13,6 +13,9 @@ type Unit {
 
     "Zip."
     zip: String!
+    
+    "Active period."
+    activePeriod: Period @method(name: "activePeriod")
 
     "Whether the unit is active."
     isActive: Boolean! @rename(attribute: "is_active")

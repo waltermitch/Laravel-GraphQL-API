@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Period extends Model
 {
@@ -31,4 +32,24 @@ class Period extends Model
     protected $casts = [
         'date' => 'period_end',
     ];
+
+    /**
+     * The units that belong to the period.
+     */
+    public function units(): BelongsToMany
+    {
+        return $this->belongsToMany(Unit::class, 'unit_periods');
+    }
+
+    /**
+     * Get the current period.
+     */
+    public static function currentPeriod()
+    {   
+        $currentDate = date('Y-m-d');
+
+        return self::query()
+            ->orderBy('period_end')
+            ->firstWhere('period_end', '>=', $currentDate);
+    }
 }
