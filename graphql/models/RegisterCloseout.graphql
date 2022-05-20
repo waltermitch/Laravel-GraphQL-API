@@ -87,10 +87,10 @@ type RegisterCloseout {
     netSalesTotals: String! @rename(attribute: "net_sales_totals")
 
     "Close date"
-    closeDate: DateTime! @rename(attribute: "close_date")
+    closeDate: Date! @rename(attribute: "close_date")
     
     "Period end"
-    periodEnd: DateTime! @rename(attribute: "period_end")
+    periodEnd: Date! @rename(attribute: "period_end")
     
     "When the payroll was created."
     createdAt: DateTime! @rename(attribute: "created_at")
@@ -176,10 +176,10 @@ input CreateRegisterCloseoutInput {
     netSalesTotals: String! @rename(attribute: "net_sales_totals") @rules(apply: ["required"])
 
     "Close date"
-    closeDate: DateTime! @rename(attribute: "close_date") @rules(apply: ["required"])
+    closeDate: Date! @rename(attribute: "close_date") @rules(apply: ["required"])
     
     "Period end"
-    periodEnd: DateTime! @rename(attribute: "period_end") @rules(apply: ["required"])
+    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
     
     "Items."
     items: UpdateRegisterCloseoutItems
@@ -268,10 +268,10 @@ input UpdateRegisterCloseoutInput {
     netSalesTotals: String @rename(attribute: "net_sales_totals") @rules(apply: ["filled"])
 
     "Close date"
-    closeDate: DateTime @rename(attribute: "close_date") @rules(apply: ["filled"])
+    closeDate: Date @rename(attribute: "close_date") @rules(apply: ["filled"])
     
     "Period end"
-    periodEnd: DateTime @rename(attribute: "period_end") @rules(apply: ["filled"])
+    periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
     
     "Items."
     items: UpdateRegisterCloseoutItemInput
