@@ -11,6 +11,8 @@ type InventoryCategory {
     "Gl Account."
     glAccount: GlAccount
 
+    inventoryAmount: Float @field(resolver: "App\\GraphQL\\Queries\\Fields\\InventoryAmount")
+
     "When the inventory category was created."
     createdAt: DateTime! @rename(attribute: "created_at")
 

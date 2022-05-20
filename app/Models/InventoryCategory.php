@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\Auth\ManagesAuth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class InventoryCategory extends Model
 {
-    use HasFactory;
+    use HasFactory, ManagesAuth;
 
     /**
      * The attributes that are mass assignable.
@@ -43,5 +45,23 @@ class InventoryCategory extends Model
     public function glAccount(): BelongsTo
     {
         return $this->belongsTo(GlAccount::class);
+    }
+
+    /**
+     * Get the inventories for the category.
+     */
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+    /**
+     * Get the inventory amount.
+     */
+    public function inventoryAmount($unitId, $periodId)
+    {   
+        return $this->inventories()->where('unit_id', $unitId)
+            ->where('period_id', $periodId)
+            ->first()?->amount;
     }
 }

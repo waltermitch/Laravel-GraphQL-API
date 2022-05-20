@@ -1,17 +1,27 @@
+type Inventory {
+    "Unique primary key."
+    id: ID!
+
+    "Amount."
+    amount: Float!
+
+    "When the inventory was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the inventory was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
 input InventoryInput {
-    "Id."
+    "Id." 
     id: ID! @rules(apply: ["required", "exists:inventory_categories,id"])
 
     "Amount."
     amount: Float!
 }
 
-extend type Query {
-    inventories: [InventoryInput!]!
-}
-
 extend type Mutation {
     updateInventories(
         inventoriesInput: [InventoryInput!]!
-    ): Boolean
+    ): [InventoryCategory!]!
 }
