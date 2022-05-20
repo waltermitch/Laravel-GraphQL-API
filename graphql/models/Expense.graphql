@@ -1,0 +1,123 @@
+type Expense {
+    "Unique primary key."
+    id: ID!
+    
+    "The unit associated with register closeout."
+    unit: Unit
+    
+    "Comments"
+    comments: String!
+
+    "Vendor."
+    vendor: Vendor
+    
+    "Period end"
+    periodEnd: Date! @rename(attribute: "period_end")
+    
+    "Expense date"
+    expenseDate: Date! @rename(attribute: "expense_date")
+    
+    "Gl account"
+    glAccount: GlAccount
+    
+    "Expense type"
+    expenseType: ExpenseType
+    
+    "Amount"
+    amount: String!
+    
+    "When the payroll was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the payroll was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateExpenseInput {
+    "Comments"
+    comments: String! @rules(apply: ["required"])
+
+    "Vendor."
+    vendor: ConnectBelongsToVendor
+    
+    "Period end"
+    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
+    
+    "Expense date"
+    expenseDate: Date! @rename(attribute: "expense_date") @rules(apply: ["required"])
+    
+    "Gl account"
+    glAccount: ConnectBelongsToGlAccount! @rules(apply: ["required"])
+    
+    "Expense type"
+    expenseType: ConnectBelongsToExpenseType! @rules(apply: ["required"])
+    
+    "Amount"
+    amount: String! @rules(apply: ["required"])
+}
+
+input UpdateExpenseInput {
+    "Unique primary key."
+    id: ID!
+    
+    "Comments"
+    comments: String @rules(apply: ["filled"])
+
+    "Vendor."
+    vendor: ConnectBelongsToVendor
+    
+    "Period end"
+    periodEnd: Date @rules(apply: ["filled"])
+    
+    "Expense date"
+    expenseDate: Date @rules(apply: ["filled"])
+    
+    "Gl account"
+    glAccount: ConnectBelongsToGlAccount
+    
+    "Expense type"
+    expenseType: ConnectBelongsToExpenseType
+    
+    "Amount"
+    amount: String @rules(apply: ["filled"])
+}
+
+input ConnectBelongsToVendor {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:vendors,id"])
+}
+
+input ConnectBelongsToGlAccount {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
+}
+
+input ConnectBelongsToExpenseType {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:expense_types,id"])
+}
+
+extend type Query {
+    "List multiple expenses."
+    expenses: [Expense!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new expense."
+    createExpense(
+        "Register closeout."
+        expenseInput: CreateExpenseInput! @spread
+    ): Expense @create
+
+    "Update an existing expense."
+    updateExpense(
+        "Expense."
+        expenseInput: UpdateExpenseInput! @spread
+    ): Expense @update
+
+    "Delete an existing expense."
+    deleteExpense(
+        "Id."
+        id: ID!
+    ): Expense @delete
+}

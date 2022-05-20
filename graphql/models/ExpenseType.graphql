@@ -1,0 +1,24 @@
+type ExpenseType {
+    "Unique primary key."
+    id: ID!
+    
+    "Expense type name."
+    type: String!
+    
+    "Description"
+    description: String!
+    
+    "Associated expenses"
+    expenses: [Expense!]!
+    
+    "When the expense type was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the expense type was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+extend type Query {
+    "List multiple expense types."
+    expenseTypes: [ExpenseType!]! @paginate
+}
