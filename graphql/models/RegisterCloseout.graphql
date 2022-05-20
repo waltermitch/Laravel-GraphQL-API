@@ -274,7 +274,7 @@ input UpdateRegisterCloseoutInput {
     periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
     
     "Items."
-    items: UpdateRegisterCloseoutItemInput
+    items: UpdateRegisterCloseoutItems
 }
 
 input ConnectBelongsToUnit {
