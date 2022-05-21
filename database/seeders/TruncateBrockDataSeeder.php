@@ -13,6 +13,7 @@ use App\Models\RegisterType;
 use App\Models\State;
 use App\Models\Term;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TruncateBrockDataSeeder extends Seeder
 {
@@ -33,6 +34,7 @@ class TruncateBrockDataSeeder extends Seeder
         State::truncate();
         //
         InventoryCategory::truncate();
+        DB::table('gl_account_unit')->truncate();
         GlAccount::truncate();
         GlTypeCode::truncate();
     }
