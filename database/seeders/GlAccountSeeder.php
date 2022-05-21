@@ -16,8 +16,6 @@ class GlAccountSeeder extends Seeder
      */
     public function run()
     {
-        GlAccount::truncate();
-
         $glAccounts = [
             ['old_id' => '1010', 'gl_type_code' => 'corp', 'name' => 'Cash Savings'],
             ['old_id' => '1020', 'gl_type_code' => 'corp', 'name' => 'Cash Executive Payroll'],

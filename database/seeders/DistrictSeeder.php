@@ -15,8 +15,6 @@ class DistrictSeeder extends Seeder
      */
     public function run()
     {
-        District::truncate();
-
         District::insert([
             ['code' => 'AB', 'name' => 'Andrew Brock', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['code' => 'BD', 'name' => 'Bryan Davis', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],

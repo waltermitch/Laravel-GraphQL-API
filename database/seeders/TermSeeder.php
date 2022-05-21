@@ -15,8 +15,6 @@ class TermSeeder extends Seeder
      */
     public function run()
     {
-        Term::truncate();
-
         Term::insert([
             ['name' => '39 days', 'due_days' => '39', 'disc_percent' => '0', 'disc_days' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['name' => 'upon receipt', 'due_days' => '1', 'disc_percent' => '0', 'disc_days' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],

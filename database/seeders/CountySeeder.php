@@ -14,8 +14,6 @@ class CountySeeder extends Seeder
      */
     public function run()
     {
-        County::truncate();
-
         $counties = [
             ['name' => 'Albemarle', 'state' => 'VA', 'tax' => '0'],
             ['name' => 'Allentown', 'state' => 'PA', 'tax' => '0'],

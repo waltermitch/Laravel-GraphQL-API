@@ -14,6 +14,8 @@ class BrockDataSeeder extends Seeder
     public function run()
     {
         $this->call([
+            TruncateBrockDataSeeder::class,
+            //
             ExpenseTypeSeeder::class,
             TermSeeder::class,
             RegisterTypeSeeder::class,

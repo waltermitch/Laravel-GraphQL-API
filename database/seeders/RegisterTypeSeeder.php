@@ -15,8 +15,6 @@ class RegisterTypeSeeder extends Seeder
      */
     public function run()
     {
-        RegisterType::truncate();
-
         RegisterType::insert([
             ['name' => 'cafeteria', 'description' => 'Cafeteria', 'tax_type' => 'salestaxcafe', 'is_vending' => false, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['name' => 'cstore', 'description' => 'Convenience Store', 'tax_type' => 'salestaxcstore', 'is_vending' => false, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],

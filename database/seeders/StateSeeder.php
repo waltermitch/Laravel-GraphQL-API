@@ -15,8 +15,6 @@ class StateSeeder extends Seeder
      */
     public function run()
     {
-        State::truncate();
-
         State::insert([
             ['code' => 'CO', 'sales_tax_cafeteria' => '0.04', 'sales_tax_vending' => '0.029', 'sales_tax_restaurant' => '0.029', 'sales_tax_store' => '0.029', 'gross_receipts_tax' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['code' => 'CT', 'sales_tax_cafeteria' => '0', 'sales_tax_vending' => '0', 'sales_tax_restaurant' => '0', 'sales_tax_store' => '0', 'gross_receipts_tax' => '0', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],

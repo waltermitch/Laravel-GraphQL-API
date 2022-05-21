@@ -15,8 +15,6 @@ class ExpenseTypeSeeder extends Seeder
      */
     public function run()
     {
-        ExpenseType::truncate();
-
         ExpenseType::insert([
             ['type' => 'Accrual', 'description' => 'New Accrual', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['type' => 'AdminFee', 'description' => 'Administrative Fee', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],

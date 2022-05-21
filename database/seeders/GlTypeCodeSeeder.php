@@ -15,8 +15,6 @@ class GlTypeCodeSeeder extends Seeder
      */
     public function run()
     {
-        GlTypeCode::truncate();
-
         GlTypeCode::insert([
             ['code' => 'corp', 'description' => 'Corporate Use', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['code' => 'expense', 'description' => 'Expenses and Purchase', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
