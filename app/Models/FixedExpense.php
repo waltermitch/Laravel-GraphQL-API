@@ -7,20 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\AttachUnit;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Unit;
-use App\Models\ExpenseType;
 use App\Models\GlAccount;
 
-class Expense extends Model
+class FixedExpense extends Model
 {
     use HasFactory, AttachUnit;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'expense_type_id', 'gl_account_id', 'expense_date', 'amount', 'comments', 'vendor_id', 'period_end', 'unit_id'
+        'monthly', 'gl_account_id', 'amount', 'comments', 'unit_id'
     ];
 
     /**
@@ -42,7 +40,7 @@ class Expense extends Model
     ];
     
     /**
-     * Get the unit owns the expense.
+     * Get the unit owns the fixed expense.
      */
     public function unit(): BelongsTo
     {
@@ -50,26 +48,10 @@ class Expense extends Model
     }
     
     /**
-     * Get the type that owns the expense.
-     */
-    public function expenseType(): BelongsTo
-    {
-        return $this->belongsTo(ExpenseType::class);
-    }
-    
-    /**
-     * Get the gl account that owns the expense.
+     * Get the gl account that owns the fixed expense.
      */
     public function glAccount(): BelongsTo
     {
         return $this->belongsTo(GlAccount::class);
-    }
-    
-    /**
-     * Get the vendor owns the expense.
-     */
-    public function vendor(): BelongsTo
-    {
-        return $this->belongsTo(Vendor::class);
     }
 }

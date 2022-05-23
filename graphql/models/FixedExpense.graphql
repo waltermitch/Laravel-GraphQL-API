@@ -1,0 +1,86 @@
+type FixedExpense {
+    "Unique primary key."
+    id: ID!
+    
+    "The unit associated with fixed expense."
+    unit: Unit
+    
+    "Comments"
+    comments: String!
+
+    "Monthly."
+    monthly: Boolean!
+    
+    "Gl account"
+    glAccount: GlAccount
+    
+    "Amount"
+    amount: String!
+    
+    "When the fixed expense was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the fixed expense was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+input CreateFixedExpenseInput {
+    "Comments"
+    comments: String! @rules(apply: ["required"])
+
+    "Gl account"
+    glAccount: ConnectBelongsToGlAccount! @rules(apply: ["required"])
+    
+    "Amount"
+    amount: String! @rules(apply: ["required"])
+    
+    "Monthly"
+    monthly: Boolean! @rules(apply: ["required"])
+}
+
+input UpdateFixedExpenseInput {
+    "Unique primary key."
+    id: ID!
+    
+    "Comments"
+    comments: String @rules(apply: ["filled"])
+
+    "Gl account"
+    glAccount: ConnectBelongsToGlAccount
+    
+    "Amount"
+    amount: String @rules(apply: ["filled"])
+    
+    "Monthly"
+    monthly: Boolean @rules(apply: ["filled"])
+}
+
+input ConnectBelongsToGlAccount {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
+}
+
+extend type Query {
+    "List multiple fixed expenses."
+    fixedExpenses: [FixedExpense!]! @paginate
+}
+
+extend type Mutation {
+    "Create a new fixed expense."
+    createFixedExpense(
+        "Fixed expense."
+        fixedExpenseInput: CreateFixedExpenseInput! @spread
+    ): FixedExpense @create
+
+    "Update an existing fixed expense."
+    updateFixedExpense(
+        "Fixed expense."
+        fixedExpenseInput: UpdateFixedExpenseInput! @spread
+    ): FixedExpense @update
+
+    "Delete an existing fixed expense."
+    deleteFixedExpense(
+        "Id."
+        id: ID!
+    ): FixedExpense @delete
+}

@@ -2,7 +2,7 @@ type Expense {
     "Unique primary key."
     id: ID!
     
-    "The unit associated with register closeout."
+    "The unit associated with expense."
     unit: Unit
     
     "Comments"
@@ -26,10 +26,10 @@ type Expense {
     "Amount"
     amount: String!
     
-    "When the payroll was created."
+    "When the expense was created."
     createdAt: DateTime! @rename(attribute: "created_at")
 
-    "When the payroll was last updated."
+    "When the expense was last updated."
     updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
