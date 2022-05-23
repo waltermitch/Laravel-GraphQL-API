@@ -52,4 +52,15 @@ class Period extends Model
             ->orderBy('period_end')
             ->firstWhere('period_end', '>=', $currentDate);
     }
+    
+    /**
+     * Get next period
+     */
+    public function next()
+    {
+        return self::query()->
+            where('id', '>', $this->id)
+            ->orderBy('id','asc')
+            ->first();
+    }    
 }
