@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CalculationCode;
 use App\Models\City;
 use App\Models\County;
 use App\Models\District;
@@ -28,6 +29,7 @@ class TruncateBrockDataSeeder extends Seeder
         Term::truncate();
         RegisterType::truncate();
         District::truncate();
+        CalculationCode::truncate();
         //
         County::truncate();
         City::truncate();

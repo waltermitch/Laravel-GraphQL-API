@@ -20,6 +20,7 @@ class BrockDataSeeder extends Seeder
             TermSeeder::class,
             RegisterTypeSeeder::class,
             DistrictSeeder::class,
+            CalculationCodeSeeder::class,
             //
             StateSeeder::class,
             CitySeeder::class,
