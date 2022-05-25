@@ -67,10 +67,10 @@ input UpdateExpenseInput {
     vendor: ConnectBelongsToVendor
     
     "Period end"
-    periodEnd: Date @rules(apply: ["filled"])
+    periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
     
     "Expense date"
-    expenseDate: Date @rules(apply: ["filled"])
+    expenseDate: Date @rename(attribute: "expense_date") @rules(apply: ["filled"])
     
     "Gl account"
     glAccount: ConnectBelongsToGlAccount

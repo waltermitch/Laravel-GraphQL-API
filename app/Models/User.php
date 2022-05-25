@@ -23,7 +23,10 @@ class User extends Authenticatable implements HasApiTokensContract, CanResetPass
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'is_admin',
+        'is_active',
         'email',
         'password',
     ];

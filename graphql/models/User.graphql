@@ -34,6 +34,55 @@ type User {
     updated_at: DateTime!
 }
 
+input CreateUserInput {
+    "Non-unique first name."
+    firstName: String! @rename(attribute: "first_name")
+
+    "Non-unique last name."
+    lastName: String! @rename(attribute: "last_name")
+
+    "Unique email address."
+    email: String! @rules(apply: ["unique:users,email", "email"])
+
+    "Connect units that belongs to user."
+    units: CreateOrUpdateUnitBelongsToMany! @rules(apply: ["required"])
+    
+    "Password"
+    password: String!
+    
+    "If user is admin role."
+    isAdmin: Boolean! @rename(attribute: "is_admin")
+
+    "If user is active"
+    isActive: Boolean! @rename(attribute: "is_active")
+}
+
+input UpdateUserInput @validator {
+    "Unique primary key."
+    id: ID!
+    
+    "Non-unique first name."
+    firstName: String @rename(attribute: "first_name")
+
+    "Non-unique last name."
+    lastName: String @rename(attribute: "last_name")
+
+    "Unique email address."
+    email: String
+
+    "Connect units that belongs to user."
+    units: CreateOrUpdateUnitBelongsToMany
+    
+    "Password"
+    password: String
+    
+    "If user is admin role."
+    isAdmin: Boolean
+
+    "If user is active"
+    isActive: Boolean
+}
+
 extend type Query {
     "Find a single user by an identifying attribute."
     user(
@@ -54,6 +103,33 @@ extend type Query {
     me: User! @guard @auth
 }
 
+input CreateOrUpdateUnitBelongsToMany @validator {
+    "Sync existing id's."
+    sync: [ID!]
+
+    "Sync existing id's without detaching."
+    syncWithoutDetaching: [ID!]
+
+    "Disconnect existing id's."
+    disconnect: [ID!]
+}
+
+type CreateUserResponse {
+    "Status."
+    status: UserCreateStatus!
+
+    "Message."
+    message: String!
+}
+
+type UpdateUserResponse {
+    "Status."
+    status: UserUpdateStatus!
+
+    "Message."
+    message: String!
+}
+
 extend type Mutation {
     "Select unit"
     selectUnit(
@@ -63,4 +139,23 @@ extend type Mutation {
     
     "Close week"
     closeWeek: Boolean 
+    
+    "Create a new user."
+    createUser(
+        "User."
+        userInput: CreateUserInput! @spread
+    ): CreateUserResponse!
+    
+    "Update existing user."
+    updateUser(
+        "User."
+        userInput: UpdateUserInput! @spread
+    ): UpdateUserResponse!
+    
+    "Delete an existing user."
+    deleteUser(
+        "Id."
+        id: ID!
+    ): User @delete
+
 }
