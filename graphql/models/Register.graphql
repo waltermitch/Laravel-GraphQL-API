@@ -109,7 +109,7 @@ input ConnectBelongsToUnit {
 
 extend type Query {
     "List multiple registers."
-    registers: [Register!]! @paginate
+    registers: [Register!]! @all
 }
 
 extend type Mutation {

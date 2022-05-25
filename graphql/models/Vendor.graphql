@@ -49,7 +49,7 @@ input ConnectBelongsToTerm {
 
 extend type Query {
     "List multiple vendors."
-    vendors: [Vendor!]! @paginate
+    vendors: [Vendor!]! @all
 }
 
 extend type Mutation {

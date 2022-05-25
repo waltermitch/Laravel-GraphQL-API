@@ -20,5 +20,5 @@ type ExpenseType {
 
 extend type Query {
     "List multiple expense types."
-    expenseTypes: [ExpenseType!]! @paginate
+    expenseTypes: [ExpenseType!]! @all
 }

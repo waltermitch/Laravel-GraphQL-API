@@ -445,7 +445,7 @@ extend type Query {
     ): Unit @find
 
     "List multiple units."
-    units: [Unit!]! @paginate
+    units: [Unit!]! @all
 }
 
 extend type Mutation {

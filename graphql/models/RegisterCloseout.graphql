@@ -297,7 +297,7 @@ input UpdateRegisterCloseoutItems {
 
 extend type Query {
     "List multiple register closeouts."
-    registerCloseouts: [RegisterCloseout!]! @paginate
+    registerCloseouts: [RegisterCloseout!]! @all
 }
 
 extend type Mutation {

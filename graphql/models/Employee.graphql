@@ -127,7 +127,7 @@ input CreateUnitBelongsToMany {
 
 extend type Query {
     "List multiple employees."
-    employees: [Employee!]! @paginate
+    employees: [Employee!]! @all
 }
 
 extend type Mutation {

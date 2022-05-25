@@ -30,7 +30,7 @@ input UpdateUnitTypeInput {
 
 extend type Query {
     "List multiple unit types."
-    unitTypes: [UnitType!]! @paginate
+    unitTypes: [UnitType!]! @all
 }
 
 extend type Mutation {

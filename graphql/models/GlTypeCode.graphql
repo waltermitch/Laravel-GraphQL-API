@@ -36,7 +36,7 @@ input UpdateGlTypeCodeInput {
 
 extend type Query {
     "List multiple gl type codes."
-    glTypeCodes: [GlTypeCode!]! @paginate
+    glTypeCodes: [GlTypeCode!]! @all
 }
 
 extend type Mutation {

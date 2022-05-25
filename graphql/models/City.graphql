@@ -50,7 +50,7 @@ input ConnectBelongsToState {
 
 extend type Query {
     "List multiple cities."
-    cities: [City!]! @paginate
+    cities: [City!]! @all
 }
 
 extend type Mutation {

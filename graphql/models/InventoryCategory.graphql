@@ -52,7 +52,7 @@ input ConnectBelongsToGlAccount {
 
 extend type Query {
     "List multiple inventory categories."
-    inventoryCategories: [InventoryCategory!]! @paginate
+    inventoryCategories: [InventoryCategory!]! @all
 }
 
 extend type Mutation {

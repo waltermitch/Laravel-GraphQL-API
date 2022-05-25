@@ -48,7 +48,7 @@ extend type Query {
     users(
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
-    ): [User!]! @paginate
+    ): [User!]! @all
 
     "Return currently authenticated user."
     me: User! @guard @auth

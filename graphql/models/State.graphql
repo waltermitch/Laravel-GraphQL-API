@@ -78,7 +78,7 @@ input UpdateStateInput {
 
 extend type Query {
     "List multiple states."
-    states: [State!]! @paginate
+    states: [State!]! @all
 }
 
 extend type Mutation {

@@ -178,7 +178,7 @@ input UpdateCateringItems {
 
 extend type Query {
     "List multiple catering orders."
-    cateringOrders: [CateringOrder!]! @paginate
+    cateringOrders: [CateringOrder!]! @all
 }
 
 extend type Mutation {

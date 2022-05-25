@@ -62,7 +62,7 @@ input ConnectBelongsToGlAccount {
 
 extend type Query {
     "List multiple fixed expenses."
-    fixedExpenses: [FixedExpense!]! @paginate
+    fixedExpenses: [FixedExpense!]! @all
 }
 
 extend type Mutation {

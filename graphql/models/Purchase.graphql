@@ -70,7 +70,7 @@ input UpdatePurchaseItems {
 
 extend type Query {
     "List multiple purchases."
-    purchases: [Purchase!]! @paginate
+    purchases: [Purchase!]! @all
 }
 
 extend type Mutation {

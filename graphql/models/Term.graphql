@@ -36,7 +36,7 @@ input UpdateTermInput {
 
 extend type Query {
     "List multiple terms."
-    terms: [Term!]! @paginate
+    terms: [Term!]! @all
 }
 
 extend type Mutation {

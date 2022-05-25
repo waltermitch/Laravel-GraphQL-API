@@ -61,7 +61,7 @@ input ConnectBelongsToParentGlAccount @validator {
 
 extend type Query {
     "List multiple gl accounts."
-    glAccounts: [GlAccount!]! @paginate
+    glAccounts: [GlAccount!]! @all
 }
 
 extend type Mutation {

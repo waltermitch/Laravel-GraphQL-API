@@ -99,7 +99,7 @@ input ConnectBelongsToExpenseType {
 
 extend type Query {
     "List multiple expenses."
-    expenses: [Expense!]! @paginate
+    expenses: [Expense!]! @all
 }
 
 extend type Mutation {
