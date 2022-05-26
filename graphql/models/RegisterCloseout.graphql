@@ -21,7 +21,7 @@ type RegisterCloseout {
     lastNonResetable: String! @rename(attribute: "last_non_resetable")
     
     "Net OV."
-    netOV: String! @rename(attribute: "net_ov")
+    netOV: String! @rename(attribute: "net_o_v")
     
     "Total to distribute."
     totalToDistribute: String! @rename(attribute: "total_to_distribute")
@@ -35,8 +35,8 @@ type RegisterCloseout {
     "Net voucher."
     netVoucher: String! @rename(attribute: "net_voucher")
     
-    "Overring tax."
-    overringTax: String! @rename(attribute: "overring_tax")
+    "Overring void tax."
+    overringVoidTax: String! @rename(attribute: "overring_void_tax")
     
     "Net cash."
     netCash: String! @rename(attribute: "net_cash")
@@ -50,14 +50,14 @@ type RegisterCloseout {
     "Cash tax."
     cashTax: String! @rename(attribute: "cash_tax")
     
-    "Total petty cache."
-    totalPettyCache: String! @rename(attribute: "total_petty_cache")
+    "Total petty cash."
+    totalPettyCash: String! @rename(attribute: "total_petty_cash")
     
-    "Actual cache deposit."
-    actualCacheDeposit: String! @rename(attribute: "actual_cache_deposit")
+    "Actual cash deposit."
+    actualCashDeposit: String! @rename(attribute: "actual_cash_deposit")
     
-    "Calculated cache deposit."
-    calculatedCacheDeposit: String! @rename(attribute: "calculated_cache_deposit")
+    "Calculated cash deposit."
+    calculatedCashDeposit: String! @rename(attribute: "calculated_cash_deposit")
     
     "Over short."
     overShort: String! @rename(attribute: "over_short")
@@ -110,7 +110,7 @@ input CreateRegisterCloseoutInput {
     lastNonResetable: String! @rename(attribute: "last_non_resetable") @rules(apply: ["required"])
     
     "Net OV."
-    netOV: String! @rename(attribute: "net_ov") @rules(apply: ["required"])
+    netOV: String! @rename(attribute: "net_o_v") @rules(apply: ["required"])
     
     "Total to distribute."
     totalToDistribute: String! @rename(attribute: "total_to_distribute") @rules(apply: ["required"])
@@ -124,8 +124,8 @@ input CreateRegisterCloseoutInput {
     "Net voucher."
     netVoucher: String! @rename(attribute: "net_voucher") @rules(apply: ["required"])
     
-    "Overring tax."
-    overringTax: String! @rename(attribute: "overring_tax") @rules(apply: ["required"])
+    "Overring void tax."
+    overringVoidTax: String! @rename(attribute: "overring_void_tax") @rules(apply: ["required"])
     
     "Net cash."
     netCash: String! @rename(attribute: "net_cash") @rules(apply: ["required"])
@@ -139,14 +139,14 @@ input CreateRegisterCloseoutInput {
     "Cash tax."
     cashTax: String! @rename(attribute: "cash_tax") @rules(apply: ["required"])
     
-    "Total petty cache."
-    totalPettyCache: String! @rename(attribute: "total_petty_cache") @rules(apply: ["required"])
+    "Total petty cash."
+    totalPettyCash: String! @rename(attribute: "total_petty_cash") @rules(apply: ["required"])
     
-    "Actual cache deposit."
-    actualCacheDeposit: String! @rename(attribute: "actual_cache_deposit") @rules(apply: ["required"])
+    "Actual cash deposit."
+    actualCashDeposit: String! @rename(attribute: "actual_cash_deposit") @rules(apply: ["required"])
     
-    "Calculated cache deposit."
-    calculatedCacheDeposit: String! @rename(attribute: "calculated_cache_deposit") @rules(apply: ["required"])
+    "Calculated cash deposit."
+    calculatedCashDeposit: String! @rename(attribute: "calculated_cash_deposit") @rules(apply: ["required"])
     
     "Over short."
     overShort: String! @rename(attribute: "over_short") @rules(apply: ["required"])
@@ -202,7 +202,7 @@ input UpdateRegisterCloseoutInput {
     lastNonResetable: String @rename(attribute: "last_non_resetable") @rules(apply: ["filled"])
     
     "Net OV."
-    netOV: String @rename(attribute: "net_ov") @rules(apply: ["filled"])
+    netOV: String @rename(attribute: "net_o_v") @rules(apply: ["filled"])
     
     "Total to distribute."
     totalToDistribute: String @rename(attribute: "total_to_distribute") @rules(apply: ["filled"])
@@ -216,8 +216,8 @@ input UpdateRegisterCloseoutInput {
     "Net voucher."
     netVoucher: String @rename(attribute: "net_voucher") @rules(apply: ["filled"])
     
-    "Overring tax."
-    overringTax: String @rename(attribute: "overring_tax") @rules(apply: ["filled"])
+    "Overring void tax."
+    overringVoidTax: String @rename(attribute: "overring_void_tax") @rules(apply: ["filled"])
     
     "Net cash."
     netCash: String @rename(attribute: "net_cash") @rules(apply: ["filled"])
@@ -231,14 +231,14 @@ input UpdateRegisterCloseoutInput {
     "Cash tax."
     cashTax: String @rename(attribute: "cash_tax") @rules(apply: ["filled"])
     
-    "Total petty cache."
-    totalPettyCache: String @rename(attribute: "total_petty_cache") @rules(apply: ["filled"])
+    "Total petty cash."
+    totalPettyCash: String @rename(attribute: "total_petty_cash") @rules(apply: ["filled"])
     
-    "Actual cache deposit."
-    actualCacheDeposit: String @rename(attribute: "actual_cache_deposit") @rules(apply: ["filled"])
+    "Actual cash deposit."
+    actualCashDeposit: String @rename(attribute: "actual_cash_deposit") @rules(apply: ["filled"])
     
-    "Calculated cache deposit."
-    calculatedCacheDeposit: String @rename(attribute: "calculated_cache_deposit") @rules(apply: ["filled"])
+    "Calculated cash deposit."
+    calculatedCashDeposit: String @rename(attribute: "calculated_cash_deposit") @rules(apply: ["filled"])
     
     "Over short."
     overShort: String @rename(attribute: "over_short") @rules(apply: ["filled"])
