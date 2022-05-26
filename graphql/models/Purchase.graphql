@@ -16,6 +16,9 @@ type Purchase {
 
     "Items."
     items: [PurchaseCharge!]!
+    
+    "Period end"
+    periodEnd: Date! @rename(attribute: "period_end")
 
     "When the purchase was created."
     createdAt: DateTime! @rename(attribute: "created_at")
@@ -33,6 +36,9 @@ input CreatePurchaseInput {
 
     "Vendor."
     vendor: ConnectBelongsToVendor!
+    
+    "Period end"
+    periodEnd: Date! @rename(attribute: "period_end")
 
     "Items."
     items: UpdatePurchaseItems!
@@ -48,6 +54,9 @@ input UpdatePurchaseInput {
     "Date."
     date: Date
 
+    "Period end"
+    periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
+    
     "Vendor."
     vendor: ConnectBelongsToVendor
 

@@ -52,7 +52,10 @@ type CateringOrder {
 
     "Charge number."
     chargeNumber: String! @rename(attribute: "charge_number")
-
+    
+    "Period end"
+    periodEnd: Date! @rename(attribute: "period_end")
+    
     "When the catering order was created."
     createdAt: DateTime! @rename(attribute: "created_at")
 
@@ -103,6 +106,9 @@ input CreateCateringOrderInput {
     "Bill to address."
     billToAddress: String! @rename(attribute: "bill_to_address") @rules(apply: ["required"])
 
+    "Period end"
+    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
+    
     "Whether is cash order."
     isCashOrder: Boolean! @rename(attribute: "is_cash_order")
 
@@ -161,6 +167,9 @@ input UpdateCateringOrderInput {
 
     "Charge number."
     chargeNumber: String @rename(attribute: "charge_number") @rules(apply: ["filled"])
+    
+    "Period end"
+    periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
 }
 
 input ConnectBelongsToUnit {
