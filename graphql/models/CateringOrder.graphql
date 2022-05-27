@@ -195,13 +195,13 @@ extend type Mutation {
     createCateringOrder(
         "Catering order."
         cateringOrderInput: CreateCateringOrderInput! @spread
-    ): CateringOrder @create
+    ): CateringOrder
 
     "Update an existing catering order."
     updateCateringOrder(
         "Catering order."
         cateringOrderInput: UpdateCateringOrderInput! @spread
-    ): CateringOrder @update
+    ): CateringOrder
 
     "Delete an existing catering order."
     deleteCateringOrder(
