@@ -77,10 +77,10 @@ input UpdateUserInput @validator {
     password: String
     
     "If user is admin role."
-    isAdmin: Boolean
+    isAdmin: Boolean @rename(attribute: "is_admin")
 
     "If user is active"
-    isActive: Boolean
+    isActive: Boolean @rename(attribute: "is_active")
 }
 
 extend type Query {

@@ -129,6 +129,6 @@ extend type Mutation {
     "Close register calculation."
     registerCloseoutCalculation(
         "Close register calculation."
-        registerCloseoutCalculationInput: registerCloseoutCalculationInput!
+        registerCloseoutCalculationInput: registerCloseoutCalculationInput! @spread
     ): registerCloseoutCalculationResponse
 }

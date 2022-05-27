@@ -20,9 +20,9 @@ class RegisterCloseoutCalculation
         
         //register closeout calculations
         
-        // $unit_id = $args['registerCloseoutCalculationInput']['unit_id'];
-        // $period_id = $args['registerCloseoutCalculationInput']['period_id'];
-        // $fields = $args['registerCloseoutCalculationInput']['fields'];
+        // $unit_id = $args['unit_id'];
+        // $period_id = $args['period_id'];
+        // $fields = $args['fields'];
         
         // $fields array has exactly those keys:
         // 'non_resetable', 'net_o_v', 'net_charge', 'tax_from_the_tape', 'net_voucher', 
