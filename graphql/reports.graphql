@@ -56,7 +56,7 @@ input registerCloseoutCalculationFieldsRequest {
     customerCountDinner: Float! @rename(attribute: "customer_count_dinner")
     
     "Net sales dinner"
-    netDalesDinner: Float! @rename(attribute: "net_sales_dinner")
+    netSalesDinner: Float! @rename(attribute: "net_sales_dinner")
 }
 
 type registerCloseoutCalculationResponse {
