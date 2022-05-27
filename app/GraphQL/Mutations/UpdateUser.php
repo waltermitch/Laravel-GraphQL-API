@@ -24,6 +24,7 @@ class UpdateUser
         DB::beginTransaction();
         try {
             $user = User::findOrFail($args['id']);
+            $wasAdmin = $user->is_admin;
             if (isset($args['password'])) {
                 $args['password'] = Hash::make($args['password']);
             }
@@ -32,6 +33,8 @@ class UpdateUser
             
             if (!$user->is_admin && !empty($args['units']['sync'])) {
                 $user->units()->sync($args['units']['sync']);
+            } elseif ($user->is_admin && !$wasAdmin) {
+                $user->units()->detach();
             }
             DB::commit();
         } catch (\Exception $e) {
