@@ -37,9 +37,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerGates();
 
         // ResetPassword::createUrlUsing(function ($user, string $token) {
         //     return 'https://example.com/reset-password?token='.$token;
         // });
+    }
+
+    protected function registerGates()
+    {
+
     }
 }

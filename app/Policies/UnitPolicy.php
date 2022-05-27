@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\OperatingType;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -119,6 +120,28 @@ class UnitPolicy
         $hasUnit = $user->units->contains($injectedArgs['id']);
 
         if ($hasUnit) {
+            return true;
+        }
+    }
+
+    /**
+     * Determine whether the user can generate operating report.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Unit  $unit
+     * @param  \App\Enums\OperatingType $type
+     * 
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function generateOperatingReport(User $user, Unit $unit, OperatingType $type)
+    {
+        if (!$user->isAdministrator()) {
+            $hasUnit = $user->units->contains($unit->id);
+
+            if ($hasUnit) {
+                return false;
+            }
+        } else {
             return true;
         }
     }
