@@ -24,6 +24,9 @@ class InventoryAmount
 
         $activePeriod = $selectedUnit->activePeriod();
 
-        return $inventoryCategory->inventoryAmount($selectedUnit->id, $activePeriod->id);
+        return [
+            'current' => $inventoryCategory->inventoryAmount($selectedUnit->id, $activePeriod?->id),
+            'previous' => $inventoryCategory->inventoryAmount($selectedUnit->id, $activePeriod->previous()?->id)
+        ];
     }
 }

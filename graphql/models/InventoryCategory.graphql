@@ -11,13 +11,22 @@ type InventoryCategory {
     "Gl Account."
     glAccount: GlAccount
 
-    inventoryAmount: Float @field(resolver: "App\\GraphQL\\Queries\\Fields\\InventoryAmount")
+    "Inventory amount."
+    inventoryAmount: InventoryAmount @field(resolver: "App\\GraphQL\\Queries\\Fields\\InventoryAmount")
 
     "When the inventory category was created."
     createdAt: DateTime! @rename(attribute: "created_at")
 
     "When the inventory category was last updated."
     updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+type InventoryAmount {
+    "Current."
+    current: Float
+
+    "Previous."
+    previous: Float
 }
 
 input CreateInventoryCategoryInput {

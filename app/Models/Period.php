@@ -62,6 +62,17 @@ class Period extends Model
             where('id', '>', $this->id)
             ->orderBy('id','asc')
             ->first();
+    }
+    
+    /**
+     * Get previous period
+     */
+    public function previous()
+    {
+        return self::query()->
+            where('id', '<', $this->id)
+            ->orderBy('id','desc')
+            ->first();
     }   
     
     public function scopeHasUnits($query)
