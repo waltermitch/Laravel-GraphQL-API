@@ -45,7 +45,7 @@ input CreateUserInput {
     email: String! @rules(apply: ["unique:users,email", "email"])
 
     "Connect units that belongs to user."
-    units: CreateOrUpdateUnitBelongsToMany! @rules(apply: ["required"])
+    units: CreateOrUpdateUnitBelongsToMany
     
     "Password"
     password: String!
@@ -83,26 +83,6 @@ input UpdateUserInput @validator {
     isActive: Boolean @rename(attribute: "is_active")
 }
 
-extend type Query {
-    "Find a single user by an identifying attribute."
-    user(
-      "Search by primary key."
-      id: ID @eq @rules(apply: ["prohibits:email", "required_without:email"])
-
-      "Search by email address."
-      email: String @eq @rules(apply: ["prohibits:id", "required_without:id", "email"])
-    ): User @find @can(ability: "viewAny")
-
-    "List multiple users."
-    users(
-      "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
-      name: String @where(operator: "like")
-    ): [User!]! @all
-
-    "Return currently authenticated user."
-    me: User! @guard @auth
-}
-
 input CreateOrUpdateUnitBelongsToMany @validator {
     "Sync existing id's."
     sync: [ID!]
@@ -130,6 +110,26 @@ type UpdateUserResponse {
     message: String!
 }
 
+extend type Query {
+    "Find a single user by an identifying attribute."
+    user(
+      "Search by primary key."
+      id: ID @eq @rules(apply: ["prohibits:email", "required_without:email"])
+
+      "Search by email address."
+      email: String @eq @rules(apply: ["prohibits:id", "required_without:id", "email"])
+    ): User @find @guard @can(ability: "view")
+
+    "List multiple users."
+    users(
+      "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+      name: String @where(operator: "like")
+    ): [User!]! @all @guard @can(ability: "viewAny")
+
+    "Return currently authenticated user."
+    me: User! @guard @auth
+}
+
 extend type Mutation {
     "Select unit"
     selectUnit(
@@ -138,24 +138,23 @@ extend type Mutation {
     ): Unit @guard @can(ability: "selectUnit", injectArgs: true)
     
     "Close week"
-    closeWeek: Boolean 
+    closeWeek: Boolean @guard
     
     "Create a new user."
     createUser(
         "User."
         userInput: CreateUserInput! @spread
-    ): CreateUserResponse!
+    ): CreateUserResponse! @guard @can(ability: "create", model: "User")
     
     "Update existing user."
     updateUser(
         "User."
         userInput: UpdateUserInput! @spread
-    ): UpdateUserResponse!
+    ): UpdateUserResponse! @guard @can(ability: "update", model: "User")
     
     "Delete an existing user."
     deleteUser(
         "Id."
         id: ID!
-    ): User @delete
-
+    ): User @delete @guard @can(ability: "delete", model: "User")
 }

@@ -89,9 +89,6 @@ type RegisterCloseout {
     "Close date"
     closeDate: Date! @rename(attribute: "close_date")
     
-    "Period end"
-    periodEnd: Date! @rename(attribute: "period_end")
-    
     "When the payroll was created."
     createdAt: DateTime! @rename(attribute: "created_at")
 
@@ -177,9 +174,6 @@ input CreateRegisterCloseoutInput {
 
     "Close date"
     closeDate: Date! @rename(attribute: "close_date") @rules(apply: ["required"])
-    
-    "Period end"
-    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
     
     "Items."
     items: UpdateRegisterCloseoutItems
@@ -269,9 +263,6 @@ input UpdateRegisterCloseoutInput {
 
     "Close date"
     closeDate: Date @rename(attribute: "close_date") @rules(apply: ["filled"])
-    
-    "Period end"
-    periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
     
     "Items."
     items: UpdateRegisterCloseoutItems

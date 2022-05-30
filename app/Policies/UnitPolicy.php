@@ -19,11 +19,8 @@ class UnitPolicy
      * @return void|bool
      */
     public function before(User $user, $ability)
-    {
-        // TODO: refactor dissalow admin select unit action
-        if ($user->isAdministrator()) {
-            return true;
-        }
+    {   
+        //
     }
 
     /**
@@ -116,7 +113,11 @@ class UnitPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function selectUnit(User $user, array $injectedArgs)
-    {
+    {   
+        if ($user->isAdministrator()) {
+            return false;
+        }
+        
         $hasUnit = $user->units->contains($injectedArgs['id']);
 
         if ($hasUnit) {

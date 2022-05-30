@@ -2,24 +2,13 @@
 
 namespace App\Policies;
 
+use App\Models\RegisterCloseout;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class RegisterCloseoutPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Perform pre-authorization checks.
-     *
-     * @param  \App\Models\User  $user
-     * @param  string  $ability
-     * @return void|bool
-     */
-    public function before(User $user, $ability)
-    {
-        return $user->isAdministrator();
-    }
 
     /**
      * Determine whether the user can view any models.
@@ -29,17 +18,17 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return !$user->isAdministrator();
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RegisterCloseout  $registerCloseout
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user, RegisterCloseout $registerCloseout)
     {
         //
     }
@@ -59,10 +48,10 @@ class UserPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RegisterCloseout  $registerCloseout
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user, RegisterCloseout $registerCloseout)
     {
         //
     }
@@ -71,10 +60,10 @@ class UserPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RegisterCloseout  $registerCloseout
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, RegisterCloseout $registerCloseout)
     {
         //
     }
@@ -83,10 +72,10 @@ class UserPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RegisterCloseout  $registerCloseout
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, RegisterCloseout $registerCloseout)
     {
         //
     }
@@ -95,10 +84,10 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RegisterCloseout  $registerCloseout
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, RegisterCloseout $registerCloseout)
     {
         //
     }

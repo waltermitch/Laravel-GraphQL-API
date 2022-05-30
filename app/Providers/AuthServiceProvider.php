@@ -46,6 +46,6 @@ class AuthServiceProvider extends ServiceProvider
 
     protected function registerGates()
     {
-
+        
     }
 }

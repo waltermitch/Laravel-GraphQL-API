@@ -8,6 +8,7 @@ use App\Traits\Auth\ManagesAuth;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CloseWeek
 {   
@@ -19,7 +20,9 @@ class CloseWeek
     }
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    {
+    {   
+        Gate::allowIf(fn ($user) => !$user->isAdministrator());
+
         DB::beginTransaction();
 
         try {
