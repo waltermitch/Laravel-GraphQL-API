@@ -14,9 +14,23 @@ type Period {
     "Week."
     week: Int!
 
+    "Pivot."
+    pivot: PeriodUnitPivot
+
     "When the period was created."
     createdAt: DateTime! @rename(attribute: "created_at")
 
     "When the period was last updated."
     updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+type PeriodUnitPivot {
+    "Is closed."
+    isClosed: Boolean! @rename(attribute: "is_closed")
+}
+
+extend type Query {
+    periods(
+        hasUnits: Boolean @scope
+    ): [Period!]! @all @orderBy(column: "period_end", direction: DESC)
 }

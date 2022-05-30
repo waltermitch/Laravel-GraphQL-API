@@ -115,7 +115,9 @@ class Unit extends Model
      */
     public function periods(): BelongsToMany
     {
-        return $this->belongsToMany(Period::class, 'unit_periods');
+        return $this->belongsToMany(Period::class, 'unit_periods')
+            ->withPivot('is_closed')
+            ->orderBy('period_end', 'desc');
     }
 
     /**

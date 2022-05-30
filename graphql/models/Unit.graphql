@@ -23,6 +23,9 @@ type Unit {
     "Whether the unit is vending."
     isVending: Boolean! @rename(attribute: "is_vending")
 
+    "The periods that belongs to unit."
+    periods: [Period!]!
+
     "The users that belongs to unit."
     users: [User!]!
 

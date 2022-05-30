@@ -62,5 +62,10 @@ class Period extends Model
             where('id', '>', $this->id)
             ->orderBy('id','asc')
             ->first();
-    }    
+    }   
+    
+    public function scopeHasUnits($query)
+    {
+        $query->whereHas('units');
+    }
 }
