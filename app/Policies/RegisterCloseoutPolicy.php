@@ -18,7 +18,7 @@ class RegisterCloseoutPolicy
      */
     public function viewAny(User $user)
     {
-        return !$user->isAdministrator();
+        // 
     }
 
     /**
@@ -41,7 +41,7 @@ class RegisterCloseoutPolicy
      */
     public function create(User $user)
     {
-        //
+        return !$user->isAdministrator();
     }
 
     /**
@@ -51,9 +51,20 @@ class RegisterCloseoutPolicy
      * @param  \App\Models\RegisterCloseout  $registerCloseout
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, RegisterCloseout $registerCloseout)
-    {
-        //
+    public function update(User $user, RegisterCloseout $registerCloseout, array $injectedArgs)
+    {   
+        // TODO: refactor
+        $updateIds = array_column($injectedArgs['items']['update'] ?? [], 'id');
+
+        $deleteIds = $injectedArgs['items']['delete'] ?? [];
+
+        if ($user->activePeriod()?->id === $registerCloseout->period_id &&
+            $user->id === $registerCloseout->user_id &&
+            !$user->isAdministrator() &&
+            $registerCloseout->containItems($updateIds) &&
+            $registerCloseout->containItems($deleteIds)) {
+            return true;
+        }
     }
 
     /**
@@ -65,7 +76,11 @@ class RegisterCloseoutPolicy
      */
     public function delete(User $user, RegisterCloseout $registerCloseout)
     {
-        //
+        if ($user->activePeriod()?->id === $registerCloseout->period_id &&
+            $user->id === $registerCloseout->user_id &&
+            !$user->isAdministrator()) {
+            return true;
+        }
     }
 
     /**

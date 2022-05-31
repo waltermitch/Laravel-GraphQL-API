@@ -6,8 +6,6 @@ namespace App\Traits;
 
 use App\Exceptions\ClientException;
 use App\Traits\Auth\ManagesAuth;
-use Exception;
-use Nuwave\Lighthouse\Exceptions\GenericException;
 
 trait AttachUnit
 {

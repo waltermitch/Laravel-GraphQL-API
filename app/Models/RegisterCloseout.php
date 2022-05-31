@@ -10,10 +10,12 @@ use App\Models\RegisterCloseoutItem;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Unit;
 use App\Models\Register;
+use App\Traits\AttachPeriod;
+use Illuminate\Database\Eloquent\Builder;
 
 class RegisterCloseout extends Model
 {
-    use HasFactory, AttachUnit;
+    use HasFactory, AttachUnit, AttachPeriod;
 
     /**
      * The attributes that are mass assignable.
@@ -61,5 +63,39 @@ class RegisterCloseout extends Model
     public function register(): BelongsTo
     {
         return $this->belongsTo(Register::class);
+    }
+
+    public function period(): BelongsTo
+    {
+        return $this->belongsTo(Period::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function containItems(array $ids)
+    {
+        foreach ($ids as $id) {
+            if (!$this->items->contains('id', $id)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function scopeActivePeriod($query, $activePeriod)
+    {   
+        if (!$activePeriod) {
+            return;
+        }
+
+        $period = static::authenticatedUser()->activePeriod()?->id;
+
+        $query->whereHas('period', function (Builder $query) use ($period) {
+            $query->where('period_id', $period);
+        });
     }
 }

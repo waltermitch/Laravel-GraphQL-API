@@ -75,8 +75,12 @@ class Period extends Model
             ->first();
     }   
     
-    public function scopeHasUnits($query)
-    {
+    public function scopeHasUnits($query, $hasUnits)
+    {   
+        if (!$hasUnits) {
+            return;
+        }
+        
         $query->whereHas('units');
     }
 }

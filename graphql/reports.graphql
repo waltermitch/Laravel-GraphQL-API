@@ -132,6 +132,7 @@ extend type Mutation {
         registerCloseoutCalculationInput: registerCloseoutCalculationInput! @spread
     ): registerCloseoutCalculationResponse
 }
+
 input ExportDataInput {
     "Period."
     period: ID! @rules(apply: ["exists:periods,id"])
@@ -148,7 +149,7 @@ input MultiUnitLaborInput {
     period: ID! @rules(apply: ["exists:periods,id"])
 
     "Units."
-    unit: ID! @rules(apply: ["exists:units,id"])
+    units: [ID!]! @rules(apply: ["exists:units,id"])
 
     "District."
     district: ID! @rules(apply: ["exists:districts,id"])
@@ -159,7 +160,7 @@ input OperatingReportInput {
     period: ID! @rules(apply: ["exists:periods,id"])
 
     "Units."
-    unit: ID! @rules(apply: ["exists:units,id"])
+    units: [ID!]! @rules(apply: ["exists:units,id"])
 
     "Type."
     type: OperatingType!

@@ -84,4 +84,12 @@ class User extends Authenticatable implements HasApiTokensContract, CanResetPass
     {
         return $this->units()->wherePivot('selected', true)->first();
     }
+
+    /**
+     * The active period.
+     */
+    public function activePeriod() 
+    {
+        return $this->selectedUnit()?->activePeriod();
+    }
 }

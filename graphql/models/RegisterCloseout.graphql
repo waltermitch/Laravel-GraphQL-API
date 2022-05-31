@@ -10,6 +10,12 @@ type RegisterCloseout {
     
     "The unit associated with register closeout."
     unit: Unit
+
+    "The period associated with register closeout."
+    period: Period
+
+    "The user associated with register closeout."
+    user: User
     
     "Non resetable."
     nonResetable: String! @rename(attribute: "non_resetable")
@@ -184,7 +190,7 @@ input CreateRegisterCloseoutInput {
 
 input UpdateRegisterCloseoutInput {
     "Unique primary key."
-    id: ID!
+    id: ID! @eq
     
     "Non resetable."
     nonResetable: String @rename(attribute: "non_resetable") @rules(apply: ["filled"])
@@ -288,7 +294,11 @@ input UpdateRegisterCloseoutItems {
 
 extend type Query {
     "List multiple register closeouts."
-    registerCloseouts: [RegisterCloseout!]! @all
+    registerCloseouts(
+        activePeriod: Boolean @scope
+    ): [RegisterCloseout!]! 
+        @all
+        @whereAuth(relation: "user")
 }
 
 extend type Mutation {
@@ -296,17 +306,28 @@ extend type Mutation {
     createRegisterCloseout(
         "Register closeout."
         registerCloseoutInput: CreateRegisterCloseoutInput! @spread
-    ): RegisterCloseout @create
+    ): RegisterCloseout 
+        @create 
+        @guard
+        @can(ability: "create")
+        @inject(context: "user.id", name: "user_id")
 
     "Update an existing register closeout."
     updateRegisterCloseout(
         "Register closeout."
         registerCloseoutInput: UpdateRegisterCloseoutInput! @spread
-    ): RegisterCloseout @update
+    ): RegisterCloseout 
+        @update
+        @guard
+        @inject(context: "user.id", name: "user_id")
+        @can(ability: "update", query: true, injectArgs: true)
 
     "Delete an existing register closeout."
     deleteRegisterCloseout(
         "Id."
-        id: ID!
-    ): RegisterCloseout @delete
+        id: ID! @eq
+    ): RegisterCloseout 
+        @delete
+        @guard
+        @can(ability: "delete", query: true)
 }
