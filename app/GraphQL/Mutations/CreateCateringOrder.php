@@ -13,7 +13,7 @@ class CreateCateringOrder
      */
     public function __invoke($_, array $args)
     {        
-        $cateringOrderItems = $args['items']['create'];
+        $cateringOrderItems = $args['items']['create'] ?? [];
         
         $cateringOrderPrice = 0;
         if (!empty($cateringOrderItems)) {
@@ -31,7 +31,9 @@ class CreateCateringOrder
             
             $cateringOrder = CateringOrder::create($args);
             
-            $cateringOrder->items()->createMany($cateringOrderItems);
+            if ($cateringOrderItems) {
+                $cateringOrder->items()->createMany($cateringOrderItems);
+            }
             
             DB::commit();
             

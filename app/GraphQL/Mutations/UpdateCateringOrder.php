@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\CateringOrder;
 use App\Models\CateringOrderItem;
+use Illuminate\Support\Facades\DB;
 
 class UpdateCateringOrder
 {
@@ -18,7 +19,7 @@ class UpdateCateringOrder
             DB::beginTransaction();
             
             //requested for update catering order items
-            $cateringOrderItems = $args['items']['update'];
+            $cateringOrderItems = $args['items']['update'] ?? [];
             
             //requested for update catering order items ids
             $cateringOrderItemIds = \array_column($cateringOrderItems, 'id');
@@ -66,7 +67,6 @@ class UpdateCateringOrder
             
             return false;
         }
-        
         
         return $cateringOrder;
     }

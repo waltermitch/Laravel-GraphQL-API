@@ -11,6 +11,12 @@ type CateringOrder {
     "The unit associated with catering order."
     unit: Unit
 
+    "The period associated with register closeout."
+    period: Period
+
+    "The user associated with register closeout."
+    user: User
+
     "Delivery date."
     deliveryDate: DateTime! @rename(attribute: "delivery_date")
 
@@ -52,9 +58,6 @@ type CateringOrder {
 
     "Charge number."
     chargeNumber: String! @rename(attribute: "charge_number")
-    
-    "Period end"
-    periodEnd: Date! @rename(attribute: "period_end")
     
     "Price"
     price: Float!
@@ -109,9 +112,6 @@ input CreateCateringOrderInput {
     "Bill to address."
     billToAddress: String! @rename(attribute: "bill_to_address") @rules(apply: ["required"])
 
-    "Period end"
-    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
-    
     "Whether is cash order."
     isCashOrder: Boolean! @rename(attribute: "is_cash_order")
 
@@ -121,7 +121,7 @@ input CreateCateringOrderInput {
 
 input UpdateCateringOrderInput {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "Description."
     description: String @rules(apply: ["filled"])
@@ -170,9 +170,6 @@ input UpdateCateringOrderInput {
 
     "Charge number."
     chargeNumber: String @rename(attribute: "charge_number") @rules(apply: ["filled"])
-    
-    "Period end"
-    periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
 }
 
 input ConnectBelongsToUnit {
@@ -190,7 +187,11 @@ input UpdateCateringItems {
 
 extend type Query {
     "List multiple catering orders."
-    cateringOrders: [CateringOrder!]! @all
+    cateringOrders(
+        activePeriod: Boolean @scope
+    ): [CateringOrder!]! 
+        @all
+        @whereAuth(relation: "user")
 }
 
 extend type Mutation {
@@ -199,16 +200,25 @@ extend type Mutation {
         "Catering order."
         cateringOrderInput: CreateCateringOrderInput! @spread
     ): CateringOrder
+        @guard
+        @can(ability: "create")
+        @inject(context: "user.id", name: "user_id")
 
     "Update an existing catering order."
     updateCateringOrder(
         "Catering order."
         cateringOrderInput: UpdateCateringOrderInput! @spread
     ): CateringOrder
+        @guard
+        @inject(context: "user.id", name: "user_id")
+        @can(ability: "update", query: true, injectArgs: true)
 
     "Delete an existing catering order."
     deleteCateringOrder(
         "Id."
         id: ID!
-    ): CateringOrder @delete
+    ): CateringOrder
+        @delete
+        @guard
+        @can(ability: "delete", query: true)
 }

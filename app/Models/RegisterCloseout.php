@@ -65,11 +65,6 @@ class RegisterCloseout extends Model
         return $this->belongsTo(Register::class);
     }
 
-    public function period(): BelongsTo
-    {
-        return $this->belongsTo(Period::class);
-    }
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -84,18 +79,5 @@ class RegisterCloseout extends Model
         }
 
         return true;
-    }
-
-    public function scopeActivePeriod($query, $activePeriod)
-    {   
-        if (!$activePeriod) {
-            return;
-        }
-
-        $period = static::authenticatedUser()->activePeriod()?->id;
-
-        $query->whereHas('period', function (Builder $query) use ($period) {
-            $query->where('period_id', $period);
-        });
     }
 }
