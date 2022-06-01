@@ -4,15 +4,18 @@ type Expense {
     
     "The unit associated with expense."
     unit: Unit
+
+    "The period associated with register closeout."
+    period: Period
+
+    "The user associated with register closeout."
+    user: User
     
     "Comments"
     comments: String!
 
     "Vendor."
     vendor: Vendor
-    
-    "Period end"
-    periodEnd: Date! @rename(attribute: "period_end")
     
     "Expense date"
     expenseDate: Date! @rename(attribute: "expense_date")
@@ -40,9 +43,6 @@ input CreateExpenseInput {
     "Vendor."
     vendor: ConnectBelongsToVendor
     
-    "Period end"
-    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
-    
     "Expense date"
     expenseDate: Date! @rename(attribute: "expense_date") @rules(apply: ["required"])
     
@@ -58,16 +58,13 @@ input CreateExpenseInput {
 
 input UpdateExpenseInput {
     "Unique primary key."
-    id: ID!
+    id: ID! @eq
     
     "Comments"
     comments: String @rules(apply: ["filled"])
 
     "Vendor."
     vendor: ConnectBelongsToVendor
-    
-    "Period end"
-    periodEnd: Date @rename(attribute: "period_end") @rules(apply: ["filled"])
     
     "Expense date"
     expenseDate: Date @rename(attribute: "expense_date") @rules(apply: ["filled"])
@@ -99,7 +96,11 @@ input ConnectBelongsToExpenseType {
 
 extend type Query {
     "List multiple expenses."
-    expenses: [Expense!]! @all
+    expenses(
+        activePeriod: Boolean @scope
+    ): [Expense!]!
+        @all
+        @whereAuth(relation: "user")
 }
 
 extend type Mutation {
@@ -107,17 +108,28 @@ extend type Mutation {
     createExpense(
         "Register closeout."
         expenseInput: CreateExpenseInput! @spread
-    ): Expense @create
+    ): Expense 
+        @create
+        @guard
+        @can(ability: "create")
+        @inject(context: "user.id", name: "user_id")
 
     "Update an existing expense."
     updateExpense(
         "Expense."
         expenseInput: UpdateExpenseInput! @spread
-    ): Expense @update
+    ): Expense 
+        @update
+        @guard
+        @inject(context: "user.id", name: "user_id")
+        @can(ability: "update", query: true)
 
     "Delete an existing expense."
     deleteExpense(
         "Id."
         id: ID!
-    ): Expense @delete
+    ): Expense 
+        @delete
+        @guard
+        @can(ability: "delete", query: true)
 }

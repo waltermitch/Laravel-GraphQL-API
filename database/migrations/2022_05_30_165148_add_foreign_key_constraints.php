@@ -107,10 +107,6 @@ return new class extends Migration
             $table->foreign('unit_id')->references('id')->on('units')->nullOnDelete();
             $table->unsignedBigInteger('gl_account_id')->nullable()->change();
             $table->foreign('gl_account_id')->references('id')->on('gl_accounts')->nullOnDelete();
-            // $table->unsignedBigInteger('period_id')->after('unit_id')->nullable();
-            // $table->foreign('period_id')->references('id')->on('periods')->nullOnDelete();
-            // $table->unsignedBigInteger('user_id')->after('period_id')->nullable();
-            // $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
         });
 
         Schema::table('gl_account_unit', function (Blueprint $table) {
@@ -249,10 +245,7 @@ return new class extends Migration
 
         Schema::table('fixed_expenses', function (Blueprint $table) {
             $table->dropForeign(['unit_id']);
-            // $table->dropForeign(['period_id']);
-            // $table->dropForeign(['user_id']);
             $table->dropForeign(['gl_account_id']);;
-            // $table->dropColumn(['period_id', 'user_id']);
         });
 
         Schema::table('gl_account_unit', function (Blueprint $table) {

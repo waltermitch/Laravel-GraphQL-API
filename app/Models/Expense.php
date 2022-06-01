@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Unit;
 use App\Models\ExpenseType;
 use App\Models\GlAccount;
+use App\Traits\AttachPeriod;
 
 class Expense extends Model
 {
-    use HasFactory, AttachUnit;
+    use HasFactory, AttachUnit, AttachPeriod;
 
     /**
      * The attributes that are mass assignable.
@@ -71,5 +72,10 @@ class Expense extends Model
     public function vendor(): BelongsTo
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
