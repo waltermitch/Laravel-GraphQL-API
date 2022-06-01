@@ -160,7 +160,7 @@ input OperatingReportInput {
     period: ID! @rules(apply: ["exists:periods,id"])
 
     "Units."
-    units: [ID!]! @rules(apply: ["exists:units,id"])
+    unit: ID! @rules(apply: ["exists:units,id"])
 
     "Type."
     type: OperatingType!
