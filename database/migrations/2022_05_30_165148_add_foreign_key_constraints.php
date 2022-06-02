@@ -164,11 +164,6 @@ return new class extends Migration
             $table->unsignedBigInteger('term_id')->nullable()->change();
             $table->foreign('term_id')->references('id')->on('terms')->nullOnDelete();
         });
-
-        Schema::table('vendors', function (Blueprint $table) {
-            $table->unsignedBigInteger('term_id')->nullable()->change();
-            $table->foreign('term_id')->references('id')->on('terms')->nullOnDelete();
-        });
     }
 
     /*
