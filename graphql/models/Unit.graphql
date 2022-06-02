@@ -50,9 +50,6 @@ type Unit {
     "The city that own the unit."
     city: City
 
-    "Start period."
-    startPeriod: Date @rename(attribute: "start_period")
-
     "Payroll password."
     payrollPassword: String @rename(attribute: "payroll_password")
 
@@ -175,9 +172,6 @@ input CreateUnitInput {
     "City."
     city: ConnectBelongsToCity!
 
-    "Start period."
-    startPeriod: Date @rename(attribute: "start_period")
-
     "Payroll password."
     payrollPassword: String @rename(attribute: "payroll_password")
 
@@ -296,9 +290,6 @@ input UpdateUnitInput @validator {
 
     "City."
     city: ConnectBelongsToCity
-
-    "Start period."
-    startPeriod: Date @rename(attribute: "start_period")
 
     "Payroll password."
     payrollPassword: String @rename(attribute: "payroll_password")
