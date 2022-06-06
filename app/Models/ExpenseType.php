@@ -42,4 +42,11 @@ class ExpenseType extends Model
     {
         return $this->hasMany(Expense::class, 'expense_type_id');
     }
+
+    public static function expenseType($type)
+    {
+        return self::query()
+            ->where('type', $type)
+            ->first();
+    }
 }
