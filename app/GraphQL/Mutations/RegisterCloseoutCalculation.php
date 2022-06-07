@@ -18,12 +18,13 @@ class RegisterCloseoutCalculation
     {
         $lastClosedRegister = \App\Models\RegisterCloseout::where('period_id', $args['period_id'])
             ->where('unit_id', $args['unit_id'])
-            ->where('register_id', $args['register_id'])
+//            ->where('register_id', $args['register_id'])
             ->orderBy('created_at', 'DESC')
             ->first();
 
         $fields = $args['fields'];
 
+        $lastNonResettable = $lastClosedRegister ? $lastClosedRegister->non_resetable : 0;
         $totalToDistribute = $fields['non_resetable'];
         $netTotal = $totalToDistribute - $fields['tax_from_the_tape'];
         $netCash = $netTotal - $fields['net_o_v'] - $fields['net_charge'] - $fields['net_voucher'];
@@ -46,7 +47,7 @@ class RegisterCloseoutCalculation
         return [
             'fields'     => [
                 'net_total'               => $netTotal,
-                'last_non_resettable'     => $lastClosedRegister ? $lastClosedRegister->non_resetable : 0,
+                'last_non_resettable'     => $lastNonResettable,
                 'total_to_distribute'     => $totalToDistribute,
                 'net_cash'                => $netCash,
                 'cash_tax'                => $cashTax,
