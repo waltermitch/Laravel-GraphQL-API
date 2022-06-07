@@ -247,7 +247,7 @@ input CreateUnitInput {
 
 input UpdateUnitInput @validator {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "Unique code."
     code: String
@@ -465,14 +465,14 @@ extend type Mutation {
     ): Unit 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing unit."
     deleteUnit(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): Unit 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }
