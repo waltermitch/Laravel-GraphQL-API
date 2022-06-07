@@ -21,7 +21,16 @@ class Expense extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'expense_type_id', 'gl_account_id', 'expense_date', 'amount', 'comments', 'vendor_id', 'period_end', 'unit_id', 'user_id'
+        'expense_type_id', 
+        'gl_account_id', 
+        'expense_date', 
+        'amount', 
+        'comments', 
+        'vendor_id', 
+        'period_end', 
+        'unit_id', 
+        'user_id',
+        'reversal_of_expense_id'
     ];
 
     /**

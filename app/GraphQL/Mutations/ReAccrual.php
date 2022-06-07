@@ -25,6 +25,15 @@ class ReAccrual
     {
         $user = $this::authenticatedUser();
 
+        $reAccrualAlreadyExists = $user->expenses()
+            ->where('period_id', $user->activePeriod()?->id)
+            ->where('reversal_of_expense_id', $args['id'])
+            ->exists();
+
+        if ($reAccrualAlreadyExists) {
+            return false;
+        }
+
         $previousPeriod = $user->activePeriod()?->previous();
 
         $expense = $user->expenses()
@@ -41,8 +50,14 @@ class ReAccrual
             ['gl_account_id', 'expense_date', 'amount', 'comments', 'vendor_id', 'user_id']
         );
 
-        Expense::create(array_merge($expenseData, ['expense_type_id' => ExpenseType::expenseType('ReAccrual')?->id]));
-        Expense::create(array_merge($expenseData, ['expense_type_id' => ExpenseType::expenseType('Reversal')?->id]));
+        Expense::create(array_merge($expenseData, [
+            'expense_type_id' => ExpenseType::expenseType('ReAccrual')?->id,
+            'reversal_of_expense_id' => $expense->id
+        ]));
+        Expense::create(array_merge($expenseData, [
+            'expense_type_id' => ExpenseType::expenseType('Reversal')?->id,
+            'reversal_of_expense_id' => $expense->id
+        ]));
         
         return true;
     }
