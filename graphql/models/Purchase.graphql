@@ -80,6 +80,7 @@ extend type Query {
         activePeriod: Boolean @scope
     ): [Purchase!]! 
         @all
+        @guard
         @whereAuth(relation: "user")
 }
 

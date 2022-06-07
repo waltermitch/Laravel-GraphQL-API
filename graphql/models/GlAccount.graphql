@@ -61,7 +61,9 @@ input ConnectBelongsToParentGlAccount @validator {
 
 extend type Query {
     "List multiple gl accounts."
-    glAccounts: [GlAccount!]! @all
+    glAccounts: [GlAccount!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -69,17 +71,26 @@ extend type Mutation {
     createGlAccount(
         "Gl Account."
         GlAccountInput: CreateGlAccountInput! @spread
-    ): GlAccount @create
+    ): GlAccount 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing Gl Account."
     updateGlAccount(
         "Gl Account."
         GlAccountInput: UpdateGlAccountInput! @spread
-    ): GlAccount @update
+    ): GlAccount 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing Gl Account."
     deleteGlAccount(
         "Id."
         id: ID!
-    ): GlAccount @delete
+    ): GlAccount 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

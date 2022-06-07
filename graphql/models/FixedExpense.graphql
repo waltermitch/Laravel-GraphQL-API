@@ -62,7 +62,9 @@ input ConnectBelongsToGlAccount {
 
 extend type Query {
     "List multiple fixed expenses."
-    fixedExpenses: [FixedExpense!]! @all
+    fixedExpenses: [FixedExpense!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -70,17 +72,26 @@ extend type Mutation {
     createFixedExpense(
         "Fixed expense."
         fixedExpenseInput: CreateFixedExpenseInput! @spread
-    ): FixedExpense @create
+    ): FixedExpense 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing fixed expense."
     updateFixedExpense(
         "Fixed expense."
         fixedExpenseInput: UpdateFixedExpenseInput! @spread
-    ): FixedExpense @update
+    ): FixedExpense 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing fixed expense."
     deleteFixedExpense(
         "Id."
         id: ID!
-    ): FixedExpense @delete
+    ): FixedExpense 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

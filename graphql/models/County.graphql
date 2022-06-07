@@ -50,7 +50,9 @@ input ConnectBelongsToState {
 
 extend type Query {
     "List multiple counties."
-    counties: [County!]! @all
+    counties: [County!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -58,17 +60,26 @@ extend type Mutation {
     createCounty(
         "County input."
         countyInput: CreateCountyInput! @spread
-    ): County @create
+    ): County 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing county."
     updateCounty(
         "County input."
         countyInput: UpdateCountyInput! @spread
-    ): County @update
+    ): County 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing county."
     deleteCounty(
         "Id."
         id: ID!
-    ): County @delete
+    ): County 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

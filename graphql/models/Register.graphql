@@ -109,7 +109,9 @@ input ConnectBelongsToUnit {
 
 extend type Query {
     "List multiple registers."
-    registers: [Register!]! @all
+    registers: [Register!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -117,17 +119,26 @@ extend type Mutation {
     createRegister(
         "Register input."
         registerInput: CreateRegisterInput! @spread
-    ): Register @create
+    ): Register 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing register."
     updateRegister(
         "Register input."
         registerInput: UpdateRegisterInput! @spread
-    ): Register @update
+    ): Register 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing register."
     deleteRegister(
         "Id."
         id: ID!
-    ): Register @delete
+    ): Register 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

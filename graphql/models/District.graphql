@@ -8,9 +8,6 @@ type District {
     "Name."
     name: String!
 
-    "Tax."
-    tax: Float
-
     "When the district was created."
     createdAt: DateTime! @rename(attribute: "created_at")
 
@@ -24,9 +21,6 @@ input CreateDistrictInput {
 
     "Name."
     code: String! @rules(apply: ["required"])
-
-    "Tax."
-    tax: Float @rules(apply: ["between:0,99.99"])
 }
 
 input UpdateDistrictInput {
@@ -38,14 +32,13 @@ input UpdateDistrictInput {
 
     "Name."
     name: String @rules(apply: ["filled"])
-
-    "Tax."
-    tax: Float @rules(apply: ["between:0,99.99"])
 }
 
 extend type Query {
     "List multiple districts."
-    districts: [District!]! @all
+    districts: [District!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -53,17 +46,26 @@ extend type Mutation {
     createDistrict(
         "District input."
         districtInput: CreateDistrictInput! @spread
-    ): District @create
+    ): District 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing district."
     updateDistrict(
         "District input."
         districtInput: UpdateDistrictInput! @spread
-    ): District @update
+    ): District 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing district."
     deleteDistrict(
         "Id."
         id: ID!
-    ): District @delete
+    ): District 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

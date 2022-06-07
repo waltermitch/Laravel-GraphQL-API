@@ -191,6 +191,7 @@ extend type Query {
         activePeriod: Boolean @scope
     ): [CateringOrder!]! 
         @all
+        @guard
         @whereAuth(relation: "user")
 }
 

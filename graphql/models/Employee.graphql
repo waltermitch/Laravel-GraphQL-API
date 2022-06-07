@@ -127,7 +127,9 @@ input CreateUnitBelongsToMany {
 
 extend type Query {
     "List multiple employees."
-    employees: [Employee!]! @all
+    employees: [Employee!]!
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -135,17 +137,26 @@ extend type Mutation {
     createEmployee(
         "Employee Input."
         employeeInput: CreateEmployeeInput! @spread
-    ): Employee @create
+    ): Employee 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing employee."
     updateEmployee(
         "Employee input."
         employeeInput: UpdateEmployeeInput! @spread
-    ): Employee @update
+    ): Employee 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing employee."
     deleteEmployee(
         "Id."
         id: ID!
-    ): Employee @delete
+    ): Employee 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

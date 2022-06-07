@@ -8,6 +8,7 @@ use App\Models\Inventory;
 use App\Models\InventoryCategory;
 use App\Traits\Auth\ManagesAuth;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Facades\Gate;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class UpdateInventories
@@ -21,6 +22,8 @@ class UpdateInventories
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {   
+        Gate::allowIf(fn ($user) => !$user->isAdministrator());
+
         $user = static::authenticatedUser();
 
         $selectedUnit = $user->selectedUnit();

@@ -57,7 +57,9 @@ input UpdateRegisterTypeInput {
 
 extend type Query {
     "List multiple register types."
-    registerTypes: [RegisterType!]! @all
+    registerTypes: [RegisterType!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -65,17 +67,26 @@ extend type Mutation {
     createRegisterType(
         "Register type input."
         registerTypeInput: CreateRegisterTypeInput! @spread
-    ): RegisterType @create
+    ): RegisterType 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing register type."
     updateRegisterType(
         "Register type input."
         registerTypeInput: UpdateRegisterTypeInput! @spread
-    ): RegisterType @update
+    ): RegisterType 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing register type."
     deleteRegisterType(
         "Id."
         id: ID!
-    ): RegisterType @delete
+    ): RegisterType 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

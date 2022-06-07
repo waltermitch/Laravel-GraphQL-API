@@ -36,7 +36,9 @@ input UpdateGlTypeCodeInput {
 
 extend type Query {
     "List multiple gl type codes."
-    glTypeCodes: [GlTypeCode!]! @all
+    glTypeCodes: [GlTypeCode!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -44,17 +46,26 @@ extend type Mutation {
     createGlTypeCode(
         "Gl type code."
         GlTypeCodeInput: CreateGlTypeCodeInput! @spread
-    ): GlTypeCode @create
+    ): GlTypeCode 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing Gl type code."
     updateGlTypeCode(
         "Gl type code."
         GlTypeCodeInput: UpdateGlTypeCodeInput! @spread
-    ): GlTypeCode @update
+    ): GlTypeCode 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing Gl type code."
     deleteGlTypeCode(
         "Id."
         id: ID!
-    ): GlTypeCode @delete
+    ): GlTypeCode 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

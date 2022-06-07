@@ -36,7 +36,10 @@ input UpdateTermInput {
 
 extend type Query {
     "List multiple terms."
-    terms: [Term!]! @all
+    terms: [Term!]! 
+        @all
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {
@@ -44,17 +47,26 @@ extend type Mutation {
     createTerm(
         "Term input."
         termInput: CreateTermInput! @spread
-    ): Term @create
+    ): Term 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing term."
     updateTerm(
         "Term input."
         termInput: UpdateTermInput! @spread
-    ): Term @update
+    ): Term 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing term."
     deleteTerm(
         "Id."
         id: ID!
-    ): Term @delete
+    ): Term 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

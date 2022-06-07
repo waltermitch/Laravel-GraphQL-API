@@ -31,7 +31,7 @@ class UnitPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return $user->isAdministrator();
     }
 
     /**
@@ -43,7 +43,7 @@ class UnitPolicy
      */
     public function view(User $user, Unit $unit)
     {
-        //
+        return $user->isAdministrator();
     }
 
     /**
@@ -54,7 +54,7 @@ class UnitPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdministrator();
     }
 
     /**
@@ -66,7 +66,7 @@ class UnitPolicy
      */
     public function update(User $user, Unit $unit)
     {
-        //
+        return $user->isAdministrator();
     }
 
     /**
@@ -78,7 +78,7 @@ class UnitPolicy
      */
     public function delete(User $user, Unit $unit)
     {
-        //
+        return $user->isAdministrator();
     }
 
     /**

@@ -32,5 +32,8 @@ type PeriodUnitPivot {
 extend type Query {
     periods(
         hasUnits: Boolean @scope
-    ): [Period!]! @all @orderBy(column: "period_end", direction: DESC)
+    ): [Period!]! 
+        @all
+        @guard
+        @orderBy(column: "period_end", direction: DESC)
 }

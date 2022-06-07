@@ -49,7 +49,9 @@ input ConnectBelongsToTerm {
 
 extend type Query {
     "List multiple vendors."
-    vendors: [Vendor!]! @all
+    vendors: [Vendor!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -57,17 +59,26 @@ extend type Mutation {
     createVendor(
         "Vendor input."
         vendorInput: CreateVendorInput! @spread
-    ): Vendor @create
+    ): Vendor 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing vendor."
     updateVendor(
         "Vendor input."
         vendorInput: UpdateVendorInput! @spread
-    ): Vendor @update
+    ): Vendor 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing vendor."
     deleteVendor(
         "Id."
         id: ID!
-    ): Vendor @delete
+    ): Vendor 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

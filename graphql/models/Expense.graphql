@@ -127,7 +127,7 @@ extend type Mutation {
     "Delete an existing expense."
     deleteExpense(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): Expense 
         @delete
         @guard

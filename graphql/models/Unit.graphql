@@ -436,10 +436,16 @@ extend type Query {
     unit(
         "Search by primary key."
         id: ID! @eq
-    ): Unit @find
+    ): Unit 
+        @find
+        @guard
+        @can(ability: "view")
 
     "List multiple units."
-    units: [Unit!]! @all
+    units: [Unit!]! 
+        @all
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {
@@ -447,17 +453,26 @@ extend type Mutation {
     createUnit(
         "Unit input."
         unitInput: CreateUnitInput! @spread
-    ): Unit @create
+    ): Unit 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing unit."
     updateUnit(
         "Unit input."
         unitInput: UpdateUnitInput! @spread
-    ): Unit @update
+    ): Unit 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing unit."
     deleteUnit(
         "Id."
         id: ID!
-    ): Unit @delete
+    ): Unit 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

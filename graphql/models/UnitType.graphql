@@ -30,7 +30,10 @@ input UpdateUnitTypeInput {
 
 extend type Query {
     "List multiple unit types."
-    unitTypes: [UnitType!]! @all
+    unitTypes: [UnitType!]! 
+        @all 
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {
@@ -38,17 +41,26 @@ extend type Mutation {
     createUnitType(
         "Unit type."
         unitTypeInput: CreateUnitTypeInput! @spread
-    ): UnitType @create
+    ): UnitType 
+        @create 
+        @guard
+        @can(ability: "create")
 
     "Update an existing unit type."
     updateUnitType(
         "Unit type."
         unitTypeInput: UpdateUnitTypeInput! @spread
-    ): UnitType @update
+    ): UnitType 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing unit type."
     deleteUnitType(
         "Id."
         id: ID!
-    ): UnitType @delete
+    ): UnitType 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

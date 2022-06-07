@@ -78,7 +78,9 @@ input UpdateStateInput {
 
 extend type Query {
     "List multiple states."
-    states: [State!]! @all
+    states: [State!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -86,17 +88,26 @@ extend type Mutation {
     createState(
         "State input."
         stateInput: CreateStateInput! @spread
-    ): State @create
+    ): State 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing state."
     updateState(
         "State input."
         stateInput: UpdateStateInput! @spread
-    ): State @update
+    ): State 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing state."
     deleteState(
         "Id."
         id: ID!
-    ): State @delete
+    ): State 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

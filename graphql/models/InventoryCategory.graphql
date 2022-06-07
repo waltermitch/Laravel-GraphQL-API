@@ -61,7 +61,9 @@ input ConnectBelongsToGlAccount {
 
 extend type Query {
     "List multiple inventory categories."
-    inventoryCategories: [InventoryCategory!]! @all
+    inventoryCategories: [InventoryCategory!]! 
+        @all
+        @guard
 }
 
 extend type Mutation {
@@ -69,17 +71,26 @@ extend type Mutation {
     createInventoryCategory(
         "Inventory category input."
         inventoryCategoryInput: CreateInventoryCategoryInput! @spread
-    ): InventoryCategory @create
+    ): InventoryCategory 
+        @create
+        @guard
+        @can(ability: "create")
 
     "Update an existing inventoryCategory."
     updateInventoryCategory(
         "Inventory category input."
         inventoryCategoryInput: UpdateInventoryCategoryInput! @spread
-    ): InventoryCategory @update
+    ): InventoryCategory 
+        @update
+        @guard
+        @can(ability: "update")
 
     "Delete an existing inventory category."
     deleteInventoryCategory(
         "Id."
         id: ID!
-    ): InventoryCategory @delete
+    ): InventoryCategory 
+        @delete
+        @guard
+        @can(ability: "delete")
 }

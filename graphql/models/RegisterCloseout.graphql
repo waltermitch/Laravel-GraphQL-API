@@ -298,6 +298,7 @@ extend type Query {
         activePeriod: Boolean @scope
     ): [RegisterCloseout!]! 
         @all
+        @guard
         @whereAuth(relation: "user")
 }
 
