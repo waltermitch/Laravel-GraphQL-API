@@ -130,7 +130,7 @@ extend type Mutation {
     registerCloseoutCalculation(
         "Close register calculation."
         registerCloseoutCalculationInput: registerCloseoutCalculationInput! @spread
-    ): registerCloseoutCalculationResponse
+    ): registerCloseoutCalculationResponse @guard
 }
 
 input ExportDataInput {
@@ -174,17 +174,17 @@ extend type Mutation {
     exportData(
         "Export data input."
         input: ExportDataInput! @spread 
-    ): String!
+    ): String! @guard
 
     "Multi unit labor."
     multiUnitLabor(
         "Multi unit labor input."
         input: MultiUnitLaborInput! @spread
-    ): String!
+    ): String! @guard
 
     "Operating report."
     operatingReport(
         "Operating report input."
         input: OperatingReportInput! @spread
-    ): String!
+    ): String! @guard
 }

@@ -25,7 +25,7 @@ input CreateGlTypeCodeInput {
 
 input UpdateGlTypeCodeInput {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "Code."
     code: String @rules(apply: ["filled"])
@@ -58,14 +58,14 @@ extend type Mutation {
     ): GlTypeCode 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing Gl type code."
     deleteGlTypeCode(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): GlTypeCode 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }

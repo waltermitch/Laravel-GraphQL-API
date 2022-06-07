@@ -37,7 +37,7 @@ input CreateGlAccountInput {
 
 input UpdateGlAccountInput {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "Name."
     name: String @rules(apply: ["filled"])
@@ -83,14 +83,14 @@ extend type Mutation {
     ): GlAccount 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing Gl Account."
     deleteGlAccount(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): GlAccount 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }

@@ -25,7 +25,7 @@ input CreateDistrictInput {
 
 input UpdateDistrictInput {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "Name."
     code: String @rules(apply: ["filled"])
@@ -58,14 +58,14 @@ extend type Mutation {
     ): District 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing district."
     deleteDistrict(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): District 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }

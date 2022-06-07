@@ -79,7 +79,7 @@ input CreateEmployeeInput {
 
 input UpdateEmployeeInput {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "First name."
     firstName: String @rename(attribute: "first_name") @rules(apply: ["filled"])
@@ -149,14 +149,14 @@ extend type Mutation {
     ): Employee 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing employee."
     deleteEmployee(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): Employee 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }

@@ -217,7 +217,7 @@ extend type Mutation {
     "Delete an existing catering order."
     deleteCateringOrder(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): CateringOrder
         @delete
         @guard

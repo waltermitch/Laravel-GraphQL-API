@@ -59,7 +59,7 @@ input CreateUserInput {
 
 input UpdateUserInput @validator {
     "Unique primary key."
-    id: ID!
+    id: ID! @eq
     
     "Non-unique first name."
     firstName: String @rename(attribute: "first_name")
@@ -150,11 +150,11 @@ extend type Mutation {
     updateUser(
         "User."
         userInput: UpdateUserInput! @spread
-    ): UpdateUserResponse! @guard @can(ability: "update", model: "User")
+    ): UpdateUserResponse! @guard @can(ability: "update", model: "User", query: true)
     
     "Delete an existing user."
     deleteUser(
         "Id."
-        id: ID!
-    ): User @delete @guard @can(ability: "delete", model: "User")
+        id: ID! @eq
+    ): User @delete @guard @can(ability: "delete", model: "User", query: true)
 }

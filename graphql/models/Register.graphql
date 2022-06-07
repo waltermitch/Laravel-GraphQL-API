@@ -67,7 +67,7 @@ input CreateRegisterInput {
 
 input UpdateRegisterInput @validator {
     "Unique primary key."
-    id: ID!
+    id: ID! @eq
 
     "Code."
     code: String
@@ -131,14 +131,14 @@ extend type Mutation {
     ): Register 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing register."
     deleteRegister(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): Register 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }

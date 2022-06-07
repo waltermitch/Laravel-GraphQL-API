@@ -40,7 +40,7 @@ input CreateFixedExpenseInput {
 
 input UpdateFixedExpenseInput {
     "Unique primary key."
-    id: ID!
+    id: ID! @eq
     
     "Comments"
     comments: String @rules(apply: ["filled"])
@@ -84,14 +84,14 @@ extend type Mutation {
     ): FixedExpense 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing fixed expense."
     deleteFixedExpense(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): FixedExpense 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }

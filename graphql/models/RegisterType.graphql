@@ -40,7 +40,7 @@ input CreateRegisterTypeInput {
 
 input UpdateRegisterTypeInput {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "Name."
     name: String @rules(apply: ["filled"])
@@ -79,14 +79,14 @@ extend type Mutation {
     ): RegisterType 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing register type."
     deleteRegisterType(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): RegisterType 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }

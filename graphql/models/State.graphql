@@ -55,7 +55,7 @@ input CreateStateInput {
 
 input UpdateStateInput {
     "Id."
-    id: ID!
+    id: ID! @eq
 
     "Code."
     code: String @rules(apply: ["filled"])
@@ -100,14 +100,14 @@ extend type Mutation {
     ): State 
         @update
         @guard
-        @can(ability: "update")
+        @can(ability: "update", query: true)
 
     "Delete an existing state."
     deleteState(
         "Id."
-        id: ID!
+        id: ID! @eq
     ): State 
         @delete
         @guard
-        @can(ability: "delete")
+        @can(ability: "delete", query: true)
 }
