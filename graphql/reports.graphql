@@ -1,4 +1,7 @@
 input registerCloseoutCalculationInput {
+    "Register id."
+    registerId: ID! @rename(attribute: "register_id")
+
     "Unit id"
     unitId: Float! @rename(attribute: "unit_id")
     
@@ -10,9 +13,6 @@ input registerCloseoutCalculationInput {
 }
 
 input registerCloseoutCalculationFieldsRequest {
-    "Register id."
-    registerId: ID! @rename(attribute: "register_id")
-
     "Non resetable"
     nonResetable: Float! @rename(attribute: "non_resetable")
     
