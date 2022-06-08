@@ -77,7 +77,6 @@ extend type Query {
     terms: [Term!]! 
         @all
         @guard
-        @can(ability: "viewAny")
 }
 
 extend type Mutation {
