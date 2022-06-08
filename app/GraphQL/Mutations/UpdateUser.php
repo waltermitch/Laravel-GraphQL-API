@@ -31,8 +31,8 @@ class UpdateUser
             
             $user->fill($args)->save();
             
-            if (!$user->is_admin && !empty($args['units']['sync'])) {
-                $user->units()->sync($args['units']['sync']);
+            if (!$user->is_admin) {
+                $user->units()->sync($args['units']['sync'] ?? []);
             } elseif ($user->is_admin && !$wasAdmin) {
                 $user->units()->detach();
             }
