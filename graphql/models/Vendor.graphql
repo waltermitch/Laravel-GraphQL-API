@@ -9,7 +9,7 @@ type Vendor {
     name: String!
 
     "The term that owns the vendor."
-    term: Term
+    terms: [Term!]!
 
     "When the vendor was created."
     createdAt: DateTime! @rename(attribute: "created_at")
@@ -25,8 +25,8 @@ input CreateVendorInput {
     "Name."
     name: String! @rules(apply: ["required"])
 
-    "Term."
-    term: ConnectBelongsToTerm!
+    "Terms."
+    terms: CreateTermBelongsToMany
 }
 
 input UpdateVendorInput {
@@ -34,17 +34,24 @@ input UpdateVendorInput {
     id: ID! @eq
 
     "Code."
-    code: String! @rules(apply: ["filled"])
+    code: String @rules(apply: ["filled"])
 
     "Name."
-    name: String! @rules(apply: ["filled"])
+    name: String @rules(apply: ["filled"])
 
-    "Term."
-    term: ConnectBelongsToTerm @rules(apply: ["filled"])
+    "Terms."
+    terms: CreateTermBelongsToMany
 }
 
-input ConnectBelongsToTerm {
-    connect: ID! @rules(apply: ["required", "exists:terms,id"])
+input CreateTermBelongsToMany {
+    "Sync existing id's."
+    sync: [ID!] @rules(apply: ["exists:terms,id"])
+
+    "Sync existing id's without detaching."
+    syncWithoutDetaching: [ID!] @rules(apply: ["exists:terms,id"])
+
+    "Disconnect existing id's."
+    disconnect: [ID!] @rules(apply: ["exists:terms,id"])
 }
 
 extend type Query {

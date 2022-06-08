@@ -18,9 +18,7 @@ class TermPolicy
      */
     public function viewAny(User $user)
     {
-        if ($user->isAdministrator()) {
-            return true;
-        }
+        
     }
 
     /**
@@ -43,7 +41,7 @@ class TermPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isAdministrator();
     }
 
     /**
@@ -55,7 +53,7 @@ class TermPolicy
      */
     public function update(User $user, Term $term)
     {
-        //
+        return $user->isAdministrator();
     }
 
     /**
@@ -67,7 +65,7 @@ class TermPolicy
      */
     public function delete(User $user, Term $term)
     {
-        //
+        return $user->isAdministrator();
     }
 
     /**

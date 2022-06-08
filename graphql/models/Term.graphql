@@ -5,6 +5,15 @@ type Term {
     "Name."
     name: String!
 
+    "Disc percent."
+    discPercent: Float! @rename(attribute: "disc_percent")
+
+    "Disc days."
+    discDays: Int! @rename(attribute: "disc_days")
+
+    "Vendors."
+    vendors: [Vendor!]!
+
     "Name."
     dueDays: String! @rename(attribute: "due_days")
 
@@ -19,6 +28,15 @@ input CreateTermInput {
     "Name."
     name: String! @rules(apply: ["required"])
 
+    "Disc percent."
+    discPercent: Float! @rename(attribute: "disc_percent") @rules(apply: ["required"])
+
+    "Disc days."
+    discDays: Int! @rename(attribute: "disc_days") @rules(apply: ["required"])
+
+    "Vendors."
+    vendors: CreateVendorBelongsToMany
+
     "Name."
     dueDays: String! @rules(apply: ["required"]) @rename(attribute: "due_days")
 }
@@ -30,8 +48,28 @@ input UpdateTermInput {
     "Name."
     name: String @rules(apply: ["filled"])
 
+    "Disc percent."
+    discPercent: Float @rename(attribute: "disc_percent") @rules(apply: ["filled"])
+
+    "Disc days."
+    discDays: Int @rename(attribute: "disc_days") @rules(apply: ["filled"])
+
+    "Vendors."
+    vendors: CreateVendorBelongsToMany
+
     "Name."
     dueDays: String @rules(apply: ["filled"]) @rename(attribute: "due_days")
+}
+
+input CreateVendorBelongsToMany {
+    "Sync existing id's."
+    sync: [ID!] @rules(apply: ["exists:vendors,id"])
+
+    "Sync existing id's without detaching."
+    syncWithoutDetaching: [ID!] @rules(apply: ["vendors:terms,id"])
+
+    "Disconnect existing id's."
+    disconnect: [ID!] @rules(apply: ["vendors:terms,id"])
 }
 
 extend type Query {

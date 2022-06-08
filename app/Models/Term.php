@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Term extends Model
 {
@@ -38,10 +38,10 @@ class Term extends Model
     ];
 
     /**
-     * Get the vendors for the term.
+     * The vendors that belongs to the term.
      */
-    public function vendors(): HasMany
+    public function vendors(): BelongsToMany
     {
-        return $this->hasMany(Vendor::class);
+        return $this->belongsToMany(Vendor::class);
     }
 }
