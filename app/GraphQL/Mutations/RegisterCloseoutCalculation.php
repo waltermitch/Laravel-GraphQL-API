@@ -18,7 +18,7 @@ class RegisterCloseoutCalculation
     {
         $lastClosedRegister = \App\Models\RegisterCloseout::where('period_id', $args['period_id'])
             ->where('unit_id', $args['unit_id'])
-//            ->where('register_id', $args['register_id'])
+            ->where('register_id', $args['register_id'])
             ->orderBy('created_at', 'DESC')
             ->first();
 
