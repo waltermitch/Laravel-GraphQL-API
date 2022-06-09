@@ -24,7 +24,7 @@ class CloseWeek
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {   
-        Gate::allowIf(fn ($user) => !$user->isAdministrator());
+        Gate::allowIf(fn ($user) => !$user->isAdministrator() && $user->hasSelectedUnit());
 
         DB::beginTransaction();
 

@@ -87,6 +87,14 @@ class User extends Authenticatable implements HasApiTokensContract, CanResetPass
     }
 
     /**
+     * The selected unit.
+     */
+    public function hasSelectedUnit() 
+    {
+        return !empty($this->selectedUnit());
+    }
+
+    /**
      * The active period.
      */
     public function activePeriod() 
