@@ -23,16 +23,16 @@ type CateringOrderItem {
 
 input CreateCateringOrderItemInput {
     "Menut item."
-    menuItem: String! @rename(attribute: "menu_item") @rules(apply: ["required"])
+    menuItem: String! @rename(attribute: "menu_item") @rules(apply: ["required", "max:255"])
 
     "Quantity."
     quantity: Int!
 
     "Price."
-    price: Float!
+    price: Float! @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Ext."
-    ext: Float!
+    ext: Float! @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 }
 
 input UpdateCateringOrderItemInput {
@@ -40,14 +40,14 @@ input UpdateCateringOrderItemInput {
     id: ID!
 
     "Menut item."
-    menuItem: String @rename(attribute: "menu_item") @rules(apply: ["filled"])
+    menuItem: String @rename(attribute: "menu_item") @rules(apply: ["filled", "max:255"])
 
     "Quantity."
     quantity: Int
 
     "Price."
-    price: Float
+    price: Float @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Ext."
-    ext: Float
+    ext: Float @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 }

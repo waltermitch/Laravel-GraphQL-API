@@ -15,16 +15,15 @@ class UpdateUserInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'first_name' => ['filled'],
-            'last_name' => ['filled'],
+            'first_name' => ['filled', 'max:255'],
+            'last_name' => ['filled', 'max:255'],
             'email' => [
                 'filled',
+                'max:255',
                 'email',
                 Rule::unique('users', 'email')->ignore($this->arg('id'))
             ],
             'password' =>['filled'],
-            'is_admin' =>['filled'],
-            'is_active' =>['filled']
         ];
     }
 }

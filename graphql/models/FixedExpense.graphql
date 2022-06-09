@@ -26,13 +26,13 @@ type FixedExpense {
 
 input CreateFixedExpenseInput {
     "Comments"
-    comments: String! @rules(apply: ["required"])
+    comments: String! @rules(apply: ["required", "max:255"])
 
     "Gl account"
     glAccount: ConnectBelongsToGlAccount! @rules(apply: ["required"])
     
     "Amount"
-    amount: String! @rules(apply: ["required"])
+    amount: String! @rules(apply: ["required", "max:255"])
     
     "Monthly"
     monthly: Boolean! @rules(apply: ["required"])
@@ -43,13 +43,13 @@ input UpdateFixedExpenseInput {
     id: ID! @eq
     
     "Comments"
-    comments: String @rules(apply: ["filled"])
+    comments: String @rules(apply: ["filled", "max:255"])
 
     "Gl account"
     glAccount: ConnectBelongsToGlAccount
     
     "Amount"
-    amount: String @rules(apply: ["filled"])
+    amount: String @rules(apply: ["filled", "max:255"])
     
     "Monthly"
     monthly: Boolean @rules(apply: ["filled"])

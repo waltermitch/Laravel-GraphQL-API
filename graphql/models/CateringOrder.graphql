@@ -71,7 +71,7 @@ type CateringOrder {
 
 input CreateCateringOrderInput {
     "Description."
-    description: String! @rules(apply: ["required"])
+    description: String! @rules(apply: ["required", "max:255"])
 
     "Delivery date."
     deliveryDate: DateTime! @rename(attribute: "delivery_date")
@@ -80,13 +80,13 @@ input CreateCateringOrderInput {
     headCount: Int! @rename(attribute: "head_count")
 
     "Phone number."
-    phoneNumber: String! @rename(attribute: "phone_number") @rules(apply: ["required"])
+    phoneNumber: String! @rename(attribute: "phone_number") @rules(apply: ["required", "max:255"])
 
     "Order by."
-    orderBy: String! @rename(attribute: "order_by") @rules(apply: ["required"])
+    orderBy: String! @rename(attribute: "order_by") @rules(apply: ["required", "max:255"])
 
     "Order for."
-    orderFor: String! @rename(attribute: "order_for") @rules(apply: ["required"])
+    orderFor: String! @rename(attribute: "order_for") @rules(apply: ["required", "max:255"])
 
     "Order date."
     orderDate: Date! @rename(attribute: "order_date")
@@ -95,28 +95,28 @@ input CreateCateringOrderInput {
     isTaxable: Boolean! @rename(attribute: "is_taxable")
 
     "Tax."
-    tax: Float!
+    tax: Float! @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Items."
     items: UpdateCateringItems
 
     "Shipt to name."
-    shipToName: String! @rename(attribute: "ship_to_name") @rules(apply: ["required"])
+    shipToName: String! @rename(attribute: "ship_to_name") @rules(apply: ["required", "max:255"])
 
     "Ship to address."
-    shipToAddress: String! @rename(attribute: "ship_to_address") @rules(apply: ["required"])
+    shipToAddress: String! @rename(attribute: "ship_to_address") @rules(apply: ["required", "max:255"])
 
     "Bill to name."
-    billToName: String! @rename(attribute: "bill_to_name") @rules(apply: ["required"])
+    billToName: String! @rename(attribute: "bill_to_name") @rules(apply: ["required", "max:255"])
 
     "Bill to address."
-    billToAddress: String! @rename(attribute: "bill_to_address") @rules(apply: ["required"])
+    billToAddress: String! @rename(attribute: "bill_to_address") @rules(apply: ["required", "max:255"])
 
     "Whether is cash order."
     isCashOrder: Boolean! @rename(attribute: "is_cash_order")
 
     "Charge number."
-    chargeNumber: String! @rename(attribute: "charge_number") @rules(apply: ["required"])
+    chargeNumber: String! @rename(attribute: "charge_number") @rules(apply: ["required", "max:255"])
 }
 
 input UpdateCateringOrderInput {
@@ -124,7 +124,7 @@ input UpdateCateringOrderInput {
     id: ID! @eq
 
     "Description."
-    description: String @rules(apply: ["filled"])
+    description: String @rules(apply: ["filled", "max:255"])
 
     "Delivery date."
     deliveryDate: DateTime @rename(attribute: "delivery_date")
@@ -133,13 +133,13 @@ input UpdateCateringOrderInput {
     headCount: Int @rename(attribute: "head_count")
 
     "Phone number."
-    phoneNumber: String @rename(attribute: "phone_number") @rules(apply: ["filled"])
+    phoneNumber: String @rename(attribute: "phone_number") @rules(apply: ["filled", "max:255"])
 
     "Order by."
-    orderBy: String @rename(attribute: "order_by") @rules(apply: ["filled"])
+    orderBy: String @rename(attribute: "order_by") @rules(apply: ["filled", "max:255"])
 
     "Order for."
-    orderFor: String @rename(attribute: "order_for") @rules(apply: ["filled"])
+    orderFor: String @rename(attribute: "order_for") @rules(apply: ["filled", "max:255"])
 
     "Order date."
     orderDate: Date @rename(attribute: "order_date")
@@ -148,28 +148,28 @@ input UpdateCateringOrderInput {
     isTaxable: Boolean @rename(attribute: "is_taxable")
 
     "Tax."
-    tax: Float
+    tax: Float @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Items."
     items: UpdateCateringItems
 
     "Shipt to name."
-    shipToName: String @rename(attribute: "ship_to_name") @rules(apply: ["filled"])
+    shipToName: String @rename(attribute: "ship_to_name") @rules(apply: ["filled", "max:255"])
 
     "Ship to address."
-    shipToAddress: String @rename(attribute: "ship_to_address") @rules(apply: ["filled"])
+    shipToAddress: String @rename(attribute: "ship_to_address") @rules(apply: ["filled", "max:255"])
 
     "Bill to name."
-    billToName: String @rename(attribute: "bill_to_name") @rules(apply: ["filled"])
+    billToName: String @rename(attribute: "bill_to_name") @rules(apply: ["filled", "max:255"])
 
     "Bill to address."
-    billToAddress: String @rename(attribute: "bill_to_address") @rules(apply: ["filled"])
+    billToAddress: String @rename(attribute: "bill_to_address") @rules(apply: ["filled", "max:255"])
 
     "Whether is cash order."
     isCashOrder: Boolean @rename(attribute: "is_cash_order")
 
     "Charge number."
-    chargeNumber: String @rename(attribute: "charge_number") @rules(apply: ["filled"])
+    chargeNumber: String @rename(attribute: "charge_number") @rules(apply: ["filled", "max:255"])
 }
 
 input ConnectBelongsToUnit {

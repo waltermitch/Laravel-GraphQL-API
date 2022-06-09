@@ -22,18 +22,10 @@ class UpdateUnitInputValidator extends Validator
 
         return [
             'code' => [
-                'filled', 
+                'filled',
+                'max:255',
                 Rule::unique('units', 'code')->ignore($updatingUnit),
-                'name' => ['filled'],
-                'is_active' => ['filled'],
-                'is_vending' => ['filled'],
-                'address' => ['filled'],
-                'zip' => ['filled'],
             ],
-            'name' => ['filled'],
-            'address' => ['filled'],
-            'zip' => ['filled'],
-            'email_account' => ['filled', 'email']
         ];
     }
 }

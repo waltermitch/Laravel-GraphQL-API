@@ -26,10 +26,10 @@ type Term {
 
 input CreateTermInput {
     "Name."
-    name: String! @rules(apply: ["required"])
+    name: String! @rules(apply: ["required", "max:255"])
 
     "Disc percent."
-    discPercent: Float! @rename(attribute: "disc_percent") @rules(apply: ["required"])
+    discPercent: Float! @rename(attribute: "disc_percent") @rules(apply: ["required", "regex:/^\\d{1,3}(\\.\\d{1,6})?$/"])
 
     "Disc days."
     discDays: Int! @rename(attribute: "disc_days") @rules(apply: ["required"])
@@ -38,7 +38,7 @@ input CreateTermInput {
     vendors: CreateVendorBelongsToMany
 
     "Name."
-    dueDays: String! @rules(apply: ["required"]) @rename(attribute: "due_days")
+    dueDays: String! @rules(apply: ["required", "max:255"]) @rename(attribute: "due_days")
 }
 
 input UpdateTermInput {
@@ -46,10 +46,10 @@ input UpdateTermInput {
     id: ID! @eq
 
     "Name."
-    name: String @rules(apply: ["filled"])
+    name: String @rules(apply: ["filled", "max:255"])
 
     "Disc percent."
-    discPercent: Float @rename(attribute: "disc_percent") @rules(apply: ["filled"])
+    discPercent: Float @rename(attribute: "disc_percent") @rules(apply: ["filled", "regex:/^\\d{1,3}(\\.\\d{1,6})?$/"])
 
     "Disc days."
     discDays: Int @rename(attribute: "disc_days") @rules(apply: ["filled"])
@@ -58,7 +58,7 @@ input UpdateTermInput {
     vendors: CreateVendorBelongsToMany
 
     "Name."
-    dueDays: String @rules(apply: ["filled"]) @rename(attribute: "due_days")
+    dueDays: String @rules(apply: ["filled", "max:255"]) @rename(attribute: "due_days")
 }
 
 input CreateVendorBelongsToMany {

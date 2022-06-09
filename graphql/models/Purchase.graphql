@@ -32,7 +32,7 @@ type Purchase {
 
 input CreatePurchaseInput {
     "Number."
-    number: String! @rules(apply: ["required"])
+    number: String! @rules(apply: ["required", "max:255"])
 
     "Date."
     date: Date!
@@ -49,7 +49,7 @@ input UpdatePurchaseInput {
     id: ID! @eq
 
     "Number."
-    number: String @rules(apply: ["filled"])
+    number: String @rules(apply: ["filled", "max:255"])
 
     "Date."
     date: Date

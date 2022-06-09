@@ -20,7 +20,7 @@ input CreateRegisterCloseoutItemInput {
     glAccountId: Int! @rename(attribute: "gl_account_id") @rules(apply: ["required"])
 
     "Amount."
-    amount: String! @rules(apply: ["required"])
+    amount: String! @rules(apply: ["required", "regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 }
 
 input UpdateRegisterCloseoutItemInput {
@@ -31,5 +31,5 @@ input UpdateRegisterCloseoutItemInput {
     glAccountId: Int! @rename(attribute: "gl_account_id") @rules(apply: ["filled"])
 
     "Amount."
-    amount: String! @rules(apply: ["filled"])
+    amount: String! @rules(apply: ["filled", "regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 }

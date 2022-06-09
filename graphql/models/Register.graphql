@@ -27,7 +27,7 @@ type Register {
     registerType: RegisterType
 
     "Unit."
-    unit: Unit
+    unit: Unit 
 
     "When the register was created."
     createdAt: DateTime! @rename(attribute: "created_at")
@@ -38,10 +38,10 @@ type Register {
 
 input CreateRegisterInput {
     "Code."
-    code: String! @rules(apply: ["required", "unique:registers,code"])
+    code: String! @rules(apply: ["required", "unique:registers,code", "max:255"])
 
     "Name."
-    name: String! @rules(apply: ["required"])
+    name: String! @rules(apply: ["required", "max:255"])
 
     "Whether the register is active."
     isActive: Boolean! @rename(attribute: "is_active")
@@ -50,13 +50,13 @@ input CreateRegisterInput {
     resetNonResetable: Boolean! @rename(attribute: "reset_non_resetable")
 
     "Bank."
-    bank: Float!
+    bank: Float! @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Non resetable."
-    nonResetable: Float! @rename(attribute: "non_resetable")
+    nonResetable: Float! @rename(attribute: "non_resetable") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Commission."
-    commission: Float!
+    commission: Float! @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Register type."
     registerType: ConnectBelongsToRegisterType!

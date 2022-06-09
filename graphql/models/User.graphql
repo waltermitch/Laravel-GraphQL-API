@@ -36,13 +36,13 @@ type User {
 
 input CreateUserInput {
     "Non-unique first name."
-    firstName: String! @rename(attribute: "first_name")
+    firstName: String! @rename(attribute: "first_name") @rules(apply: ["max:255"])
 
     "Non-unique last name."
-    lastName: String! @rename(attribute: "last_name")
+    lastName: String! @rename(attribute: "last_name") @rules(apply: ["max:255"])
 
     "Unique email address."
-    email: String! @rules(apply: ["unique:users,email", "email"])
+    email: String! @rules(apply: ["unique:users,email", "max:255", "email"])
 
     "Connect units that belongs to user."
     units: CreateOrUpdateUnitBelongsToMany

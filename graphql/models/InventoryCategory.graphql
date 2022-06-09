@@ -31,10 +31,10 @@ type InventoryAmount {
 
 input CreateInventoryCategoryInput {
     "Name."
-    name: String! @rules(apply: ["required"])
+    name: String! @rules(apply: ["required", "max:255"])
 
     "Vending."
-    vending: String! @rules(apply: ["required"])
+    vending: String! @rules(apply: ["required", "max:255"])
 
     "Gl Account."
     glAccount: ConnectBelongsToGlAccount!
@@ -45,10 +45,10 @@ input UpdateInventoryCategoryInput {
     id: ID! @eq
 
     "Name."
-    name: String @rules(apply: ["filled"])
+    name: String @rules(apply: ["filled", "max:255"])
 
     "Vending."
-    vending: String @rules(apply: ["filled"])
+    vending: String @rules(apply: ["filled", "max:255"])
 
     "Gl Account."
     glAccount: ConnectBelongsToGlAccount

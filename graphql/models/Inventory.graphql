@@ -17,7 +17,7 @@ input InventoryInput {
     id: ID! @rules(apply: ["required", "exists:inventory_categories,id"])
 
     "Amount."
-    amount: Float!
+    amount: Float! @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 }
 
 extend type Mutation {

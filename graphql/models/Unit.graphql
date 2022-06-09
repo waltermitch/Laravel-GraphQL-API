@@ -131,16 +131,16 @@ type Unit {
 
 input CreateUnitInput {
     "Unique code."
-    code: String! @rules(apply: ["required", "unique:units,code"])
+    code: String! @rules(apply: ["required", "unique:units,code", "max:255"])
 
     "Name."
-    name: String! @rules(apply: ["required"])
+    name: String! @rules(apply: ["required", "max:255"])
 
     "Address."
-    address: String! @rules(apply: ["required"])
+    address: String! @rules(apply: ["required", "max:255"])
 
     "Zip."
-    zip: String! @rules(apply: ["required"])
+    zip: String! @rules(apply: ["required", "max:255"])
 
     "Whether the unit is active."
     isActive: Boolean! @rename(attribute: "is_active")
@@ -173,67 +173,67 @@ input CreateUnitInput {
     city: ConnectBelongsToCity!
 
     "Payroll password."
-    payrollPassword: String @rename(attribute: "payroll_password")
+    payrollPassword: String @rename(attribute: "payroll_password") @rules(apply: ["max:255"])
 
     "Email account."
-    emailAccount: String @rename(attribute: "email_account") @rules(apply: ["filled", "email"])
+    emailAccount: String @rename(attribute: "email_account") @rules(apply: ["filled", "email", "max:255"])
 
     "Management percent."
-    managementPercent: Float @rename(attribute: "management_percent")
+    managementPercent: Float @rename(attribute: "management_percent") @rules(apply: ["between:0,100"])
 
     "Management amount."
-    managementAmount: Float @rename(attribute: "management_amount")
+    managementAmount: Float @rename(attribute: "management_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Management fee type."
     managementFeeType: FeeType @rename(attribute: "management_fee_type")
 
     "Administrative percent."
-    administrativePercent: Float @rename(attribute: "administrative_percent")
+    administrativePercent: Float @rename(attribute: "administrative_percent") @rules(apply: ["between:0,100"])
 
     "Administrative amount."
-    administrativeAmount: Float @rename(attribute: "administrative_amount")
+    administrativeAmount: Float @rename(attribute: "administrative_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Administrative fee type."
     administrativeFeeType: FeeType @rename(attribute: "administrative_fee_type")
 
     "Support percent."
-    supportPercent: Float @rename(attribute: "support_percent")
+    supportPercent: Float @rename(attribute: "support_percent") @rules(apply: ["between:0,100"])
 
     "Support amount."
-    supportAmount: Float @rename(attribute: "support_amount")
+    supportAmount: Float @rename(attribute: "support_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Support fee type."
     supportFeeType: FeeType @rename(attribute: "support_fee_type")
 
     "Payroll tax percent."
-    payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent")
+    payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent") @rules(apply: ["between:0,100"])
 
     "Benefits percent."
-    benefitsPercent: Float @rename(attribute: "benefits_percent")
+    benefitsPercent: Float @rename(attribute: "benefits_percent") @rules(apply: ["between:0,100"])
 
     "Benefits amount."
-    benefitsAmount: Float @rename(attribute: "benefits_amount")
+    benefitsAmount: Float @rename(attribute: "benefits_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Vacation amount."
-    vacationAmount: Float @rename(attribute: "vacation_amount")
+    vacationAmount: Float @rename(attribute: "vacation_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Business unsurance amount."
-    businessInsuranceAmount: Float @rename(attribute: "business_insurance_amount")
+    businessInsuranceAmount: Float @rename(attribute: "business_insurance_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Vending income."
-    vendingIncome: Float @rename(attribute: "vending_income")
+    vendingIncome: Float @rename(attribute: "vending_income") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Commission amount."
-    commissionAmount: Float @rename(attribute: "commission_amount")
+    commissionAmount: Float @rename(attribute: "commission_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Commission percent."
-    commissionPercent: Float @rename(attribute: "commission_percent")
+    commissionPercent: Float @rename(attribute: "commission_percent") @rules(apply: ["between:0,100"])
 
     "Manager first name."
-    managerFirstName: String @rename(attribute: "manager_first_name")
+    managerFirstName: String @rename(attribute: "manager_first_name") @rules(apply: ["max:255"])
 
     "Manager last name."
-    managerLastName: String @rename(attribute: "manager_last_name")
+    managerLastName: String @rename(attribute: "manager_last_name") @rules(apply: ["max:255"])
 
     "Population."
     population: Int
@@ -242,7 +242,7 @@ input CreateUnitInput {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Sysco."
-    sysco: String
+    sysco: String @rules(apply: ["max:255"])
 }
 
 input UpdateUnitInput @validator {
@@ -253,13 +253,13 @@ input UpdateUnitInput @validator {
     code: String
 
     "Name."
-    name: String
+    name: String @rules(apply: ["max:255"])
 
     "Address."
-    address: String
+    address: String @rules(apply: ["max:255"])
 
     "Zip."
-    zip: String
+    zip: String @rules(apply: ["max:255"])
 
     "Whether the unit is active."
     isActive: Boolean @rename(attribute: "is_active")
@@ -292,67 +292,67 @@ input UpdateUnitInput @validator {
     city: ConnectBelongsToCity
 
     "Payroll password."
-    payrollPassword: String @rename(attribute: "payroll_password")
+    payrollPassword: String @rename(attribute: "payroll_password") @rules(apply: ["max:255"])
 
     "Email account."
-    emailAccount: String @rename(attribute: "email_account")
+    emailAccount: String @rename(attribute: "email_account") @rules(apply: ["max:255"])
 
     "Management percent."
-    managementPercent: Float @rename(attribute: "management_percent")
+    managementPercent: Float @rename(attribute: "management_percent") @rules(apply: ["between:0,100"])
 
     "Management amount."
-    managementAmount: Float @rename(attribute: "management_amount")
+    managementAmount: Float @rename(attribute: "management_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Management fee type."
     managementFeeType: FeeType @rename(attribute: "management_fee_type")
 
     "Administrative percent."
-    administrativePercent: Float @rename(attribute: "administrative_percent")
+    administrativePercent: Float @rename(attribute: "administrative_percent") @rules(apply: ["between:0,100"])
 
     "Administrative amount."
-    administrativeAmount: Float @rename(attribute: "administrative_amount")
+    administrativeAmount: Float @rename(attribute: "administrative_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Administrative fee type."
     administrativeFeeType: FeeType @rename(attribute: "administrative_fee_type")
 
     "Support percent."
-    supportPercent: Float @rename(attribute: "support_percent")
+    supportPercent: Float @rename(attribute: "support_percent") @rules(apply: ["between:0,100"])
 
     "Support amount."
-    supportAmount: Float @rename(attribute: "support_amount")
+    supportAmount: Float @rename(attribute: "support_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Support fee type."
     supportFeeType: FeeType @rename(attribute: "support_fee_type")
 
     "Payroll tax percent."
-    payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent")
+    payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent") @rules(apply: ["between:0,100"])
 
     "Benefits percent."
-    benefitsPercent: Float @rename(attribute: "benefits_percent")
+    benefitsPercent: Float @rename(attribute: "benefits_percent") @rules(apply: ["between:0,100"])
 
     "Benefits amount."
-    benefitsAmount: Float @rename(attribute: "benefits_amount")
+    benefitsAmount: Float @rename(attribute: "benefits_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Vacation amount."
-    vacationAmount: Float @rename(attribute: "vacation_amount")
+    vacationAmount: Float @rename(attribute: "vacation_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Business unsurance amount."
-    businessInsuranceAmount: Float @rename(attribute: "business_insurance_amount")
+    businessInsuranceAmount: Float @rename(attribute: "business_insurance_amount")  @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Vending income."
-    vendingIncome: Float @rename(attribute: "vending_income")
+    vendingIncome: Float @rename(attribute: "vending_income") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Commission amount."
-    commissionAmount: Float @rename(attribute: "commission_amount")
+    commissionAmount: Float @rename(attribute: "commission_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Commission percent."
-    commissionPercent: Float @rename(attribute: "commission_percent")
+    commissionPercent: Float @rename(attribute: "commission_percent") @rules(apply: ["between:0,100"])
 
     "Manager first name."
-    managerFirstName: String @rename(attribute: "manager_first_name")
+    managerFirstName: String @rename(attribute: "manager_first_name") @rules(apply: ["max:255"])
 
     "Manager last name."
-    managerLastName: String @rename(attribute: "manager_last_name")
+    managerLastName: String @rename(attribute: "manager_last_name") @rules(apply: ["max:255"])
 
     "Population."
     population: Int
@@ -361,7 +361,7 @@ input UpdateUnitInput @validator {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Sysco."
-    sysco: String
+    sysco: String @rules(apply: ["max:255"])
 }
 
 input ConnectBelongsToUnitType {

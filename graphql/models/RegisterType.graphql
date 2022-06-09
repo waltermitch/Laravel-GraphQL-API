@@ -26,13 +26,13 @@ type RegisterType {
 
 input CreateRegisterTypeInput {
     "Name."
-    name: String! @rules(apply: ["required"])
+    name: String! @rules(apply: ["required", "max:255"])
 
     "Description."
-    description: String! @rules(apply: ["required"])
+    description: String! @rules(apply: ["required", "max:255"])
 
     "Tax type."
-    taxType: String! @rename(attribute: "tax_type") @rules(apply: ["required"])
+    taxType: String! @rename(attribute: "tax_type") @rules(apply: ["required", "max:255"])
 
     "Whether the register type is vending."
     isVending: Boolean! @rename(attribute: "is_vending")
@@ -43,13 +43,13 @@ input UpdateRegisterTypeInput {
     id: ID! @eq
 
     "Name."
-    name: String @rules(apply: ["filled"])
+    name: String @rules(apply: ["filled", "max:255"])
 
     "Description."
-    description: String @rules(apply: ["filled"])
+    description: String @rules(apply: ["filled", "max:255"])
 
     "Tax type."
-    taxType: String @rename(attribute: "tax_type") @rules(apply: ["filled"])
+    taxType: String @rename(attribute: "tax_type") @rules(apply: ["filled", "max:255"])
 
     "Whether the register type is vending."
     isVending: Boolean @rename(attribute: "is_vending") @rules(apply: ["filled"])

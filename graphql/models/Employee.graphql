@@ -44,25 +44,25 @@ type Employee {
 
 input CreateEmployeeInput {
     "First name."
-    firstName: String! @rename(attribute: "first_name") @rules(apply: ["required"])
+    firstName: String! @rename(attribute: "first_name") @rules(apply: ["required", "max:255"])
 
     "First name."
-    lastName: String! @rename(attribute: "last_name") @rules(apply: ["required"])
+    lastName: String! @rename(attribute: "last_name") @rules(apply: ["required", "max:255"])
 
     "The units that belongs to the employee."
     units: CreateUnitBelongsToMany!
 
     "Salary base."
-    salaryBase: Float! @rename(attribute: "salary_base")
+    salaryBase: Float! @rename(attribute: "salary_base") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Salary overtime."
-    salaryOvertime: Float! @rename(attribute: "salary_overtime")
+    salaryOvertime: Float! @rename(attribute: "salary_overtime") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "State tax code."
-    stateTaxCode: String! @rename(attribute: "state_tax_code") @rules(apply: ["required"])
+    stateTaxCode: String! @rename(attribute: "state_tax_code") @rules(apply: ["required", "max:255"])
 
     "Local tax code."
-    localTaxCode: String! @rename(attribute: "local_tax_code") @rules(apply: ["required"])
+    localTaxCode: String! @rename(attribute: "local_tax_code") @rules(apply: ["required", "max:255"])
 
     "Whether is hourly."
     isHourly: Boolean! @rename(attribute: "is_hourly")
@@ -82,24 +82,24 @@ input UpdateEmployeeInput {
     id: ID! @eq
 
     "First name."
-    firstName: String @rename(attribute: "first_name") @rules(apply: ["filled"])
+    firstName: String @rename(attribute: "first_name") @rules(apply: ["filled", "max:255"])
 
     "First name."
-    lastName: String @rename(attribute: "last_name") @rules(apply: ["filled"])
+    lastName: String @rename(attribute: "last_name") @rules(apply: ["filled", "max:255"])
 
     "The units that belongs to the employee."
     units: CreateUnitBelongsToMany
 
     "Salary base."
-    salaryBase: Float @rename(attribute: "salary_base")
+    salaryBase: Float @rename(attribute: "salary_base") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Salary overtime."
-    salaryOvertime: Float @rename(attribute: "salary_overtime")
+    salaryOvertime: Float @rename(attribute: "salary_overtime") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
     "State tax code."
-    stateTaxCode: String @rename(attribute: "state_tax_code") @rules(apply: ["filled"])
+    stateTaxCode: String @rename(attribute: "state_tax_code") @rules(apply: ["filled", "max:255"])
 
     "Local tax code."
-    localTaxCode: String @rename(attribute: "local_tax_code") @rules(apply: ["filled"])
+    localTaxCode: String @rename(attribute: "local_tax_code") @rules(apply: ["filled", "max:255"])
 
     "Whether is hourly."
     isHourly: Boolean @rename(attribute: "is_hourly")

@@ -21,14 +21,13 @@ class UpdateRegisterInputValidator extends Validator
         return [
             'code' => [
                 'filled',
+                'max:255',
                 Rule::unique('registers', 'code')->ignore($updatingUnit),
             ],
-            'name' => ['filled'],
-            'is_active' => ['filled'],
-            'reset_non_resetable' => ['filled'],
-            'bank' => ['filled'],
-            'nonResetable' => ['filled'],
-            'commission' => ['filled'],
+            'name' => ['filled', 'max:255'],
+            'bank' => ['filled' ,"regex:/^\d{1,6}(\.\d{1,2})?$/"],
+            'nonResetable' => ['filled' ,"regex:/^\d{1,6}(\.\d{1,2})?$/"],
+            'commission' => ['filled' ,"regex:/^\d{1,6}(\.\d{1,2})?$/"]
         ];
     }
 }

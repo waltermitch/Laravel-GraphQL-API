@@ -17,10 +17,10 @@ type District {
 
 input CreateDistrictInput {
     "Name."
-    name: String! @rules(apply: ["required"])
+    name: String! @rules(apply: ["required", "max:255"])
 
     "Name."
-    code: String! @rules(apply: ["required"])
+    code: String! @rules(apply: ["required", "max:255"])
 }
 
 input UpdateDistrictInput {
@@ -28,10 +28,10 @@ input UpdateDistrictInput {
     id: ID! @eq
 
     "Name."
-    code: String @rules(apply: ["filled"])
+    code: String @rules(apply: ["filled", "max:255"])
 
     "Name."
-    name: String @rules(apply: ["filled"])
+    name: String @rules(apply: ["filled", "max:255"])
 }
 
 extend type Query {

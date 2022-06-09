@@ -17,10 +17,10 @@ type GlTypeCode {
 
 input CreateGlTypeCodeInput {
     "Code."
-    code: String! @rules(apply: ["required"])
+    code: String! @rules(apply: ["required", "max:255"])
 
     "Description."
-    description: String! @rules(apply: ["required"])
+    description: String! @rules(apply: ["required", "max:255"])
 }
 
 input UpdateGlTypeCodeInput {
@@ -28,10 +28,10 @@ input UpdateGlTypeCodeInput {
     id: ID! @eq
 
     "Code."
-    code: String @rules(apply: ["filled"])
+    code: String @rules(apply: ["filled", "max:255"])
 
     "Description."
-    description: String @rules(apply: ["filled"])
+    description: String @rules(apply: ["filled", "max:255"])
 }
 
 extend type Query {
