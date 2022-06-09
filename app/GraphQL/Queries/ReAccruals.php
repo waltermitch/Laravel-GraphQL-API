@@ -8,6 +8,7 @@ use App\Models\Expense;
 use App\Traits\Auth\ManagesAuth;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ReAccruals
@@ -21,6 +22,8 @@ class ReAccruals
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {   
+        Gate::allowIf(fn ($user) => !$user->isAdministrator());
+
         $user = static::authenticatedUser();
 
         $previousPeriod = $user->activePeriod()?->previous();

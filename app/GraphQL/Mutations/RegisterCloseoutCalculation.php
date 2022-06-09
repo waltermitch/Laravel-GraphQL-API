@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Facades\Gate;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class RegisterCloseoutCalculation
@@ -15,7 +16,9 @@ class RegisterCloseoutCalculation
     }
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    {
+    {   
+        Gate::allowIf(fn ($user) => !$user->isAdministrator());
+
         $lastClosedRegister = \App\Models\RegisterCloseout::where('period_id', $args['period_id'])
             ->where('unit_id', $args['unit_id'])
             ->where('register_id', $args['register_id'])

@@ -10,6 +10,7 @@ use App\Traits\Auth\ManagesAuth;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Gate;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class ReAccrual
@@ -23,6 +24,8 @@ class ReAccrual
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        Gate::allowIf(fn ($user) => !$user->isAdministrator());
+
         $user = $this::authenticatedUser();
 
         $reAccrualAlreadyExists = $user->expenses()

@@ -7,6 +7,7 @@ namespace App\GraphQL\Mutations;
 use App\Models\Unit;
 use App\Traits\Auth\ManagesAuth;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Facades\Gate;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class OperatingReport
@@ -22,17 +23,13 @@ class OperatingReport
     {
         // TO-DO
 
-        // validate that unit is closed
+        // uncomment to add gate policy
+        // use policy logic here, cause we can't apply separate class to that (it's not a resource)
+        
+        // Gate::allowIf(fn ($user) => $user->isAdministrator());
 
-        // user -> location manager -> check if unit belongs to him
-
-        // user -> 
-
-        $user = static::authenticatedUser();
-
-        $unit = Unit::find($args['unit']);
-
-        $user->can('generateOperatingReport', [$unit, $args['type']]);
+        // retrieve user
+        // $user = static::authenticatedUser();
         
         return url('/');
     }
