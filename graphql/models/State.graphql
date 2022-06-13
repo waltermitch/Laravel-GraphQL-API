@@ -38,19 +38,19 @@ input CreateStateInput {
     code: String! @rules(apply: ["required"])
 
     "Sales Tax Cafeteria."
-    salesTaxCafeteria: Float! @rename(attribute: "sales_tax_cafeteria") @rules(apply: ["required", "between:0,100"])
+    salesTaxCafeteria: Float! @rename(attribute: "sales_tax_cafeteria") @rules(apply: ["required", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    salesTaxVending: Float! @rename(attribute: "sales_tax_vending") @rules(apply: ["required", "between:0,100"])
+    salesTaxVending: Float! @rename(attribute: "sales_tax_vending") @rules(apply: ["required", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    salesTaxRestaurant: Float! @rename(attribute: "sales_tax_restaurant") @rules(apply: ["required", "between:0,100"])
+    salesTaxRestaurant: Float! @rename(attribute: "sales_tax_restaurant") @rules(apply: ["required", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    salesTaxStore: Float! @rename(attribute: "sales_tax_store") @rules(apply: ["required", "between:0,100"])
+    salesTaxStore: Float! @rename(attribute: "sales_tax_store") @rules(apply: ["required", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    grossReceiptsTax: Float! @rename(attribute: "gross_receipts_tax") @rules(apply: ["required", "between:0,100"])
+    grossReceiptsTax: Float! @rename(attribute: "gross_receipts_tax") @rules(apply: ["required", "numeric", "between:0,100"])
 }
 
 input UpdateStateInput {
@@ -61,19 +61,19 @@ input UpdateStateInput {
     code: String @rules(apply: ["filled"])
 
     "Sales Tax Cafeteria."
-    salesTaxCafeteria: Float @rename(attribute: "sales_tax_cafeteria") @rules(apply: ["filled", "between:0,100"])
+    salesTaxCafeteria: Float @rename(attribute: "sales_tax_cafeteria") @rules(apply: ["filled", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    salesTaxVending: Float @rename(attribute: "sales_tax_vending") @rules(apply: ["filled", "between:0,100"])
+    salesTaxVending: Float @rename(attribute: "sales_tax_vending") @rules(apply: ["filled", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    salesTaxRestaurant: Float @rename(attribute: "sales_tax_restaurant") @rules(apply: ["filled", "between:0,100"])
+    salesTaxRestaurant: Float @rename(attribute: "sales_tax_restaurant") @rules(apply: ["filled", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    salesTaxStore: Float @rename(attribute: "sales_tax_store") @rules(apply: ["filled", "between:0,100"])
+    salesTaxStore: Float @rename(attribute: "sales_tax_store") @rules(apply: ["filled", "numeric", "between:0,100"])
 
     "Sales Tax Cafeteria."
-    grossReceiptsTax: Float @rename(attribute: "gross_receipts_tax") @rules(apply: ["filled", "between:0,100"])
+    grossReceiptsTax: Float @rename(attribute: "gross_receipts_tax") @rules(apply: ["filled", "numeric", "between:0,100"])
 }
 
 extend type Query {

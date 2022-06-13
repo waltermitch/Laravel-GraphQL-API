@@ -26,7 +26,7 @@ input CreateCountyInput {
     state: ConnectBelongsToState!
 
     "Tax."
-    tax: Float! @rules(apply: ["required", "between:0,100"])
+    tax: Float! @rules(apply: ["required", "numeric", "between:0,100"])
 }
 
 input UpdateCountyInput {
@@ -40,7 +40,7 @@ input UpdateCountyInput {
     state: ConnectBelongsToState
 
     "Tax."
-    tax: Float @rules(apply: ["filled", "between:0,100"])
+    tax: Float @rules(apply: ["filled", "numeric", "between:0,100"])
 }
 
 input ConnectBelongsToState {
