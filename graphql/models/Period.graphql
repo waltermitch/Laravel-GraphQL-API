@@ -24,6 +24,37 @@ type Period {
     updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
+input CreatePeriodInput {
+    "Preiod end."
+    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
+
+    "Year."
+    year: Int! @rules(apply: ["required", "integer"])
+
+    "Month."
+    month: Int! @rules(apply: ["required", "integer"])
+
+    "Week."
+    week: Int! @rules(apply: ["required", "integer"])
+}
+
+input UpdatePeriodInput {
+    "Id."
+    id: ID! @eq
+
+    "Preiod end."
+    periodEnd: Date! @rename(attribute: "period_end") @rules(apply: ["required"])
+
+    "Year."
+    year: Int! @rules(apply: ["required", "integer"])
+
+    "Month."
+    month: Int! @rules(apply: ["required", "integer"])
+
+    "Week."
+    week: Int! @rules(apply: ["required", "integer"])
+}
+
 type PeriodUnitPivot {
     "Is closed."
     isClosed: Boolean! @rename(attribute: "is_closed")
