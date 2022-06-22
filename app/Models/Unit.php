@@ -99,7 +99,7 @@ class Unit extends Model
      */
     public function vendors(): BelongsToMany
     {
-        return $this->belongsToMany(Vendor::class);
+        return $this->belongsToMany(Vendor::class)->orderBy('vendors.name');
     }
 
     /**
@@ -123,7 +123,7 @@ class Unit extends Model
     /**
      * The active period.
      */
-    public function activePeriod() 
+    public function activePeriod()
     {
         return $this->periods()->firstWhere('is_closed', false);
     }
