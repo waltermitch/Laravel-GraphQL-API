@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('expenses', function (Blueprint $table) {
-            $table->unsignedBigInteger('reversal_of_expense_id')->nullable()->change();
-            $table->foreign('reversal_of_expense_id')->references('id')->on('expenses')->nullOnDelete();
-        });
+//        Schema::table('expenses', function (Blueprint $table) {
+//            $table->unsignedBigInteger('reversal_of_expense_id')->nullable()->change();
+//            $table->foreign('reversal_of_expense_id')->references('id')->on('expenses')->nullOnDelete();
+//        });
     }
 
     /**
@@ -26,8 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('expenses', function (Blueprint $table) {
-            $table->dropForeign(['reversal_of_expense_id']);
-        });
+//        Schema::table('expenses', function (Blueprint $table) {
+//            $table->dropForeign(['reversal_of_expense_id']);
+//        });
     }
 };
