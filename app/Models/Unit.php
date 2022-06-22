@@ -87,14 +87,6 @@ class Unit extends Model
     }
 
     /**
-     * The employees that belong to the unit.
-     */
-    public function employees(): BelongsToMany
-    {
-        return $this->belongsToMany(Employee::class);
-    }
-
-    /**
      * The vendors that belong to the unit.
      */
     public function vendors(): BelongsToMany
