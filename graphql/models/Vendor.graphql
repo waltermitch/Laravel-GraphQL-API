@@ -56,9 +56,10 @@ input CreateTermBelongsToMany {
 
 extend type Query {
     "List multiple vendors."
-    vendors: [Vendor!]! 
+    vendors: [Vendor!]!
         @all
         @guard
+        @orderBy(column: "name", direction: ASC)
 }
 
 extend type Mutation {
@@ -66,7 +67,7 @@ extend type Mutation {
     createVendor(
         "Vendor input."
         vendorInput: CreateVendorInput! @spread
-    ): Vendor 
+    ): Vendor
         @create
         @guard
         @can(ability: "create")
@@ -75,7 +76,7 @@ extend type Mutation {
     updateVendor(
         "Vendor input."
         vendorInput: UpdateVendorInput! @spread
-    ): Vendor 
+    ): Vendor
         @update
         @guard
         @can(ability: "update", query: true)
@@ -84,7 +85,7 @@ extend type Mutation {
     deleteVendor(
         "Id."
         id: ID! @eq
-    ): Vendor 
+    ): Vendor
         @delete
         @guard
         @can(ability: "delete", query: true)
