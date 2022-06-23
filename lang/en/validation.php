@@ -163,6 +163,96 @@ return [
         'cateringOrderInput.items.update.*.ext' => [
             'regex' => 'The ext format is invalid.',
         ],
+
+        'PurchaseInput.items.create.*.amount' => [
+            'regex' => 'The amount format is invalid.',
+        ],
+        'PurchaseInput.items.create.*.glAccount.connect' => [
+            'required' => 'The gl account field is required.',
+            'exists' => 'The selected gl account is invalid.',
+        ],
+        'PurchaseInput.items.create.*.inventoryCategory.connect' => [
+            'required' => 'The inventory category field is required.',
+            'exists' => 'The selected inventory category is invalid.',
+        ],
+        'PurchaseInput.items.update.*.amount' => [
+            'regex' => 'The amount format is invalid.',
+        ],
+        'PurchaseInput.items.update.*.glAccount.connect' => [
+            'required' => 'The gl account field is required.',
+            'exists' => 'The selected gl account is invalid.',
+        ],
+        'PurchaseInput.items.update.*.inventoryCategory.connect' => [
+            'required' => 'The inventory category field is required.',
+            'exists' => 'The selected inventory category is invalid.',
+        ],
+
+        'registerCloseoutInput.items.create.*.glAccountId' => [
+            'required' => 'The gl account field is required.',
+        ],
+        'registerCloseoutInput.items.create.*.amount' => [
+            'regex' => 'The amount format is invalid.',
+        ],
+        'registerCloseoutInput.items.update.*.glAccountId' => [
+            'filled' => 'The gl account field must have a value.',
+        ],
+        'registerCloseoutInput.items.update.*.amount' => [
+            'regex' => 'The amount format is invalid.',
+        ],
+
+        'termInput.vendors.sync.*' => [
+            'exists' => 'The selected vendor is invalid.',
+        ],
+        'termInput.vendors.syncWithoutDetaching.*' => [
+            'exists' => 'The selected vendor is invalid.',
+        ],
+        'termInput.vendors.disconnect.*' => [
+            'exists' => 'The selected vendor is invalid.',
+        ],
+
+        'unitInput.users.sync.*' => [
+            'exists' => 'The selected user is invalid.',
+        ],
+        'unitInput.users.syncWithoutDetaching.*' => [
+            'exists' => 'The selected user is invalid.',
+        ],
+        'unitInput.users.disconnect.*' => [
+            'exists' => 'The selected user is invalid.',
+        ],
+
+        'unitInput.vendors.sync.*' => [
+            'exists' => 'The selected vendor is invalid.',
+        ],
+        'unitInput.vendors.syncWithoutDetaching.*' => [
+            'exists' => 'The selected vendor is invalid.',
+        ],
+        'unitInput.vendors.disconnect.*' => [
+            'exists' => 'The selected vendor is invalid.',
+        ],
+
+        'unitInput.glAccounts.sync.*' => [
+            'exists' => 'The selected gl account is invalid.',
+        ],
+        'unitInput.glAccounts.syncWithoutDetaching.*' => [
+            'exists' => 'The selected gl account is invalid.',
+        ],
+        'unitInput.glAccounts.disconnect.*' => [
+            'exists' => 'The selected gl account is invalid.',
+        ],
+
+        'vendorInput.terms.sync.*' => [
+            'exists' => 'The selected term is invalid.',
+        ],
+        'vendorInput.terms.syncWithoutDetaching.*' => [
+            'exists' => 'The selected term is invalid.',
+        ],
+        'vendorInput.terms.disconnect.*' => [
+            'exists' => 'The selected term is invalid.',
+        ],
+
+        'input.units.*' => [
+            'exists' => 'The selected unit is invalid.',
+        ],
     ],
 
     /*
@@ -187,6 +277,156 @@ return [
         'cateringOrderInput.billToName' => 'bill to name',
         'cateringOrderInput.billToAddress' => 'bill to address',
         'cateringOrderInput.chargeNumber' => 'charge number',
+
+        'cityInput.name' => 'name',
+        'cityInput.tax' => 'tax',
+        'cityInput.state.connect' => 'state',
+
+        'countyInput.name' => 'name',
+        'countyInput.tax' => 'tax',
+        'countyInput.state.connect' => 'state',
+
+        'districtInput.name' => 'name',
+        'districtInput.code' => 'code',
+
+        'expenseInput.comments' => 'comments',
+        'expenseInput.expenseDate' => 'expense date',
+        'expenseInput.glAccount.connect' => 'gl account',
+        'expenseInput.expenseType.connect' => 'expense type',
+        'expenseInput.amount' => 'amount',
+        'expenseInput.vendor.connect' => 'vendor',
+
+        'expenseTypeInput.type' => 'type',
+        'expenseTypeInput.description' => 'description',
+
+        'fixedExpenseInput.comments' => 'comments',
+        'fixedExpenseInput.glAccount.connect' => 'gl account',
+        'fixedExpenseInput.amount' => 'amount',
+        'fixedExpenseInput.monthly' => 'monthly',
+
+        'GlAccountInput.name' => 'name',
+        'GlAccountInput.glTypeCode.connect' => 'gl type code',
+        'GlAccountInput.parent.connect' => 'parent gl account',
+
+        'GlTypeCodeInput.code' => 'code',
+        'GlTypeCodeInput.description' => 'description',
+
+        'inventoriesInput.id' => 'inventory',
+        'inventoriesInput.amount' => 'amount',
+
+        'inventoryCategoryInput.name' => 'name',
+        'inventoryCategoryInput.vending' => 'vending',
+        'inventoryCategoryInput.glAccount.connect' => 'gl account',
+
+        'periodInput.periodEnd' => 'period end',
+        'periodInput.year' => 'year',
+        'periodInput.month' => 'month',
+        'periodInput.week' => 'week',
+
+        'PurchaseInput.number' => 'number',
+        'PurchaseInput.vendor.connect' => 'vendor',
+
+        'registerInput.code' => 'code',
+        'registerInput.name' => 'name',
+        'registerInput.bank' => 'bank',
+        'registerInput.nonResetable' => 'non resetable',
+        'registerInput.commission' => 'commission',
+        'registerInput.registerType.connect' => 'register type',
+        'registerInput.unit.connect' => 'unit',
+
+        'registerCloseoutInput.nonResetable' => 'non resetable',
+        'registerCloseoutInput.netTotal' => 'net total',
+        'registerCloseoutInput.lastNonResetable' => 'last non resetable',
+        'registerCloseoutInput.netOV' => 'net OV',
+        'registerCloseoutInput.totalToDistribute' => 'total to distribute',
+        'registerCloseoutInput.netCharge' => 'net charge',
+        'registerCloseoutInput.taxFromTheTape' => 'tax from the tape',
+        'registerCloseoutInput.netVoucher' => 'net voucher',
+        'registerCloseoutInput.overringVoidTax' => 'overring void tax',
+        'registerCloseoutInput.netCash' => 'net cash',
+        'registerCloseoutInput.chargeTax' => 'charge tax',
+        'registerCloseoutInput.voucherTax' => 'voucher tax',
+        'registerCloseoutInput.cashTax' => 'cash tax',
+        'registerCloseoutInput.totalPettyCash' => 'total tetty cash',
+        'registerCloseoutInput.actualCashDeposit' => 'actual cash deposit',
+        'registerCloseoutInput.calculatedCashDeposit' => 'calculated cash deposit',
+        'registerCloseoutInput.overShort' => 'over short',
+        'registerCloseoutInput.customerCountBreakfast' => 'customer count breakfast',
+        'registerCloseoutInput.netSalesBreakfast' => 'net sales breakfast',
+        'registerCloseoutInput.customerCountLunch' => 'customer count lunch',
+        'registerCloseoutInput.netSalesLunch' => 'net sales lunch',
+        'registerCloseoutInput.customerCountDinner' => 'customer count dinner',
+        'registerCloseoutInput.netSalesDinner' => 'net sales dinner',
+        'registerCloseoutInput.customerCountTotals' => 'customer count totals',
+        'registerCloseoutInput.netSalesTotals' => 'net sales totals',
+        'registerCloseoutInput.closeDate' => 'close date',
+        'registerCloseoutInput.netSalesTotals' => 'net sales totals',
+        'registerCloseoutInput.closeDate' => 'close date',
+        'registerCloseoutInput.register.connect' => 'register',
+
+        'registerTypeInput.name' => 'name',
+        'registerTypeInput.description' => 'description',
+        'registerTypeInput.taxType' => 'tax type',
+        'registerTypeInput.isVending' => 'is vending',
+
+        'stateInput.code' => 'code',
+        'stateInput.salesTaxCafeteria' => 'sales tax cafeteria',
+        'stateInput.salesTaxVending' => 'sales tax vending',
+        'stateInput.salesTaxRestaurant' => 'sales tax restaurant',
+        'stateInput.salesTaxStore' => 'sales tax store',
+        'stateInput.grossReceiptsTax' => 'gross receipts tax',
+
+        'termInput.name' => 'name',
+        'termInput.discPercent' => 'disc percent',
+        'termInput.discDays' => 'disc days',
+        'termInput.dueDays' => 'due days',
+
+        'unitInput.code' => 'code',
+        'unitInput.name' => 'name',
+        'unitInput.address' => 'address',
+        'unitInput.zip' => 'zip',
+        'unitInput.payrollPassword' => 'payroll password',
+        'unitInput.emailAccount' => 'email account',
+        'unitInput.managementPercent' => 'management percent',
+        'unitInput.managementAmount' => 'management amount',
+        'unitInput.administrativePercent' => 'administrative percent',
+        'unitInput.administrativeAmount' => 'administrative amount',
+        'unitInput.supportPercent' => 'support percent',
+        'unitInput.supportAmount' => 'support amount',
+        'unitInput.payrollTaxPercent' => 'payroll tax percent',
+        'unitInput.benefitsPercent' => 'benefits percent',
+        'unitInput.benefitsAmount' => 'benefits amount',
+        'unitInput.vacationAmount' => 'vacation amount',
+        'unitInput.businessInsuranceAmount' => 'business insurance amount',
+        'unitInput.vendingIncome' => 'vending income',
+        'unitInput.commissionAmount' => 'commission amount',
+        'unitInput.commissionPercent' => 'commission percent',
+        'unitInput.managerFirstName' => 'manager first name',
+        'unitInput.managerLastName' => 'manager last name',
+        'unitInput.sysco' => 'sysco',
+        'unitInput.unitType.connect' => 'unit type',
+        'unitInput.district.connect' => 'district',
+        'unitInput.county.connect' => 'county',
+        'unitInput.city.connect' => 'city',
+
+        'unitTypeInput.name' => 'name',
+
+        'userInput.firstName' => 'first name',
+        'userInput.lastName' => 'last name',
+        'userInput.email' => 'email',
+
+        'vendorInput.code' => 'code',
+        'vendorInput.name' => 'name',
+
+        'input.period' => 'period',
+        'input.district' => 'district',
+        'input.unit' => 'unit',
+
+        'credentials.email' => 'email',
+        'forgotPasswordInput.email' => 'email',
+        'forgotPasswordInput.resetPasswordUrl' => 'reset password url',
+        'resetPasswordInput.email' => 'email',
+        'resetPasswordInput.passwordConfirmation' => 'password confirmation',
     ],
 
 ];

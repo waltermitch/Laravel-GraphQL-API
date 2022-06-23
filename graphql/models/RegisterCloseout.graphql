@@ -274,11 +274,6 @@ input UpdateRegisterCloseoutInput {
     items: UpdateRegisterCloseoutItems
 }
 
-input ConnectBelongsToUnit {
-    "Connect id."
-    connect: ID! @rules(apply: ["required", "exists:units,id"])
-}
-
 input ConnectBelongsToRegister {
     "Connect id."
     connect: ID! @rules(apply: ["required", "exists:registers,id"])

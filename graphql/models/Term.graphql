@@ -66,10 +66,10 @@ input CreateVendorBelongsToMany {
     sync: [ID!] @rules(apply: ["exists:vendors,id"])
 
     "Sync existing id's without detaching."
-    syncWithoutDetaching: [ID!] @rules(apply: ["vendors:terms,id"])
+    syncWithoutDetaching: [ID!] @rules(apply: ["exists:vendors:terms,id"])
 
     "Disconnect existing id's."
-    disconnect: [ID!] @rules(apply: ["vendors:terms,id"])
+    disconnect: [ID!] @rules(apply: ["exists:vendors:terms,id"])
 }
 
 extend type Query {
