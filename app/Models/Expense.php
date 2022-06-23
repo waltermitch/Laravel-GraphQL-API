@@ -10,6 +10,7 @@ use App\Models\Unit;
 use App\Models\ExpenseType;
 use App\Models\GlAccount;
 use App\Traits\AttachPeriod;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Expense extends Model
 {
@@ -86,5 +87,10 @@ class Expense extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function reversals(): HasMany
+    {
+        return $this->hasMany(self::class, 'reversal_of_expense_id');
     }
 }

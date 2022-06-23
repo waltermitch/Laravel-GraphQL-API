@@ -34,6 +34,7 @@ class ReAccruals
                 $query->where('type', 'Accrual')
                     ->orWhere('type', 'ReAccrual');
             })
+            ->doesntHave('reversals')
             ->get();
 
         return $reAccruals;
