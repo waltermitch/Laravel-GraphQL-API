@@ -142,8 +142,26 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'cateringOrderInput.items.create.*.menuItem' => [
+            'required' => 'The menu item field is required.',
+            'max' => 'The menu item must not be greater than :max characters.'
+        ],
+        'cateringOrderInput.items.create.*.price' => [
+            'regex' => 'The price format is invalid.',
+        ],
+        'cateringOrderInput.items.create.*.ext' => [
+            'regex' => 'The ext format is invalid.',
+        ],
+
+        'cateringOrderInput.items.update.*.menuItem' => [
+            'filled' => 'The menu item field must have a value.',
+            'max' => 'The menu item must not be greater than :max characters.'
+        ],
+        'cateringOrderInput.items.update.*.price' => [
+            'regex' => 'The price format is invalid.',
+        ],
+        'cateringOrderInput.items.update.*.ext' => [
+            'regex' => 'The ext format is invalid.',
         ],
     ],
 
@@ -158,6 +176,17 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'cateringOrderInput.description' => 'description',
+        'cateringOrderInput.phoneNumber' => 'phone number',
+        'cateringOrderInput.orderBy' => 'order by',
+        'cateringOrderInput.orderFor' => 'order for',
+        'cateringOrderInput.tax' => 'tax',
+        'cateringOrderInput.shipToName' => 'ship to name',
+        'cateringOrderInput.shipToAddress' => 'shipt to address',
+        'cateringOrderInput.billToName' => 'bill to name',
+        'cateringOrderInput.billToAddress' => 'bill to address',
+        'cateringOrderInput.chargeNumber' => 'charge number',
+    ],
 
 ];

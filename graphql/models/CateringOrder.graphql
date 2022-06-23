@@ -172,11 +172,6 @@ input UpdateCateringOrderInput {
     chargeNumber: String @rename(attribute: "charge_number") @rules(apply: ["filled", "max:255"])
 }
 
-input ConnectBelongsToUnit {
-    "Connect id."
-    connect: ID! @rules(apply: ["required", "exists:units,id"])
-}
-
 input UpdateCateringItems {
     create: [CreateCateringOrderItemInput!]
     
