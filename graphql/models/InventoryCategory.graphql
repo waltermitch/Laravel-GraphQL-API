@@ -37,7 +37,7 @@ input CreateInventoryCategoryInput {
     vending: String! @rules(apply: ["required", "max:255"])
 
     "Gl Account."
-    glAccount: ConnectBelongsToGlAccount!
+    glAccount: ConnectBelongsToGlAccount! @rules(apply: ["required"])
 }
 
 input UpdateInventoryCategoryInput {
@@ -51,7 +51,7 @@ input UpdateInventoryCategoryInput {
     vending: String @rules(apply: ["filled", "max:255"])
 
     "Gl Account."
-    glAccount: ConnectBelongsToGlAccount
+    glAccount: ConnectBelongsToGlAccount! @rules(apply: ["required"])
 }
 
 input ConnectBelongsToGlAccount {
@@ -61,7 +61,7 @@ input ConnectBelongsToGlAccount {
 
 extend type Query {
     "List multiple inventory categories."
-    inventoryCategories: [InventoryCategory!]! 
+    inventoryCategories: [InventoryCategory!]!
         @all
         @guard
 }
@@ -71,7 +71,7 @@ extend type Mutation {
     createInventoryCategory(
         "Inventory category input."
         inventoryCategoryInput: CreateInventoryCategoryInput! @spread
-    ): InventoryCategory 
+    ): InventoryCategory
         @create
         @guard
         @can(ability: "create")
@@ -80,7 +80,7 @@ extend type Mutation {
     updateInventoryCategory(
         "Inventory category input."
         inventoryCategoryInput: UpdateInventoryCategoryInput! @spread
-    ): InventoryCategory 
+    ): InventoryCategory
         @update
         @guard
         @can(ability: "update", query: true)
@@ -89,7 +89,7 @@ extend type Mutation {
     deleteInventoryCategory(
         "Id."
         id: ID! @eq
-    ): InventoryCategory 
+    ): InventoryCategory
         @delete
         @guard
         @can(ability: "delete", query: true)
