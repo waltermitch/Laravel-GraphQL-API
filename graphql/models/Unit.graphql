@@ -239,7 +239,7 @@ input CreateUnitInput {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Reg Tax."
-    county: ConnectRegTaxBelongsToGlAccount!
+    regTax: ConnectRegTaxBelongsToGlAccount!
 
     "Sysco."
     sysco: String @rules(apply: ["max:255"])
@@ -358,7 +358,7 @@ input UpdateUnitInput @validator {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Reg Tax."
-    county: ConnectRegTaxBelongsToGlAccount
+    regTax: ConnectRegTaxBelongsToGlAccount
 
     "Sysco."
     sysco: String @rules(apply: ["max:255"])
