@@ -389,7 +389,7 @@ input ConnectBelongsToCity {
 
 input ConnectRegTaxBelongsToGlAccount {
     "Connect id."
-    connect: ID! @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
+    connect: ID! @rules(apply: ["required", "exists:gl_accounts,id"])
 }
 
 input CreateUserBelongsToMany @validator {
