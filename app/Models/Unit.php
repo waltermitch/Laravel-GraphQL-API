@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\FeeType;
 use App\Traits\AttachPeriod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,12 +37,9 @@ class Unit extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'is_active' => 'boolean',
-        'is_vending' => 'boolean',
-        'is_kronos' => 'boolean',
-        'management_fee_type' => FeeType::class,
-        'administrative_fee_type' => FeeType::class,
-        'support_fee_type' => FeeType::class
+        'is_active'               => 'boolean',
+        'is_vending'              => 'boolean',
+        'is_kronos'               => 'boolean',
     ];
 
     /**
@@ -119,6 +115,7 @@ class Unit extends Model
     {
         return $this->periods()->firstWhere('is_closed', false);
     }
+
     /**
      * The inventories that belong to the unit.
      */
