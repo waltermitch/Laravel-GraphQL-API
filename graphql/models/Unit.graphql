@@ -116,6 +116,9 @@ type Unit {
     "Whether the uni is kronos."
     isKronos: Boolean @rename(attribute: "is_kronos")
 
+    "Reg Tax."
+    regTax: Int @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
+
     "Sysco."
     sysco: String
 
@@ -235,6 +238,9 @@ input CreateUnitInput {
     "Whether the uni is kronos."
     isKronos: Boolean @rename(attribute: "is_kronos")
 
+    "Reg Tax."
+    regTax: Int @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
+
     "Sysco."
     sysco: String @rules(apply: ["max:255"])
 }
@@ -350,6 +356,9 @@ input UpdateUnitInput @validator {
 
     "Whether the uni is kronos."
     isKronos: Boolean @rename(attribute: "is_kronos")
+
+    "Reg Tax."
+    regTax: Int @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
 
     "Sysco."
     sysco: String @rules(apply: ["max:255"])
