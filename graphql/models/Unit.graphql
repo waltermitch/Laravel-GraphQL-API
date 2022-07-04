@@ -117,7 +117,7 @@ type Unit {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Reg Tax."
-    regTax: ID! @rename(attribute: "reg_tax_id")
+    regTax: GlAccount
 
     "Sysco."
     sysco: String
@@ -239,7 +239,7 @@ input CreateUnitInput {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Reg Tax."
-    regTax: ID! @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
+    county: ConnectRegTaxBelongsToGlAccount!
 
     "Sysco."
     sysco: String @rules(apply: ["max:255"])
@@ -358,7 +358,7 @@ input UpdateUnitInput @validator {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Reg Tax."
-    regTax: ID! @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
+    county: ConnectRegTaxBelongsToGlAccount
 
     "Sysco."
     sysco: String @rules(apply: ["max:255"])
@@ -385,6 +385,11 @@ input ConnectBelongsToCounty {
 input ConnectBelongsToCity {
     "Connect id."
     connect: ID! @rules(apply: ["required", "exists:cities,id"])
+}
+
+input ConnectRegTaxBelongsToGlAccount {
+    "Connect id."
+    connect: ID! @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
 }
 
 input CreateUserBelongsToMany @validator {

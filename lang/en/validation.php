@@ -407,6 +407,7 @@ return [
         'unitInput.managerFirstName' => 'manager first name',
         'unitInput.managerLastName' => 'manager last name',
         'unitInput.sysco' => 'sysco',
+        'unitInput.regTax' => 'reg tax',
         'unitInput.unitType.connect' => 'unit type',
         'unitInput.district.connect' => 'district',
         'unitInput.county.connect' => 'county',
