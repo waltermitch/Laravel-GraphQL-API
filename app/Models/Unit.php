@@ -109,6 +109,14 @@ class Unit extends Model
     }
 
     /**
+     * Get the regTax that owns the unit.
+     */
+    public function regTax(): BelongsTo
+    {
+        return $this->belongsTo(GlAccount::class, 'reg_tax_id');
+    }
+
+    /**
      * The active period.
      */
     public function activePeriod()
