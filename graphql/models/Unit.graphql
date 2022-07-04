@@ -60,7 +60,7 @@ type Unit {
     managementAmount: Float @rename(attribute: "management_amount")
 
     "Management fee type."
-    managementFeeType: String @rename(attribute: "management_fee_type") @rules(apply: ["required", "string", "exists:calculation_codes,code"])
+    managementFeeType: String @rename(attribute: "management_fee_type")
 
     "Administrative percent."
     administrativePercent: Float @rename(attribute: "administrative_percent")
@@ -69,7 +69,7 @@ type Unit {
     administrativeAmount: Float @rename(attribute: "administrative_amount")
 
     "Administrative fee type."
-    administrativeFeeType: String @rename(attribute: "administrative_fee_type") @rules(apply: ["required", "string", "exists:calculation_codes,code"])
+    administrativeFeeType: String @rename(attribute: "administrative_fee_type")
 
     "Support percent."
     supportPercent: Float @rename(attribute: "support_percent")
@@ -78,7 +78,7 @@ type Unit {
     supportAmount: Float @rename(attribute: "support_amount")
 
     "Support fee type."
-    supportFeeType: String @rename(attribute: "support_fee_type") @rules(apply: ["required", "string", "exists:calculation_codes,code"])
+    supportFeeType: String @rename(attribute: "support_fee_type")
 
     "Payroll tax percent."
     payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent")
@@ -117,7 +117,7 @@ type Unit {
     isKronos: Boolean @rename(attribute: "is_kronos")
 
     "Reg Tax."
-    regTax: ID! @rename(attribute: "reg_tax_id") @rules(apply: ["required", "exists:gl_accounts,id"])
+    regTax: ID! @rename(attribute: "reg_tax_id")
 
     "Sysco."
     sysco: String
