@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('role_menus', function (Blueprint $table) {
-            $table->id();
-            $table->integer('role_id');
-            $table->integer('menu_id');
-            $table->boolean('is_view');
-            $table->boolean('is_create');
-            $table->boolean('is_modify');
-            $table->timestamps();
+        Schema::table('menus', function (Blueprint $table) {
+            $table->string('slug_name')->nullable()->after('name');
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_menus');
+        Schema::table('menus', function (Blueprint $table) {
+            $table->dropColumn('slug_name');
+        });
     }
 };

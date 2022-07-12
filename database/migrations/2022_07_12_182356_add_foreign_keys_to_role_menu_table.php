@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('role_menu', function (Blueprint $table) {
+        Schema::table('role_menus', function (Blueprint $table) {
             $table->unsignedBigInteger('role_id')->nullable()->change();
             $table->foreign('role_id')->references('id')->on('roles')->nullOnDelete();
             $table->unsignedBigInteger('menu_id')->nullable()->change();
@@ -28,7 +28,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('role_menu', function (Blueprint $table) {
+        Schema::table('role_menus', function (Blueprint $table) {
             $table->dropForeign(['role_id']);
             $table->dropForeign(['menu_id']);
         });

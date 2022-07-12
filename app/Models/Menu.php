@@ -17,10 +17,10 @@ class Menu extends Model
     protected $fillable = [];
 
     /**
-     * Get the users for the role.
+     * Get the role_menus for the menu.
      */
-    public function users()
+    public function roleMenus(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(RoleMenu::class);
     }
 }

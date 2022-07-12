@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class RoleMenu extends Model
 {
     use HasFactory;
 
@@ -17,18 +17,18 @@ class Role extends Model
     protected $fillable = [];
 
     /**
-     * Get the users for the role.
+     * The role that belongs to the roleMenu.
      */
-    public function users(): HasMany
+    public function role(): BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(Role::class);
     }
-
+    
     /**
-     * Get the role_menus for the menu.
+     * The menu that belongs to the roleMenu.
      */
-    public function roleMenus(): HasMany
+    public function menu(): BelongsTo
     {
-        return $this->hasMany(RoleMenu::class);
+        return $this->belongsTo(Menu::class);
     }
 }

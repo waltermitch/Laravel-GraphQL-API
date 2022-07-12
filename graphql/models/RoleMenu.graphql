@@ -1,0 +1,106 @@
+"Role Basic Data"
+type Role {
+    id: ID!
+    name: String!
+}
+
+"Menu Basic Data"
+type Menu {
+    id: ID!
+    name: String!
+    slugName: String! @rename(attribute: "slug_name")
+}
+
+"Relation between Role and Menu"
+type RoleMenu {
+    role: Role!
+    menu: Menu!
+    isView: Boolean! @rename(attribute: "is_view")
+    isCreate: Boolean! @rename(attribute: "is_create")
+    isModify: Boolean! @rename(attribute: "is_modify")
+}
+
+"Role Detail Info by Role-ID"
+type RoleInfo {
+    id: ID!
+    permissions: [RoleMenu!]!
+}
+
+"Create/Update Role Basic Data"
+# "Create"
+input createRoleInput {
+    name: String!
+}
+type CreateRoleResponse {
+    status: Boolean!
+    message: String!
+    # data: Role!
+}
+"Remove"
+input removeRoleInput {
+    id: ID!
+}
+type RemoveRoleResponse {
+    status: Boolean!
+    message: String!
+}
+"Update"
+input updateRoleInput {
+    id: ID!
+    name: String!
+}
+type UpdateRoleResponse {
+    status: Boolean!
+    message: String!
+    # data: Role!
+}
+
+"Update the Role Detail Info"
+input updateRolePermissionInput {
+    roleID: ID! @rename(attribute: "role_id")
+    menuID: ID! @rename(attribute: "menu_id")
+    permission: String!
+    allow: Boolean!
+}
+type updateRolePermissionResponse {
+    status: Boolean!
+    message: String!
+}
+
+extend type Query {
+    "Get a single role by an ID"
+    role (
+        id: ID! @eq
+    ): Role @find @guard @can(ability: "view", query: true)
+
+    "Get a single Menu by an ID"
+    menu (
+        id: ID! @eq
+    ): Menu @find @guard @can(ability: "view", query: true)
+    
+    "All roles."
+    roles: [Role!]! @all @guard @can(ability: "viewAny")
+
+    "All menus."
+    menus: [Menu!]! @all @guard @can(ability: "viewAny")
+}
+
+extend type Mutation {
+    "Create a new role."
+    createRole (
+        input: createRoleInput! @spread
+    ): CreateRoleResponse! @guard
+    "Remove an existing role."
+    removeRole (
+        input: removeRoleInput! @spread
+    ): RemoveRoleResponse! @guard
+    "Update an existing role."
+    updateRole (
+        input: updateRoleInput! @spread
+    ): UpdateRoleResponse! @guard
+
+    "Update the Role Permission"
+    updateRolePermission (
+        input: updateRolePermissionInput! @spread
+    ): updateRolePermissionResponse! @guard
+}
