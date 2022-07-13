@@ -19,7 +19,7 @@ class Role extends Model
     /**
      * Get the users for the role.
      */
-    public function users(): HasMany
+    public function users()
     {
         return $this->hasMany(User::class);
     }
@@ -27,7 +27,7 @@ class Role extends Model
     /**
      * Get the role_menus for the menu.
      */
-    public function roleMenus(): HasMany
+    public function roleMenus()
     {
         return $this->hasMany(RoleMenu::class);
     }

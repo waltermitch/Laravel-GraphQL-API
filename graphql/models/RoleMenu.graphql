@@ -1,7 +1,9 @@
 "Role Basic Data"
 type Role {
     id: ID!
-    name: String!
+    name: String
+    roleMenus: [RoleMenu!]!
+    users: [User!]!
 }
 
 "Menu Basic Data"
@@ -9,21 +11,17 @@ type Menu {
     id: ID!
     name: String!
     slugName: String! @rename(attribute: "slug_name")
+    roleMenus: [RoleMenu!]!
 }
 
 "Relation between Role and Menu"
 type RoleMenu {
-    role: Role!
-    menu: Menu!
+    id: ID!
+    role: Role
+    menu: Menu
     isView: Boolean! @rename(attribute: "is_view")
     isCreate: Boolean! @rename(attribute: "is_create")
     isModify: Boolean! @rename(attribute: "is_modify")
-}
-
-"Role Detail Info by Role-ID"
-type RoleInfo {
-    id: ID!
-    permissions: [RoleMenu!]!
 }
 
 "Create/Update Role Basic Data"
@@ -71,18 +69,19 @@ extend type Query {
     "Get a single role by an ID"
     role (
         id: ID! @eq
-    ): Role @find @guard @can(ability: "view", query: true)
+    ): Role @find @guard
+    "All roles."
+    roles: [Role!]! @all @guard
 
     "Get a single Menu by an ID"
     menu (
         id: ID! @eq
-    ): Menu @find @guard @can(ability: "view", query: true)
-    
-    "All roles."
-    roles: [Role!]! @all @guard @can(ability: "viewAny")
-
+    ): Menu @find @guard
     "All menus."
-    menus: [Menu!]! @all @guard @can(ability: "viewAny")
+    menus: [Menu!]! @all @guard
+
+    "All role-menus"
+    roleMenus: [RoleMenu!]! @all @guard
 }
 
 extend type Mutation {

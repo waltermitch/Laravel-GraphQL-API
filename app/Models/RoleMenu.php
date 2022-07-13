@@ -19,15 +19,15 @@ class RoleMenu extends Model
     /**
      * The role that belongs to the roleMenu.
      */
-    public function role(): BelongsTo
+    public function role()
     {
         return $this->belongsTo(Role::class);
     }
-    
+
     /**
      * The menu that belongs to the roleMenu.
      */
-    public function menu(): BelongsTo
+    public function menu()
     {
         return $this->belongsTo(Menu::class);
     }

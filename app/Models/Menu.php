@@ -19,7 +19,7 @@ class Menu extends Model
     /**
      * Get the role_menus for the menu.
      */
-    public function roleMenus(): HasMany
+    public function roleMenus()
     {
         return $this->hasMany(RoleMenu::class);
     }
