@@ -34,7 +34,22 @@ class RegisterCloseoutPolicy
      */
     public function viewAny(User $user)
     {
-        // 
+        // permission check
+        $roleMenus = $user->role()?->roleMenus();
+        if ( $roleMenus == null || count($roleMenus) == 0 ) {
+            return false;
+        }
+        foreach($roleMenus as $roleMenu) {
+            $menu = $roleMenu->menu();
+            if ( $menu->slug_name == 'close-register' ) {
+                $permission = $roleMenu->is_view;
+                break;
+            }
+        }
+        if ( isset($permission) && $permission == 1 ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -46,7 +61,22 @@ class RegisterCloseoutPolicy
      */
     public function view(User $user, RegisterCloseout $registerCloseout)
     {
-        //
+        // permission check
+        $roleMenus = $user->role()?->roleMenus();
+        if ( $roleMenus == null || count($roleMenus) == 0 ) {
+            return false;
+        }
+        foreach($roleMenus as $roleMenu) {
+            $menu = $roleMenu->menu();
+            if ( $menu->slug_name == 'close-register' ) {
+                $permission = $roleMenu->is_view;
+                break;
+            }
+        }
+        if ( isset($permission) && $permission == 1 ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -57,7 +87,25 @@ class RegisterCloseoutPolicy
      */
     public function create(User $user)
     {
-        return !$user->isAdministrator();
+        if ( !$user->isAdministrator() ) {
+
+            // permission check
+            $roleMenus = $user->role()?->roleMenus();
+            if ( $roleMenus == null || count($roleMenus) == 0 ) {
+                return false;
+            }
+            foreach($roleMenus as $roleMenu) {
+                $menu = $roleMenu->menu();
+                if ( $menu->slug_name == 'close-register' ) {
+                    $permission = $roleMenu->is_create;
+                    break;
+                }
+            }
+            if ( isset($permission) && $permission == 1 ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -79,8 +127,24 @@ class RegisterCloseoutPolicy
             !$user->isAdministrator() &&
             $registerCloseout->containItems($updateIds) &&
             $registerCloseout->containItems($deleteIds)) {
-            return true;
+            
+            // permission check
+            $roleMenus = $user->role()?->roleMenus();
+            if ( $roleMenus == null || count($roleMenus) == 0 ) {
+                return false;
+            }
+            foreach($roleMenus as $roleMenu) {
+                $menu = $roleMenu->menu();
+                if ( $menu->slug_name == 'close-register' ) {
+                    $permission = $roleMenu->is_modify;
+                    break;
+                }
+            }
+            if ( isset($permission) && $permission == 1 ) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -95,8 +159,24 @@ class RegisterCloseoutPolicy
         if ($user->activePeriod()?->id === $registerCloseout->period_id &&
             $user->id === $registerCloseout->user_id &&
             !$user->isAdministrator()) {
-            return true;
+
+            // permission check
+            $roleMenus = $user->role()?->roleMenus();
+            if ( $roleMenus == null || count($roleMenus) == 0 ) {
+                return false;
+            }
+            foreach($roleMenus as $roleMenu) {
+                $menu = $roleMenu->menu();
+                if ( $menu->slug_name == 'close-register' ) {
+                    $permission = $roleMenu->is_modify;
+                    break;
+                }
+            }
+            if ( isset($permission) && $permission == 1 ) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**

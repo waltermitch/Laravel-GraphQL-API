@@ -24,48 +24,7 @@ type RoleMenu {
     isModify: Boolean! @rename(attribute: "is_modify")
 }
 
-"Create/Update Role Basic Data"
-# "Create"
-input createRoleInput {
-    name: String!
-}
-type CreateRoleResponse {
-    status: Boolean!
-    message: String!
-    # data: Role!
-}
-"Remove"
-input removeRoleInput {
-    id: ID!
-}
-type RemoveRoleResponse {
-    status: Boolean!
-    message: String!
-}
-"Update"
-input updateRoleInput {
-    id: ID!
-    name: String!
-}
-type UpdateRoleResponse {
-    status: Boolean!
-    message: String!
-    # data: Role!
-}
-
-"Update the Role Detail Info"
-input updateRolePermissionInput {
-    roleID: ID! @rename(attribute: "role_id")
-    menuID: ID! @rename(attribute: "menu_id")
-    permission: String!
-    allow: Boolean!
-}
-type updateRolePermissionResponse {
-    status: Boolean!
-    message: String!
-}
-
-extend type Query {
+""" extend type Query {
     "Get a single role by an ID"
     role (
         id: ID! @eq
@@ -82,24 +41,4 @@ extend type Query {
 
     "All role-menus"
     roleMenus: [RoleMenu!]! @all @guard
-}
-
-extend type Mutation {
-    "Create a new role."
-    createRole (
-        input: createRoleInput! @spread
-    ): CreateRoleResponse! @guard
-    "Remove an existing role."
-    removeRole (
-        input: removeRoleInput! @spread
-    ): RemoveRoleResponse! @guard
-    "Update an existing role."
-    updateRole (
-        input: updateRoleInput! @spread
-    ): UpdateRoleResponse! @guard
-
-    "Update the Role Permission"
-    updateRolePermission (
-        input: updateRolePermissionInput! @spread
-    ): updateRolePermissionResponse! @guard
-}
+} """

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RoleMenu extends Model
 {
@@ -19,7 +20,7 @@ class RoleMenu extends Model
     /**
      * The role that belongs to the roleMenu.
      */
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
@@ -27,7 +28,7 @@ class RoleMenu extends Model
     /**
      * The menu that belongs to the roleMenu.
      */
-    public function menu()
+    public function menu(): BelongsTo
     {
         return $this->belongsTo(Menu::class);
     }
