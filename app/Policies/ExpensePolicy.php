@@ -89,7 +89,6 @@ class ExpensePolicy
     public function create(User $user)
     {
         if ( !$user->isAdministrator() ) {
-
             // permission check
             $roleId = $user->role_id;
             $menu = DB::table('menus')->where('slug_name', '=', 'expenses')->first();

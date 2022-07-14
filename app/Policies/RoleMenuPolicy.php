@@ -3,9 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
+use App\Models\RoleMenu;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class RoleMenuPolicy
 {
     use HandlesAuthorization;
 
@@ -17,10 +18,10 @@ class UserPolicy
      * @return void|bool
      */
     public function before(User $user, $ability)
-    {
-        return $user->isAdministrator();
+    {   
+        //
     }
-
+    
     /**
      * Determine whether the user can view any models.
      *
@@ -37,10 +38,10 @@ class UserPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RoleMenu  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, User $model)
+    public function view(User $user, RoleMenu $model)
     {
         //
         return true;
@@ -55,43 +56,43 @@ class UserPolicy
     public function create(User $user)
     {
         //
-        return true;
+        return $user->isAdministrator();
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RoleMenu  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, User $model)
+    public function update(User $user, RoleMenu $model)
     {
         //
-        return true;
+        return $user->isAdministrator();
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RoleMenu  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, User $model)
+    public function delete(User $user, RoleMenu $model)
     {
         //
-        return true;
+        return $user->isAdministrator();
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RoleMenu  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, User $model)
+    public function restore(User $user, RoleMenu $model)
     {
         //
     }
@@ -100,10 +101,10 @@ class UserPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
+     * @param  \App\Models\RoleMenu  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user, RoleMenu $model)
     {
         //
     }

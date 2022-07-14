@@ -32,6 +32,7 @@ class CreateUser
             $user->email_verified_at = now();
             $user->password = Hash::make($args['password']);
             $user->is_active = $args['is_active'];
+            $user->role_id = $args['role_id'];
             $user->save();
             
             if (!$user->is_admin && !empty($args['units']['sync'])) {

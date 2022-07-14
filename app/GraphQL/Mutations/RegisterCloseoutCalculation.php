@@ -16,8 +16,8 @@ class RegisterCloseoutCalculation
     }
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    {   
-        Gate::allowIf(fn ($user) => !$user->isAdministrator());
+    {
+        Gate::allowIf(fn($user) => !$user->isAdministrator());
 
         $lastClosedRegister = \App\Models\RegisterCloseout::where('period_id', $args['period_id'])
             ->where('unit_id', $args['unit_id'])
@@ -49,26 +49,26 @@ class RegisterCloseoutCalculation
 
         return [
             'fields'     => [
-                'net_total'               => $netTotal,
-                'last_non_resettable'     => $lastNonResettable,
-                'total_to_distribute'     => $totalToDistribute,
-                'net_cash'                => $netCash,
-                'cash_tax'                => $cashTax,
-                'calculated_cash_deposit' => $calculatedCashDeposit,
-                'over_short'              => $overShort,
-                'customer_count_totals'   => $customerCountTotal,
-                'net_sales_total'         => $netSalesTotal,
+                'net_total'               => number_format($netTotal, 2),
+                'last_non_resettable'     => number_format($lastNonResettable, 2),
+                'total_to_distribute'     => number_format($totalToDistribute, 2),
+                'net_cash'                => number_format($netCash, 2),
+                'cash_tax'                => number_format($cashTax, 2),
+                'calculated_cash_deposit' => number_format($calculatedCashDeposit, 2),
+                'over_short'              => number_format($overShort, 2),
+                'customer_count_totals'   => number_format($customerCountTotal, 2),
+                'net_sales_total'         => number_format($netSalesTotal, 2),
             ],
             'statistics' => [
-                'total_daily_deposit' => $totalDailyDeposit,
-                'total_net_sales'     => $totalNetSales,
-                'charge'              => $charge,
-                'cash_total'          => $cashTotal,
-                'cash_tax'            => $cashTax,
-                'petty_cash'          => $pettyCash,
-                'calced_deposit'      => $calculatedCashDeposit,
-                'actual_deposit'      => $actualDeposit,
-                'over_short'          => $overShort,
+                'total_daily_deposit' => number_format($totalDailyDeposit, 2),
+                'total_net_sales'     => number_format($totalNetSales, 2),
+                'charge'              => number_format($charge, 2),
+                'cash_total'          => number_format($cashTotal, 2),
+                'cash_tax'            => number_format($cashTax, 2),
+                'petty_cash'          => number_format($pettyCash, 2),
+                'calced_deposit'      => number_format($calculatedCashDeposit, 2),
+                'actual_deposit'      => number_format($actualDeposit, 2),
+                'over_short'          => number_format($overShort, 2),
             ],
         ];
     }
