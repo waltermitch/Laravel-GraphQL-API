@@ -43,17 +43,21 @@ class UpdateRole
                 // check if the role-menu permission exists
                 $roleMenu = RoleMenu::where('role_id', $args['role_id'])->where('menu_id', $permission['menu_id'])->first();
                 if ( $roleMenu == null ) {
-                    return [
-                        'status' => false,
-                        'message' => "Invalid menu exists"
-                    ];
+                    // create the new role_menu
+                    $newRoleMenu = new RoleMenu();
+                    $newRoleMenu->role_id = $args['role_id'];
+                    $newRoleMenu->menu_id = $permission['menu_id'];
+                    $newRoleMenu->is_view = $permission['is_view'];
+                    $newRoleMenu->is_create = $permission['is_create'];
+                    $newRoleMenu->is_modify = $permission['is_modify'];
+                    $newRoleMenu->save();
+                } else {
+                    // update role_menus table
+                    $roleMenu->is_view = $permission['is_view'];
+                    $roleMenu->is_create = $permission['is_create'];
+                    $roleMenu->is_modify = $permission['is_modify'];
+                    $roleMenu->save();
                 }
-                
-                // update role_menus table
-                $roleMenu->is_view = $permission['is_view'];
-                $roleMenu->is_create = $permission['is_create'];
-                $roleMenu->is_modify = $permission['is_modify'];
-                $roleMenu->save();
             }
             
             DB::commit();
