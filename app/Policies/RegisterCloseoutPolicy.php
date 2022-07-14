@@ -35,18 +35,17 @@ class RegisterCloseoutPolicy
     public function viewAny(User $user)
     {
         // permission check
-        $roleMenus = $user->role()?->roleMenus();
-        if ( $roleMenus == null || count($roleMenus) == 0 ) {
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'close-register')->first();
+        if ( $roleId == null || $menu == null ) {
             return false;
         }
-        foreach($roleMenus as $roleMenu) {
-            $menu = $roleMenu->menu();
-            if ( $menu->slug_name == 'close-register' ) {
-                $permission = $roleMenu->is_view;
-                break;
-            }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
         }
-        if ( isset($permission) && $permission == 1 ) {
+        $permission = $roleMenu->is_view;
+        if ( $permission == 1 ) {
             return true;
         }
         return false;
@@ -62,18 +61,17 @@ class RegisterCloseoutPolicy
     public function view(User $user, RegisterCloseout $registerCloseout)
     {
         // permission check
-        $roleMenus = $user->role()?->roleMenus();
-        if ( $roleMenus == null || count($roleMenus) == 0 ) {
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'close-register')->first();
+        if ( $roleId == null || $menu == null ) {
             return false;
         }
-        foreach($roleMenus as $roleMenu) {
-            $menu = $roleMenu->menu();
-            if ( $menu->slug_name == 'close-register' ) {
-                $permission = $roleMenu->is_view;
-                break;
-            }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
         }
-        if ( isset($permission) && $permission == 1 ) {
+        $permission = $roleMenu->is_view;
+        if ( $permission == 1 ) {
             return true;
         }
         return false;
@@ -90,18 +88,17 @@ class RegisterCloseoutPolicy
         if ( !$user->isAdministrator() ) {
 
             // permission check
-            $roleMenus = $user->role()?->roleMenus();
-            if ( $roleMenus == null || count($roleMenus) == 0 ) {
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'close-register')->first();
+            if ( $roleId == null || $menu == null ) {
                 return false;
             }
-            foreach($roleMenus as $roleMenu) {
-                $menu = $roleMenu->menu();
-                if ( $menu->slug_name == 'close-register' ) {
-                    $permission = $roleMenu->is_create;
-                    break;
-                }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
             }
-            if ( isset($permission) && $permission == 1 ) {
+            $permission = $roleMenu->is_create;
+            if ( $permission == 1 ) {
                 return true;
             }
         }
@@ -129,18 +126,17 @@ class RegisterCloseoutPolicy
             $registerCloseout->containItems($deleteIds)) {
             
             // permission check
-            $roleMenus = $user->role()?->roleMenus();
-            if ( $roleMenus == null || count($roleMenus) == 0 ) {
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'close-register')->first();
+            if ( $roleId == null || $menu == null ) {
                 return false;
             }
-            foreach($roleMenus as $roleMenu) {
-                $menu = $roleMenu->menu();
-                if ( $menu->slug_name == 'close-register' ) {
-                    $permission = $roleMenu->is_modify;
-                    break;
-                }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
             }
-            if ( isset($permission) && $permission == 1 ) {
+            $permission = $roleMenu->is_modify;
+            if ( $permission == 1 ) {
                 return true;
             }
         }
@@ -161,18 +157,17 @@ class RegisterCloseoutPolicy
             !$user->isAdministrator()) {
 
             // permission check
-            $roleMenus = $user->role()?->roleMenus();
-            if ( $roleMenus == null || count($roleMenus) == 0 ) {
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'close-register')->first();
+            if ( $roleId == null || $menu == null ) {
                 return false;
             }
-            foreach($roleMenus as $roleMenu) {
-                $menu = $roleMenu->menu();
-                if ( $menu->slug_name == 'close-register' ) {
-                    $permission = $roleMenu->is_modify;
-                    break;
-                }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
             }
-            if ( isset($permission) && $permission == 1 ) {
+            $permission = $roleMenu->is_modify;
+            if ( $permission == 1 ) {
                 return true;
             }
         }

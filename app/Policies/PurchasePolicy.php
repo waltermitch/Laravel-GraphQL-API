@@ -34,7 +34,21 @@ class PurchasePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        // permission check
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'purchase-orders')->first();
+        if ( $roleId == null || $menu == null ) {
+            return false;
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
+        }
+        $permission = $roleMenu->is_view;
+        if ( $permission == 1 ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -46,7 +60,21 @@ class PurchasePolicy
      */
     public function view(User $user, Purchase $purchase)
     {
-        //
+        // permission check
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'purchase-orders')->first();
+        if ( $roleId == null || $menu == null ) {
+            return false;
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
+        }
+        $permission = $roleMenu->is_view;
+        if ( $permission == 1 ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -57,7 +85,24 @@ class PurchasePolicy
      */
     public function create(User $user)
     {
-        return !$user->isAdministrator();
+        if ( !$user->isAdministrator() ) {
+
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'purchase-orders')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_create;
+            if ( $permission == 1 ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -79,8 +124,23 @@ class PurchasePolicy
             !$user->isAdministrator() &&
             $purchase->containItems($updateIds) &&
             $purchase->containItems($deleteIds)) {
-            return true;
+            
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'purchase-orders')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_modify;
+            if ( $permission == 1 ) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -95,8 +155,23 @@ class PurchasePolicy
         if ($user->activePeriod()?->id === $purchase->period_id &&
             $user->id === $purchase->user_id &&
             !$user->isAdministrator()) {
-            return true;
+
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'purchase-orders')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_modify;
+            if ( $permission == 1 ) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**

@@ -34,7 +34,21 @@ class CateringOrderPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        // permission check
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'catering-sales')->first();
+        if ( $roleId == null || $menu == null ) {
+            return false;
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
+        }
+        $permission = $roleMenu->is_view;
+        if ( $permission == 1 ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -46,7 +60,21 @@ class CateringOrderPolicy
      */
     public function view(User $user, CateringOrder $cateringOrder)
     {
-        //
+        // permission check
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'catering-sales')->first();
+        if ( $roleId == null || $menu == null ) {
+            return false;
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
+        }
+        $permission = $roleMenu->is_view;
+        if ( $permission == 1 ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -57,7 +85,24 @@ class CateringOrderPolicy
      */
     public function create(User $user)
     {
-        return !$user->isAdministrator();
+        if ( !$user->isAdministrator() ) {
+
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'catering-sales')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_create;
+            if ( $permission == 1 ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -79,8 +124,23 @@ class CateringOrderPolicy
             !$user->isAdministrator() &&
             $cateringOrder->containItems($updateIds) &&
             $cateringOrder->containItems($deleteIds)) {
-            return true;
+            
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'catering-sales')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_modify;
+            if ( $permission == 1 ) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**
@@ -95,8 +155,23 @@ class CateringOrderPolicy
         if ($user->activePeriod()?->id === $cateringOrder->period_id &&
             $user->id === $cateringOrder->user_id &&
             !$user->isAdministrator()) {
-            return true;
+            
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'catering-sales')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_modify;
+            if ( $permission == 1 ) {
+                return true;
+            }
         }
+        return false;
     }
 
     /**

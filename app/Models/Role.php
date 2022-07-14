@@ -20,7 +20,7 @@ class Role extends Model
     /**
      * Get the users for the role.
      */
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
