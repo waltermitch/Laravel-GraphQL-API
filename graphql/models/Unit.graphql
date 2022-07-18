@@ -301,7 +301,7 @@ input UpdateUnitInput @validator {
     managementAmount: Float @rename(attribute: "management_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Management fee type."
-    managementFeeType: String @rename(attribute: "management_fee_type") @rules(apply: ["required", "string", "exists:calculation_codes,code"])
+    managementFeeType: String @rename(attribute: "management_fee_type") @rules(apply: ["string", "exists:calculation_codes,code"])
 
     "Administrative percent."
     administrativePercent: Float @rename(attribute: "administrative_percent") @rules(apply: ["numeric", "between:0,100"])
@@ -310,7 +310,7 @@ input UpdateUnitInput @validator {
     administrativeAmount: Float @rename(attribute: "administrative_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Administrative fee type."
-    administrativeFeeType: String @rename(attribute: "administrative_fee_type") @rules(apply: ["required", "string", "exists:calculation_codes,code"])
+    administrativeFeeType: String @rename(attribute: "administrative_fee_type") @rules(apply: ["string", "exists:calculation_codes,code"])
 
     "Support percent."
     supportPercent: Float @rename(attribute: "support_percent") @rules(apply: ["numeric", "between:0,100"])
@@ -319,7 +319,7 @@ input UpdateUnitInput @validator {
     supportAmount: Float @rename(attribute: "support_amount") @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 
     "Support fee type."
-    supportFeeType: String @rename(attribute: "support_fee_type") @rules(apply: ["required", "string", "exists:calculation_codes,code"])
+    supportFeeType: String @rename(attribute: "support_fee_type") @rules(apply: ["string", "exists:calculation_codes,code"])
 
     "Payroll tax percent."
     payrollTaxPercent: Float @rename(attribute: "payroll_tax_percent") @rules(apply: ["numeric", "between:0,100"])
