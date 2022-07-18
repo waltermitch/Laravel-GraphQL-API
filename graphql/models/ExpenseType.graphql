@@ -38,11 +38,17 @@ input UpdateExpenseTypeInput {
 }
 
 extend type Query {
-    "List multiple expense types."
+    "List multiple expense types. Except Fixed, OnCall, ReAccrual, Reversal" 
     expenseTypes: [ExpenseType!]!
-        @all
-        @guard
 }
+
+
+# extend type Query {
+#     "List multiple expense types."
+#     expenseTypes: [ExpenseType!]!
+#         @all
+#         @guard
+# }
 
 extend type Mutation {
     "Create a new expenseType."
