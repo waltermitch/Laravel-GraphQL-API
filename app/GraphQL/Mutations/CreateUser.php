@@ -25,7 +25,7 @@ class CreateUser
         DB::beginTransaction();
         try {
             $is_admin = $args['is_admin'];
-            if ( $is_admin == false ) {
+            if ( !$is_admin ) {
                 $role = Role::findOrFail($args['role_id']);
             }
             $user = new User();
@@ -36,13 +36,20 @@ class CreateUser
             $user->is_active = $args['is_active'];
             $user->email_verified_at = now();
             $user->password = Hash::make($args['password']);
-            if ( $is_admin == false ) {
+            if ( !$is_admin ) {
                 $user->role_id = $args['role_id'];
             }
             $user->save();
             
-            if (!$user->is_admin && !empty($args['units']['sync'])) {
-                $user->units()->sync($args['units']['sync']);
+            if ( !$user->is_admin ) {
+                if ( empty($args['units']['sync']) ) {
+                    return [
+                        'status' => UserCreateStatus::ERROR,
+                        'message' => 'You should select units'
+                    ];
+                } else {
+                    $user->units()->sync($args['units']['sync']);
+                }
             }
             DB::commit();
         } catch (\Exception $e) {

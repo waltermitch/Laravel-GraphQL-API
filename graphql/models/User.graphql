@@ -39,19 +39,19 @@ type User {
 
 input CreateUserInput {
     "Non-unique first name."
-    firstName: String! @rename(attribute: "first_name") @rules(apply: ["max:255"])
+    firstName: String! @rename(attribute: "first_name") @rules(apply: ["required", "max:255"])
 
     "Non-unique last name."
     lastName: String! @rename(attribute: "last_name") @rules(apply: ["max:255"])
 
     "Unique email address."
-    email: String! @rules(apply: ["unique:users,email", "max:255", "email"])
+    email: String! @rules(apply: ["required", "unique:users,email", "max:255", "email"])
 
     "Connect units that belongs to user."
     units: CreateOrUpdateUnitBelongsToMany
     
     "Password"
-    password: String!
+    password: String! @rules(apply: ["required"])
     
     "If user is admin role."
     isAdmin: Boolean! @rename(attribute: "is_admin")
@@ -68,13 +68,13 @@ input UpdateUserInput @validator {
     id: ID! @eq
     
     "Non-unique first name."
-    firstName: String @rename(attribute: "first_name")
+    firstName: String @rename(attribute: "first_name") @rules(apply: ["required", "max:255"])
 
     "Non-unique last name."
-    lastName: String @rename(attribute: "last_name")
+    lastName: String @rename(attribute: "last_name") @rules(apply: ["max:255"])
 
     "Unique email address."
-    email: String
+    email: String @rules(apply: ["required", "max:255", "email"])
 
     "Connect units that belongs to user."
     units: CreateOrUpdateUnitBelongsToMany

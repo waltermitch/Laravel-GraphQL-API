@@ -39,10 +39,17 @@ class UpdateUser
                 $user->role_id = null;
                 $user->save();
             }
-            
-            if (!$user->is_admin) {
-                $user->units()->sync($args['units']['sync'] ?? []);
-            } elseif ($user->is_admin && !$wasAdmin) {
+
+            if ( !$user->is_admin ) {
+                if ( empty($args['units']['sync']) ) {
+                    return [
+                        'status' => UserUpdateStatus::ERROR,
+                        'message' => 'You should select units'
+                    ];
+                } else {
+                    $user->units()->sync($args['units']['sync']);
+                }
+            } elseif ( !$wasAdmin ) {
                 $user->units()->detach();
             }
             DB::commit();
