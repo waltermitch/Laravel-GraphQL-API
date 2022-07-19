@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use App\Models\ExpenseType;
+use App\Models\Expense;
 use App\Traits\Auth\ManagesAuth;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,6 +35,35 @@ class CloseWeek
             $selectedUnit = $user->selectedUnit();
             $activePeriod = $selectedUnit->activePeriod();
             $previousPeriod = $activePeriod?->previous();
+
+            // get the records from fixed_expenses table where the date is current active Period and monthly is false
+
+            // check if it's the first week
+            if ( $activePeriod?->week == 1 ) {
+                $fixedExpenses = DB::table('fixed_expenses')->get();
+            } else {
+                $fixedExpenses = DB::table('fixed_expenses')->where('monthly', false)->get();
+            }
+            // unit_id, monthly, gl_account_id, amount, comments, created_at, updated_at
+
+            // get the expense_type for Fixed expense
+            $fixedExpenseType = DB::table('expense_types')->where('type', 'Fixed')->first();
+
+            // pre-populate the fixed_expenses to expenses table
+            foreach($fixedExpenses as $expense) {
+                $newExpense = new Expense();
+                $newExpense->expense_type_id = $fixedExpenseType->id;
+                $newExpense->gl_account_id = $expense->gl_account_id;
+                $newExpense->expense_date = $expense->created_at; // not null
+                $newExpense->amount = $expense->amount; // not null
+                $newExpense->comments = $expense->comments; // not null
+                // $newExpense->vendor_id = $expense->id; // not supported
+                $newExpense->unit_id = $expense->unit_id;
+                $newExpense->period_id = $activePeriod?->id;
+                // $newExpense->user_id = $expense->id; // not supported
+                // $newExpense->reversal_of_expense_id = $expense->id; // not supported
+                $newExpense->save();
+            }
 
             // reversals
             if ($previousPeriodId = $previousPeriod?->id) {

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Unit;
 use App\Models\ExpenseType;
 use App\Models\GlAccount;
+use App\Models\Period;
 use App\Traits\AttachPeriod;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -59,7 +60,7 @@ class Expense extends Model
     {
         return $this->belongsTo(Unit::class);
     }
-    
+
     /**
      * Get the type that owns the expense.
      */
