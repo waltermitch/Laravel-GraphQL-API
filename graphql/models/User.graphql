@@ -16,7 +16,7 @@ type User {
     email: String!
 
     "The units that belongs to user."
-    units: [Unit!]! @paginate
+    units: [Unit!]!
 
     "If user is admin role."
     isAdmin: Boolean! @rename(attribute: "is_admin")
