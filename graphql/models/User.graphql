@@ -60,7 +60,7 @@ input CreateUserInput {
     isActive: Boolean! @rename(attribute: "is_active")
     
     "RoleID for the user's role"
-    roleID: ID! @rename(attribute: "role_id")
+    roleID: ID @rename(attribute: "role_id")
 }
 
 input UpdateUserInput @validator {
@@ -89,7 +89,7 @@ input UpdateUserInput @validator {
     isActive: Boolean @rename(attribute: "is_active")
 
     "RoleID for the user's role"
-    roleID: ID! @rename(attribute: "role_id")
+    roleID: ID @rename(attribute: "role_id")
 }
 
 input CreateOrUpdateUnitBelongsToMany @validator {

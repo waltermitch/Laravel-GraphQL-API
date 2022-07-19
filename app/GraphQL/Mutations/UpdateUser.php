@@ -7,6 +7,7 @@ namespace App\GraphQL\Mutations;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Enums\UserUpdateStatus;
@@ -23,13 +24,21 @@ class UpdateUser
     {
         DB::beginTransaction();
         try {
+            $is_admin = $args['is_admin'];
+            if ( $is_admin == false ) {
+                $role = Role::findOrFail($args['role_id']);
+            }
+
             $user = User::findOrFail($args['id']);
             $wasAdmin = $user->is_admin;
             if (isset($args['password'])) {
                 $args['password'] = Hash::make($args['password']);
             }
-            
             $user->fill($args)->save();
+            if ( $is_admin == true ) {
+                $user->role_id = null;
+                $user->save();
+            }
             
             if (!$user->is_admin) {
                 $user->units()->sync($args['units']['sync'] ?? []);

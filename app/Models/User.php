@@ -31,6 +31,7 @@ class User extends Authenticatable implements HasApiTokensContract, CanResetPass
         'is_active',
         'email',
         'password',
+        'role_id'
     ];
 
     /**

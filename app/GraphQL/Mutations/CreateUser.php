@@ -8,6 +8,7 @@ use App\Enums\UserCreateStatus;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -23,6 +24,10 @@ class CreateUser
     {
         DB::beginTransaction();
         try {
+            $is_admin = $args['is_admin'];
+            if ( $is_admin == false ) {
+                $role = Role::findOrFail($args['role_id']);
+            }
             $user = new User();
             $user->first_name = $args['first_name'];
             $user->last_name = $args['last_name'];
@@ -31,8 +36,9 @@ class CreateUser
             $user->is_active = $args['is_active'];
             $user->email_verified_at = now();
             $user->password = Hash::make($args['password']);
-            $user->is_active = $args['is_active'];
-            $user->role_id = $args['role_id'];
+            if ( $is_admin == false ) {
+                $user->role_id = $args['role_id'];
+            }
             $user->save();
             
             if (!$user->is_admin && !empty($args['units']['sync'])) {
