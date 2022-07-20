@@ -55,9 +55,9 @@ extend type Query {
         # @paginate(defaultCount: 20)
         @guard
 
-    "Get all of the states by pagination."
+    "Get all of the counties by pagination."
     countyList: [County!]!
-        @paginate(defaultCount: 5)
+        @paginate(defaultCount: 15)
         @guard
 }
 

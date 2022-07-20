@@ -54,6 +54,11 @@ extend type Query {
         @all
         # @paginate(defaultCount: 20)
         @guard
+
+    "Get all of the cities by pagination."
+    cityList: [City!]!
+        @paginate(defaultCount: 15)
+        @guard
 }
 
 extend type Mutation {

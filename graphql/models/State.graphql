@@ -84,7 +84,7 @@ extend type Query {
 
     "Get all of the states by pagination."
     stateList: [State!]!
-        @paginate(defaultCount: 5)
+        @paginate(defaultCount: 15)
         @guard
 }
 
