@@ -78,8 +78,13 @@ input UpdateStateInput {
 
 extend type Query {
     "List multiple states."
-    states: [State!]! 
+    states: [State!]!
         @all
+        @guard
+
+    "Get all of the states by pagination."
+    stateList: [State!]!
+        @paginate(defaultCount: 5)
         @guard
 }
 

@@ -52,6 +52,7 @@ extend type Query {
     "List multiple cities."
     cities: [City!]! 
         @all
+        # @paginate(defaultCount: 20)
         @guard
 }
 
