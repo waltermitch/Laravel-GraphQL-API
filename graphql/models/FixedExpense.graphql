@@ -65,6 +65,10 @@ extend type Query {
     fixedExpenses: [FixedExpense!]! 
         @all
         @guard
+        @can(ability: "viewAny")
+
+    "List multiple fixed expenses. Only belongs to User->selected_unit" 
+    FixedExpenses: [FixedExpense!]! @guard @can(ability: "viewAny")
 }
 
 extend type Mutation {

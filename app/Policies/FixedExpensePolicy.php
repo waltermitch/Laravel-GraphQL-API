@@ -35,6 +35,7 @@ class FixedExpensePolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -47,6 +48,7 @@ class FixedExpensePolicy
     public function view(User $user, FixedExpense $fixedExpense)
     {
         //
+        return true;
     }
 
     /**

@@ -34,23 +34,34 @@ class UpdateRole
                 ];
             }
 
+            $sameRoleNameCount = Role::where('id', '!=', $args['role_id'])->where('name', $args['role_name'])->count();
+            if ( $sameRoleNameCount > 0 ) {
+                return [
+                    'status' => false,
+                    'message' => "The roleName should be unique"
+                ];
+            }
+
+            $menus = Menu::all();
+            foreach ( $menus as $menu ) {
+                $hasPermission[$menu->id] = false;
+            }
+
             // update the role
             $role->name = $args['role_name'];
             $role->save();
 
             // update permissions
             foreach ( $args['permissions'] as $permission ) {
+                $hasPermission[$permission['menu_id']] = true;
                 // check if the role-menu permission exists
                 $roleMenu = RoleMenu::where('role_id', $args['role_id'])->where('menu_id', $permission['menu_id'])->first();
                 if ( $roleMenu == null ) {
-                    // create the new role_menu
-                    $newRoleMenu = new RoleMenu();
-                    $newRoleMenu->role_id = $args['role_id'];
-                    $newRoleMenu->menu_id = $permission['menu_id'];
-                    $newRoleMenu->is_view = $permission['is_view'];
-                    $newRoleMenu->is_create = $permission['is_create'];
-                    $newRoleMenu->is_modify = $permission['is_modify'];
-                    $newRoleMenu->save();
+                    DB::rollback();
+                    return [
+                        'status' => false,
+                        'message' => "Unknown menuID"
+                    ];
                 } else {
                     // update role_menus table
                     $roleMenu->is_view = $permission['is_view'];
@@ -59,7 +70,17 @@ class UpdateRole
                     $roleMenu->save();
                 }
             }
-            
+
+            // check if the input has the permissions for all of the menus
+            foreach ( $menus as $menu ) {
+                if ( $hasPermission[$menu->id] == false ) {
+                    DB::rollback();
+                    return [
+                        'status' => false,
+                        'message' => "Didn't set the permission for all of the menus"
+                    ];
+                }
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();

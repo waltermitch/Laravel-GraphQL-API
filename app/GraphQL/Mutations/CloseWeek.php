@@ -13,6 +13,7 @@ use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
 
 class CloseWeek
 {   
@@ -40,27 +41,39 @@ class CloseWeek
 
             // check if it's the first week
             if ( $activePeriod?->week == 1 ) {
-                $fixedExpenses = DB::table('fixed_expenses')->get();
+                $fixedExpenses = DB::table('fixed_expenses')->where('unit_id', $selectedUnit->id)->get();
             } else {
-                $fixedExpenses = DB::table('fixed_expenses')->where('monthly', false)->get();
+                $fixedExpenses = DB::table('fixed_expenses')->where('unit_id', $selectedUnit->id)->where('monthly', false)->get();
             }
+
+            /*
+            1. I checked that, and it looks like you missed one thing. unit_id. I closed a week on unit 4, and it added three expenses for me: one was from unit id 2 and two from 14. It must add only my unit data
+            2. This list shows all fixed expenses instead of only my unit items (unit 4 doesn't have any fixed expenses. )
+            image.png
+
+            image (1).png
+            3. setup expense_date as the current time
+
+             */
             // unit_id, monthly, gl_account_id, amount, comments, created_at, updated_at
 
             // get the expense_type for Fixed expense
             $fixedExpenseType = DB::table('expense_types')->where('type', 'Fixed')->first();
 
             // pre-populate the fixed_expenses to expenses table
+            $nowTime = Carbon::now();
+            $nowDate = $nowTime->toDateString();
             foreach($fixedExpenses as $expense) {
                 $newExpense = new Expense();
                 $newExpense->expense_type_id = $fixedExpenseType->id;
                 $newExpense->gl_account_id = $expense->gl_account_id;
-                $newExpense->expense_date = $expense->created_at; // not null
+                $newExpense->expense_date = $nowDate; // not null
                 $newExpense->amount = $expense->amount; // not null
                 $newExpense->comments = $expense->comments; // not null
                 // $newExpense->vendor_id = $expense->id; // not supported
                 $newExpense->unit_id = $expense->unit_id;
                 $newExpense->period_id = $activePeriod?->id;
-                // $newExpense->user_id = $expense->id; // not supported
+                $newExpense->user_id = $user->id;
                 // $newExpense->reversal_of_expense_id = $expense->id; // not supported
                 $newExpense->save();
             }
@@ -107,6 +120,8 @@ class CloseWeek
                 $selectedUnit->periods()->attach($next);
                 
                 DB::commit();
+            } else {
+                DB:: rollback();
             }
         } catch (\Exception $e) {
             DB::rollback();

@@ -43,6 +43,7 @@ class CreateUser
             
             if ( !$user->is_admin ) {
                 if ( empty($args['units']['sync']) ) {
+                    DB::rollback();
                     return [
                         'status' => UserCreateStatus::ERROR,
                         'message' => 'You should select units'

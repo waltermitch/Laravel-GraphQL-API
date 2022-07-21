@@ -32,6 +32,11 @@ class CreateRole
                 ];
             }
 
+            $menus = Menu::all();
+            foreach ( $menus as $menu ) {
+                $hasPermission[$menu->id] = false;
+            }
+
             // create the new role
             $newRole = new Role();
             $newRole->name = $args['role_name'];
@@ -42,22 +47,34 @@ class CreateRole
                 // check if the menu is valid
                 $menu = Menu::where('id', $permission['menu_id'])->first();
                 if ( $menu == null ) {
+                    DB::rollback();
                     return [
                         'status' => false,
                         'message' => "Invalid menu exists"
                     ];
                 }
+                $hasPermission[$menu->id] = true;
 
                 // create the new role_menu
                 $newRoleMenu = new RoleMenu();
                 $newRoleMenu->role_id = $newRole->id;
-                $newRoleMenu->menu_id = $permission['menu_id'];
+                $newRoleMenu->menu_id = $menu->id;
                 $newRoleMenu->is_view = $permission['is_view'];
                 $newRoleMenu->is_create = $permission['is_create'];
                 $newRoleMenu->is_modify = $permission['is_modify'];
                 $newRoleMenu->save();
             }
 
+            // check if the input has the permissions for all of the menus
+            foreach ( $menus as $menu ) {
+                if ( $hasPermission[$menu->id] == false ) {
+                    DB::rollback();
+                    return [
+                        'status' => false,
+                        'message' => "Didn't set the permission for all of the menus"
+                    ];
+                }
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();

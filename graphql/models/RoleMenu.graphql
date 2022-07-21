@@ -17,8 +17,8 @@ input PermissionSetting {
 }
 "Create Role-Permission Data"
 input CreateRoleInput {
-    roleName: String! @rename(attribute: "role_name")
-    permissions: [PermissionSetting!]!
+    roleName: String! @rename(attribute: "role_name") @rules(apply: ["required", "unique:roles,name"])
+    permissions: [PermissionSetting!]! @rules(apply: ["required"])
 }
 type CreateRoleResponse {
     status: Boolean!
@@ -26,9 +26,9 @@ type CreateRoleResponse {
 }
 "Update Role-Permission Data"
 input UpdateRoleInput {
-    roleID: ID! @rename(attribute: "role_id")
-    roleName: String! @rename(attribute: "role_name")
-    permissions: [PermissionSetting!]!
+    roleID: ID! @rename(attribute: "role_id") @rules(apply: ["required"])
+    roleName: String! @rename(attribute: "role_name") @rules(apply: ["required"])
+    permissions: [PermissionSetting!]! @rules(apply: ["required"])
 }
 type UpdateRoleResponse {
     status: Boolean!
@@ -36,11 +36,22 @@ type UpdateRoleResponse {
 }
 "Delete Role-Permission Data"
 input DeleteRoleInput {
-    roleID: ID! @rename(attribute: "role_id")
+    roleID: ID! @rename(attribute: "role_id") @rules(apply: ["required"])
 }
 type DeleteRoleResponse {
     status: Boolean!
     message: String!
+}
+
+"Check if the user has Menu-Permission"
+input CheckPermissionInput {
+    slugName: String! @rename(attribute: "slug_name") @rules(apply: ["required"])
+    permissionType: PermissionType! @rename(attribute: "permission_type") @rules(apply: ["required"])
+}
+type CheckPermissionResponse {
+    status: Boolean!
+    message: String!
+    permission: Boolean
 }
 
 extend type Query {
@@ -65,4 +76,9 @@ extend type Mutation {
     deleteRole (
         input: DeleteRoleInput! @spread
     ): DeleteRoleResponse! @guard @can(ability: "delete", model: "RoleMenu", query: true)
+
+    "Check if the user has menu-permission"
+    checkPermission (
+        input: CheckPermissionInput! @spread
+    ): CheckPermissionResponse! @guard @can(ability: "view", model: "RoleMenu", query: true)
 }
