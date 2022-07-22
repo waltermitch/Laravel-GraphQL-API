@@ -105,22 +105,23 @@ extend type Query {
 
 input CreateCallLaborInput {
     "Amount"
-    amount: String! @rules(apply: ["required", "max:255"])
+    amount: String! @rules(apply: ["required"])
 
     "Comments"
     comments: String! @rules(apply: ["required", "max:255"])
 
-    "Unit_id"
-    unitId: ID! @rename(attribute: "unit_id") @rules(apply: ["string", "exists:units,id"])
+}
+type CreateCallLaborResponse {
+    status: Boolean!
+    message: String!
 }
 
 extend type Mutation {
     "Create a call-labor"
     createCallLabor(
         expenseInput: CreateCallLaborInput! @spread
-    ): Expense
+    ): CreateCallLaborResponse
         @guard
-        @can(ability: "create")
 
     "Create a new expense."
     createExpense(

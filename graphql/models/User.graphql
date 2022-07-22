@@ -152,9 +152,6 @@ extend type Mutation {
       id: ID!
     ): Unit @guard @can(ability: "selectUnit", injectArgs: true)
     
-    "Close week"
-    closeWeek: Boolean! @guard
-    
     "Create a new user."
     createUser(
         "User."

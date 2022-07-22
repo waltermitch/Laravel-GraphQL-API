@@ -12,6 +12,7 @@ use App\Models\ExpenseType;
 use App\Models\Expense;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CreateCallLabor
 {
@@ -23,10 +24,12 @@ class CreateCallLabor
 
     public function __invoke($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        Gate::allowIf(fn ($user) => !$user->isAdministrator() && $user->hasSelectedUnit());
+
         DB::beginTransaction();
         try {
             $user = static::authenticatedUser();
-
+            $selectedUnit = $user->selectedUnit();
             // get current time as Date ex: xxxx-xx-xx format
             $nowTime = Carbon::now();
             $nowDate = $nowTime->toDateString();
@@ -45,7 +48,7 @@ class CreateCallLabor
             $newExpense->amount = $args['amount']; // not null
             $newExpense->comments = $args['comments']; // not null
             // $newExpense->vendor_id = $expense->id; // not supported
-            $newExpense->unit_id = $args['unit_id'];
+            $newExpense->unit_id = $selectedUnit?->id;
             $newExpense->period_id = $currentPeriod->id;
             $newExpense->user_id = $user->id;
             // $newExpense->reversal_of_expense_id = $expense->id; // not supported
@@ -53,8 +56,7 @@ class CreateCallLabor
             $newExpense->save();
             DB::commit();
 
-            return $newExpense; // return response
-
+            // return $newExpense; // return response
         } catch (\Exception $e) {
             DB::rollback();
             

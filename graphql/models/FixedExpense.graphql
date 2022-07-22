@@ -74,7 +74,13 @@ extend type Query {
         @can(ability: "viewAny")
 
     "List multiple fixed expenses. Only belongs to User->selected_unit" 
-    FixedExpenses: [FixedExpense!]! @guard @can(ability: "viewAny")
+    FixedExpenses(
+      "Get the user-selected unit's fixed expenses"
+      unit_id: ID! @eq @rules(apply: ["required", "exists:units,id"])
+    ): [FixedExpense!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {
@@ -104,4 +110,7 @@ extend type Mutation {
         @delete
         @guard
         @can(ability: "delete", query: true)
+
+    "Close week"
+    closeWeek: Boolean! @guard
 }

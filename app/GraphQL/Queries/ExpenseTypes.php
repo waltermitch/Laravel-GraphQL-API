@@ -7,7 +7,6 @@ namespace App\GraphQL\Queries;
 use App\Models\ExpenseType;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-
 use Illuminate\Support\Facades\DB;
 
 class ExpenseTypes

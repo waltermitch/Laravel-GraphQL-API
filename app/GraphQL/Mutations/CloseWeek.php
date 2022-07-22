@@ -45,7 +45,6 @@ class CloseWeek
             } else {
                 $fixedExpenses = DB::table('fixed_expenses')->where('unit_id', $selectedUnit->id)->where('monthly', false)->get();
             }
-
             /*
             When the location manager is closing a week all records from the "fixed_expenses" table must be pre-populated to expenses. This functionality is because sometimes they have "fixed expenses" that occur each week, so they have a different table and at the end, records are copied each week to expenses.
 
@@ -129,9 +128,15 @@ class CloseWeek
         } catch (\Exception $e) {
             DB::rollback();
             
-            return false;
+            return [
+                'status' => false,
+                'message' => 'failed'
+            ];
         }
         
-        return true;
+        return [
+            'status' => true,
+            'message' => 'success'
+        ];
     }
 }

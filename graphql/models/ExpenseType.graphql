@@ -52,7 +52,6 @@ extend type Query {
 
     "List multiple expense types. Except Fixed, OnCall, ReAccrual, Reversal" 
     ExpenseTypes: [ExpenseType!]! @guard @can(ability: "viewAny")
-    
 }
 
 extend type Mutation {

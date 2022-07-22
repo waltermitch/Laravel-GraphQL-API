@@ -23,6 +23,8 @@ class FixedExpensePolicy
             if (!$user->hasSelectedUnit()) {
                 return false;
             }
+        } else {
+            return false;
         }
     }
 
@@ -59,6 +61,7 @@ class FixedExpensePolicy
      */
     public function create(User $user)
     {
+        return true;
         return !$user->isAdministrator();
     }
 
@@ -71,6 +74,7 @@ class FixedExpensePolicy
      */
     public function update(User $user, FixedExpense $fixedExpense)
     {
+        return true;
         return !$user->isAdministrator();
     }
 
@@ -83,6 +87,7 @@ class FixedExpensePolicy
      */
     public function delete(User $user, FixedExpense $fixedExpense)
     {
+        return true;
         return !$user->isAdministrator();
     }
 

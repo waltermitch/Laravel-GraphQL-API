@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Queries;
 
-use App\Traits\Auth\ManagesAuth;
+use App\Models\FixedExpense;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-
 use Illuminate\Support\Facades\DB;
+
+use App\Traits\Auth\ManagesAuth;
 
 class FixedExpenses
 {   
@@ -23,7 +24,9 @@ class FixedExpenses
     {   
         $user = static::authenticatedUser();
         $selectedUnit = $user->selectedUnit();
-        $fixedExpenses = DB::table('fixed_expenses')->where('unit_id', $selectedUnit->id)->get();
+        
+        $fixedExpenses = FixedExpense::where('unit_id', 14)->get();
+
         return $fixedExpenses;
     }
 }
