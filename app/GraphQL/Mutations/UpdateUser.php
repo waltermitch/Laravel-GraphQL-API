@@ -42,6 +42,7 @@ class UpdateUser
 
             if ( !$user->is_admin ) {
                 if ( empty($args['units']['sync']) ) {
+                    DB::rollback();
                     return [
                         'status' => UserUpdateStatus::ERROR,
                         'message' => 'You should select units'

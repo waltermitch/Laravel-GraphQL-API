@@ -18,7 +18,7 @@ class PeriodPolicy
      */
     public function viewAny(User $user)
     {
-
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class PeriodPolicy
      */
     public function view(User $user, Period $period)
     {
-        //
+        return true;
     }
 
     /**

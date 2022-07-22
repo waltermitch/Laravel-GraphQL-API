@@ -112,6 +112,7 @@ extend type Query {
     registers: [Register!]! 
         @all
         @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

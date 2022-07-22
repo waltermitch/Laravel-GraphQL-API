@@ -39,6 +39,13 @@ extend type Query {
     districts: [District!]! 
         @all
         @guard
+        @can(ability: "viewAny")
+
+    "Get all of the districts by pagination."
+    districtList: [District!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

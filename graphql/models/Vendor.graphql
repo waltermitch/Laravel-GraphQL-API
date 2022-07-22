@@ -43,7 +43,7 @@ input UpdateVendorInput {
     terms: CreateTermBelongsToMany
 }
 
-input CreateTermBelongsToMany {
+input CreateTermBelongsToMany{
     "Sync existing id's."
     sync: [ID!] @rules(apply: ["exists:terms,id"])
 
@@ -60,6 +60,14 @@ extend type Query {
         @all
         @guard
         @orderBy(column: "name", direction: ASC)
+        @can(ability: "viewAny")
+
+    "Get all of the vendors by pagination."
+    vendorList: [Vendor!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @orderBy(column: "name", direction: ASC)
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

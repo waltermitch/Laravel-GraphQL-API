@@ -19,6 +19,7 @@ class RegisterPolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class RegisterPolicy
     public function view(User $user, Register $register)
     {
         //
+        return true;
     }
 
     /**

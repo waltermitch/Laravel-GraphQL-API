@@ -19,6 +19,7 @@ class VendorPolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class VendorPolicy
     public function view(User $user, Vendor $vendor)
     {
         //
+        return true;
     }
 
     /**

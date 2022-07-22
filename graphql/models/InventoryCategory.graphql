@@ -64,6 +64,13 @@ extend type Query {
     inventoryCategories: [InventoryCategory!]!
         @all
         @guard
+        @can(ability: "viewAny")
+    
+    "Get all of the inventory categories by pagination."
+    inventoryCategoryList: [InventoryCategory!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

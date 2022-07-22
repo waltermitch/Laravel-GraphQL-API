@@ -39,6 +39,13 @@ extend type Query {
     calculationCodes: [CalculationCode!]!
     @all
     @guard
+    @can(ability: "viewAny")
+
+    "Get all of the calculation codes by pagination."
+    calculationCodeList: [CalculationCode!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

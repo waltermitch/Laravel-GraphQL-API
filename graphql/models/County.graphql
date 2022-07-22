@@ -52,13 +52,14 @@ extend type Query {
     "List multiple counties."
     counties: [County!]! 
         @all
-        # @paginate(defaultCount: 20)
         @guard
+        @can(ability: "viewAny")
 
     "Get all of the counties by pagination."
     countyList: [County!]!
         @paginate(defaultCount: 15)
         @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

@@ -19,6 +19,7 @@ class StatePolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class StatePolicy
     public function view(User $user, State $state)
     {
         //
+        return true;
     }
 
     /**

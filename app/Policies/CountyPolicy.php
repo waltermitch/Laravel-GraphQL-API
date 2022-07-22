@@ -19,6 +19,7 @@ class CountyPolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class CountyPolicy
     public function view(User $user, County $county)
     {
         //
+        return true;
     }
 
     /**

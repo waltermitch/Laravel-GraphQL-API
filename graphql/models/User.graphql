@@ -135,6 +135,12 @@ extend type Query {
       name: String @where(operator: "like")
     ): [User!]! @all @guard @can(ability: "viewAny")
 
+    "Get all of the users by pagination."
+    userList: [User!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
+
     "Return currently authenticated user."
     me: User! @guard @auth
 }

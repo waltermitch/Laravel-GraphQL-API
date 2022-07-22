@@ -18,10 +18,10 @@ type Period {
     pivot: PeriodUnitPivot
 
     "When the period was created."
-    createdAt: DateTime! @rename(attribute: "created_at")
+    createdAt: DateTime @rename(attribute: "created_at")
 
     "When the period was last updated."
-    updatedAt: DateTime! @rename(attribute: "updated_at")
+    updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
 input CreatePeriodInput {
@@ -67,6 +67,16 @@ extend type Query {
         @all
         @guard
         @orderBy(column: "period_end", direction: DESC)
+        @can(ability: "viewAny")
+    
+    "Get all of the periods by pagination."
+    periodList(
+        hasUnits: Boolean @scope
+    ): [Period!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @orderBy(column: "period_end", direction: DESC)
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

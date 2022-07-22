@@ -19,6 +19,7 @@ class InventoryCategoryPolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class InventoryCategoryPolicy
     public function view(User $user, InventoryCategory $inventoryCategory)
     {
         //
+        return true;
     }
 
     /**

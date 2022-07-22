@@ -19,6 +19,7 @@ class CalculationCodePolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class CalculationCodePolicy
     public function view(User $user, CalculationCode $calculationCode)
     {
         //
+        return true;
     }
 
     /**

@@ -77,6 +77,13 @@ extend type Query {
     terms: [Term!]! 
         @all
         @guard
+        @can(ability: "viewAny")
+    
+    "Get all of the terms by pagination."
+    termList: [Term!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {

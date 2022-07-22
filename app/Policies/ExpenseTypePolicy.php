@@ -18,7 +18,7 @@ class ExpenseTypePolicy
      */
     public function viewAny(User $user)
     {
-
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class ExpenseTypePolicy
      */
     public function view(User $user, ExpenseType $expenseType)
     {
-        //
+        return true;
     }
 
     /**

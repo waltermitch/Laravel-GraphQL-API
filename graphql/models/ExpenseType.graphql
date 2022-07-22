@@ -42,9 +42,17 @@ extend type Query {
     expenseTypes: [ExpenseType!]!
         @all
         @guard
+        @can(ability: "viewAny")
+
+    "Get all of the periods by pagination."
+    expenseTypeList: [ExpenseType!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
 
     "List multiple expense types. Except Fixed, OnCall, ReAccrual, Reversal" 
-    ExpenseTypes: [ExpenseType!]! @guard
+    ExpenseTypes: [ExpenseType!]! @guard @can(ability: "viewAny")
+    
 }
 
 extend type Mutation {

@@ -19,6 +19,7 @@ class CityPolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class CityPolicy
     public function view(User $user, City $city)
     {
         //
+        return true;
     }
 
     /**

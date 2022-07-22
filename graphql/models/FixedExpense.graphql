@@ -67,6 +67,12 @@ extend type Query {
         @guard
         @can(ability: "viewAny")
 
+    "Get all of the fixed expenses by pagination."
+    fixedExpenseList: [FixedExpense!]!
+        @paginate(defaultCount: 15)
+        @guard
+        @can(ability: "viewAny")
+
     "List multiple fixed expenses. Only belongs to User->selected_unit" 
     FixedExpenses: [FixedExpense!]! @guard @can(ability: "viewAny")
 }

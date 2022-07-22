@@ -22,6 +22,13 @@ class InventoryAmount
 
         $selectedUnit = $user->selectedUnit();
 
+        if ( $selectedUnit == null ) {
+            return [
+                'current' => 0,
+                'previous' => 0
+            ];
+        }
+
         $activePeriod = $selectedUnit->activePeriod();
 
         return [

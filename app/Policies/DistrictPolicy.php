@@ -19,6 +19,7 @@ class DistrictPolicy
     public function viewAny(User $user)
     {
         //
+        return true;
     }
 
     /**
@@ -31,6 +32,7 @@ class DistrictPolicy
     public function view(User $user, District $district)
     {
         //
+        return true;
     }
 
     /**

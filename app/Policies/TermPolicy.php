@@ -18,7 +18,7 @@ class TermPolicy
      */
     public function viewAny(User $user)
     {
-        
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class TermPolicy
      */
     public function view(User $user, Term $term)
     {
-        //
+        return true;
     }
 
     /**

@@ -47,6 +47,9 @@ class CloseWeek
             }
 
             /*
+            When the location manager is closing a week all records from the "fixed_expenses" table must be pre-populated to expenses. This functionality is because sometimes they have "fixed expenses" that occur each week, so they have a different table and at the end, records are copied each week to expenses.
+
+            
             1. I checked that, and it looks like you missed one thing. unit_id. I closed a week on unit 4, and it added three expenses for me: one was from unit id 2 and two from 14. It must add only my unit data
             2. This list shows all fixed expenses instead of only my unit items (unit 4 doesn't have any fixed expenses. )
             image.png

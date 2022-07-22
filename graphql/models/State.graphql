@@ -81,11 +81,13 @@ extend type Query {
     states: [State!]!
         @all
         @guard
+        @can(ability: "viewAny")
 
     "Get all of the states by pagination."
     stateList: [State!]!
         @paginate(defaultCount: 15)
         @guard
+        @can(ability: "viewAny")
 }
 
 extend type Mutation {
