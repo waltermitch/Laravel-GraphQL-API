@@ -68,6 +68,10 @@ extend type Query {
         @guard
         @orderBy(column: "period_end", direction: DESC)
         @can(ability: "viewAny")
+
+    PeriodsActive: [Period!]!
+        @guard
+        @can(ability: "viewAny")
     
     "Get all of the periods by pagination."
     periodList(

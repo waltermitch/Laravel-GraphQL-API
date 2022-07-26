@@ -67,6 +67,14 @@ class Unit extends Model
     }
 
     /**
+     * Get the start period of the unit.
+     */
+    public function startPeriod(): BelongsTo
+    {
+        return $this->belongsTo(Period::class, 'start_period');
+    }
+    
+    /**
      * Get the unit type owns the unit.
      */
     public function unitType(): BelongsTo

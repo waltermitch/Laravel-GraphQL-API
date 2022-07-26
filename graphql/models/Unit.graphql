@@ -23,6 +23,9 @@ type Unit {
     "Whether the unit is vending."
     isVending: Boolean! @rename(attribute: "is_vending")
 
+    "Period when the unit is created."
+    startPeriod: Period
+
     "The periods that belongs to unit."
     periods: [Period!]!
 
@@ -165,6 +168,9 @@ input CreateUnitInput {
 
     "County."
     county: ConnectBelongsToCounty!
+
+    "StartPeriod."
+    startPeriod: ConnectBelongsToPeriod!
 
     "City."
     city: ConnectBelongsToCity!
@@ -380,6 +386,11 @@ input ConnectBelongsToDistrict {
 input ConnectBelongsToCounty {
     "Connect id."
     connect: ID! @rules(apply: ["required", "exists:counties,id"])
+}
+
+input ConnectBelongsToPeriod {
+    "Connect id."
+    connect: ID! @rules(apply: ["required", "exists:periods,id"])
 }
 
 input ConnectBelongsToCity {
