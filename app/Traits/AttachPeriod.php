@@ -25,7 +25,7 @@ trait AttachPeriod
         static::created(function ($model) {
             if ($model instanceof Unit) {
                 if($model->isRelation('periods')) {
-                    $model->periods()->attach(Period::currentPeriod());
+                    $model->periods()->attach($model->startPeriod);
                 }
             }
         });
