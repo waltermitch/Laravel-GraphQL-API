@@ -1,7 +1,13 @@
+scalar Upload
+@scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+
 "Account of a person who utilizes this application."
 type User {
     "Unique primary key."
     id: ID!
+
+    "The Profile Avatar"
+    avatar: String
 
     "Non-unique first name."
     firstName: String! @rename(attribute: "first_name")
@@ -35,6 +41,23 @@ type User {
 
     "role data"
     role: Role
+}
+
+input UpdateProfileInput {
+    "The Profile Avatar"    
+    avatar: Upload
+
+    "Non-unique first name."
+    firstName: String! @rename(attribute: "first_name") @rules(apply: ["required", "max:255"])
+
+    "Non-unique last name."
+    lastName: String! @rename(attribute: "last_name") @rules(apply: ["max:255"])
+
+    "Unique email address."
+    email: String! @rules(apply: ["required", "max:255", "email"])
+
+    "Password"
+    password: String!
 }
 
 input CreateUserInput {
@@ -119,6 +142,14 @@ type UpdateUserResponse {
     message: String!
 }
 
+type UpdateProfileResponse {
+    "Status."
+    status: Boolean!
+
+    "Message."
+    message: String!
+}
+
 extend type Query {
     "Find a single user by an identifying attribute."
     user(
@@ -169,4 +200,10 @@ extend type Mutation {
         "Id."
         id: ID! @eq
     ): User @delete @guard @can(ability: "delete", model: "User", query: true)
+
+    "Update Profile of the User - firstName, lastName, email, password"
+    updateProfile(
+        "UpdateProfileInput"
+        profileInput: UpdateProfileInput! @spread
+    ): UpdateProfileResponse! @guard
 }
