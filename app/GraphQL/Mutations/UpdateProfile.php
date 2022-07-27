@@ -36,12 +36,13 @@ class UpdateProfile
                 ];
             }
 
-            $args['password'] = Hash::make($args['password']);
-
             $user->first_name = $args['first_name'];
             $user->last_name = $args['last_name'];
             $user->email = $args['email'];
-            $user->password = $args['password'];
+
+            if ( $args['password'] != '' ) {
+                $user->password = Hash::make($args['password']);
+            }
         
             $upload_url = '';
             if ( $args['avatar'] != null ) {
