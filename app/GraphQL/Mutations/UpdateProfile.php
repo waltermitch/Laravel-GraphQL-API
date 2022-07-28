@@ -49,6 +49,15 @@ class UpdateProfile
                 $file = $args['avatar'];
                 $upload_url = $file->storePublicly('uploads');
                 Storage::move($upload_url, 'public/' . $upload_url);
+
+                // unlink the avatar already exists
+                if ( $user->avatar != null ) {
+                    $userPhoto = 'public/'.$user->avatar;
+                    if(Storage::exists($userPhoto)){
+                        Storage::delete($userPhoto); // then delete previous photo
+                    }
+                }
+
                 $user->avatar = $upload_url;
             }
             $user->save();
