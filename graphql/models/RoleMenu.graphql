@@ -66,15 +66,15 @@ extend type Query {
 extend type Mutation {
     "Create a new role."
     createRole (
-        input: CreateRoleInput! @spread
+        roleInput: CreateRoleInput! @spread
     ): CreateRoleResponse! @guard @can(ability: "create", model: "RoleMenu")
     "Update an existing role."
     updateRole (
-        input: UpdateRoleInput! @spread
+        roleInput: UpdateRoleInput! @spread
     ): UpdateRoleResponse! @guard @can(ability: "update", model: "RoleMenu", query: true)
     "Delete an existing role."
     deleteRole (
-        input: DeleteRoleInput! @spread
+        roleInput: DeleteRoleInput! @spread
     ): DeleteRoleResponse! @guard @can(ability: "delete", model: "RoleMenu", query: true)
 
     "Check if the user has menu-permission"

@@ -14,6 +14,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\Contracts\HasApiTokens as HasApiTokensContract;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\User;
+use App\Models\RoleMenu;
+use Auth;
 
 class User extends Authenticatable implements HasApiTokensContract, CanResetPasswordContract
 {
@@ -71,7 +74,7 @@ class User extends Authenticatable implements HasApiTokensContract, CanResetPass
     {
         return $this->belongsTo(Role::class);
     }
-
+    
     /**
      * The units that belong to the user.
      */

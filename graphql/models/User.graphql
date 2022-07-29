@@ -150,7 +150,14 @@ type UpdateProfileResponse {
     message: String!
 }
 
+type RolePrivileges {
+    slugName: String
+    permissionType: PermissionType
+}
+
 extend type Query {
+    RolePrivileges: [RolePrivileges!]! @guard
+
     "Find a single user by an identifying attribute."
     user(
       "Search by primary key."
