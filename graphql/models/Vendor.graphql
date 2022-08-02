@@ -56,7 +56,9 @@ input CreateTermBelongsToMany{
 
 extend type Query {
     "List multiple vendors."
-    vendors: [Vendor!]!
+    vendors(
+        code: String @where(operator: "like") @rules(apply: ["max:255"])
+    ): [Vendor!]!
         @all
         @guard
         @orderBy(column: "name", direction: ASC)
