@@ -63,7 +63,9 @@ extend type Query {
         @can(ability: "viewAny")
 
     "Get all of the vendors by pagination."
-    vendorList: [Vendor!]!
+    VendorList(
+        code: String @where(operator: "like") @rules(apply: ["max:255"])
+    ): [Vendor!]!
         @paginate(defaultCount: 15)
         @guard
         @orderBy(column: "name", direction: ASC)

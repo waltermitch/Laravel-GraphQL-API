@@ -36,7 +36,9 @@ input UpdateGlTypeCodeInput {
 
 extend type Query {
     "List multiple gl type codes."
-    glTypeCodes: [GlTypeCode!]! 
+    glTypeCodes(
+        code: String @where(operator: "like") @rules(apply: ["max:255"])
+    ): [GlTypeCode!]! 
         @all
         @guard
 }

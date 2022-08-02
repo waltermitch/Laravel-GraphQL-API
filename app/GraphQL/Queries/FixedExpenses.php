@@ -25,7 +25,7 @@ class FixedExpenses
         $user = static::authenticatedUser();
         $selectedUnit = $user->selectedUnit();
         
-        $fixedExpenses = FixedExpense::where('unit_id', 14)->get();
+        $fixedExpenses = FixedExpense::where('unit_id', $selectedUnit->id)->get();
 
         return $fixedExpenses;
     }

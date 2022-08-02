@@ -447,7 +447,9 @@ extend type Query {
         @can(ability: "view", query: true)
 
     "List multiple units."
-    units: [Unit!]!
+    units(
+        code: String @where(operator: "like") @rules(apply: ["max:255"])
+    ): [Unit!]!
         @all
         @guard
         @can(ability: "viewAny")
