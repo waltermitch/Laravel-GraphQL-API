@@ -61,9 +61,7 @@ input ConnectBelongsToParentGlAccount @validator {
 
 extend type Query {
     "List multiple gl accounts."
-    glAccounts(
-        name: String @where(operator: "like") @rules(apply: ["max:255"])
-    ): [GlAccount!]! 
+    glAccounts: [GlAccount!]! 
         @all
         @guard
 }
