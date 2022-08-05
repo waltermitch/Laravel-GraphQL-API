@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\FixedExpense;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Enums\PermissionStatus;
 
 class FixedExpensePolicy
 {
@@ -36,8 +37,22 @@ class FixedExpensePolicy
      */
     public function viewAny(User $user)
     {
-        //
-        return true;
+        // permission check
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'fixed-expense')->first();
+        if ( $roleId == null || $menu == null ) {
+            return false;
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
+        }
+        $permission = $roleMenu->is_view;
+        
+        if ( $permission == PermissionStatus::ALLOWED ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -49,8 +64,22 @@ class FixedExpensePolicy
      */
     public function view(User $user, FixedExpense $fixedExpense)
     {
-        //
-        return true;
+        // permission check
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'fixed-expense')->first();
+        if ( $roleId == null || $menu == null ) {
+            return false;
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
+        }
+        $permission = $roleMenu->is_view;
+
+        if ( $permission == PermissionStatus::ALLOWED ) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -61,8 +90,25 @@ class FixedExpensePolicy
      */
     public function create(User $user)
     {
-        return true;
-        return !$user->isAdministrator();
+        if ( !$user->isAdministrator() ) {
+
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'fixed-expense')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_create;
+
+            if ( $permission == PermissionStatus::ALLOWED ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -74,8 +120,25 @@ class FixedExpensePolicy
      */
     public function update(User $user, FixedExpense $fixedExpense)
     {
-        return true;
-        return !$user->isAdministrator();
+        if ( !$user->isAdministrator() ) {
+
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'fixed-expense')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_modify;
+
+            if ( $permission == PermissionStatus::ALLOWED ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -87,8 +150,25 @@ class FixedExpensePolicy
      */
     public function delete(User $user, FixedExpense $fixedExpense)
     {
-        return true;
-        return !$user->isAdministrator();
+        if ( !$user->isAdministrator() ) {
+
+            // permission check
+            $roleId = $user->role_id;
+            $menu = DB::table('menus')->where('slug_name', '=', 'fixed-expense')->first();
+            if ( $roleId == null || $menu == null ) {
+                return false;
+            }
+            $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+            if ( $roleMenu == null ) {
+                return false;
+            }
+            $permission = $roleMenu->is_modify;
+
+            if ( $permission == PermissionStatus::ALLOWED ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

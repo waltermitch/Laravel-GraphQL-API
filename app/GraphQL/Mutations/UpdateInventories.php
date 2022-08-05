@@ -11,6 +11,7 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use App\Enums\PermissionStatus;
 
 class UpdateInventories
 {   
@@ -50,7 +51,8 @@ class UpdateInventories
             ];
         }
         $permission = $roleMenu->is_modify;
-        if ( $permission == 0 ) {
+
+        if ( $permission == PermissionStatus::NOTALLOWED ) {
             return [
                 'status' => false,
                 'message' => 'You must have a modify permission',

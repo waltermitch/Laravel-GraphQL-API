@@ -14,6 +14,7 @@ use App\Models\Period;
 
 use App\Enums\OperatingPeriodType;
 use App\Enums\OperatingType;
+use App\Enums\PermissionStatus;
 
 class OperatingReport
 {   
@@ -44,7 +45,8 @@ class OperatingReport
             return url("/");
         }
         $permission = $roleMenu->is_create;
-        if ( $permission == 0 ) {
+
+        if ( $permission == PermissionStatus::NOTALLOWED ) {
             return url("/");
         }
         

@@ -5,6 +5,9 @@ namespace App\Policies;
 use App\Models\CateringOrder;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\DB;
+use App\Enums\PermissionStatus;
+
 
 class CateringOrderPolicy
 {
@@ -45,7 +48,7 @@ class CateringOrderPolicy
             return false;
         }
         $permission = $roleMenu->is_view;
-        if ( $permission == 1 ) {
+        if ( $permission == PermissionStatus::ALLOWED ) {
             return true;
         }
         return false;
@@ -71,7 +74,7 @@ class CateringOrderPolicy
             return false;
         }
         $permission = $roleMenu->is_view;
-        if ( $permission == 1 ) {
+        if ( $permission == PermissionStatus::ALLOWED ) {
             return true;
         }
         return false;
@@ -98,7 +101,7 @@ class CateringOrderPolicy
                 return false;
             }
             $permission = $roleMenu->is_create;
-            if ( $permission == 1 ) {
+            if ( $permission == PermissionStatus::ALLOWED ) {
                 return true;
             }
         }
@@ -136,7 +139,7 @@ class CateringOrderPolicy
                 return false;
             }
             $permission = $roleMenu->is_modify;
-            if ( $permission == 1 ) {
+            if ( $permission == PermissionStatus::ALLOWED ) {
                 return true;
             }
         }
@@ -167,7 +170,7 @@ class CateringOrderPolicy
                 return false;
             }
             $permission = $roleMenu->is_modify;
-            if ( $permission == 1 ) {
+            if ( $permission == PermissionStatus::ALLOWED ) {
                 return true;
             }
         }

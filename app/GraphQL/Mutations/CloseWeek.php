@@ -14,6 +14,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
+use App\Enums\PermissionStatus;
 
 class CloseWeek
 {   
@@ -45,7 +46,8 @@ class CloseWeek
             ];
         }
         $permission = $roleMenu->is_create;
-        if ( $permission == 0 ) {
+
+        if ( $permission == PermissionStatus::NOTALLOWED ) {
             return [
                 'status' => false,
                 'message' => 'You must have a create permission'

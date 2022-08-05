@@ -13,6 +13,7 @@ use App\Models\Expense;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use App\Enums\PermissionStatus;
 
 class CreateCallLabor
 {
@@ -44,7 +45,9 @@ class CreateCallLabor
             ];
         }
         $permission = $roleMenu->is_create;
-        if ( $permission == 0 ) {
+
+        if ( $permission == PermissionStatus::NOTALLOWED ) {
+
             return [
                 'status' => false,
                 'message' => 'You must have a create permission'

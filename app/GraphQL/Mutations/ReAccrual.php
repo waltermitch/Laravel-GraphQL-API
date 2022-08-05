@@ -13,6 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Illuminate\Support\Facades\DB;
+use App\Enums\PermissionStatus;
 
 class ReAccrual
 {   
@@ -39,7 +40,8 @@ class ReAccrual
             return false;
         }
         $permission = $roleMenu->is_create;
-        if ( $permission == 0 ) {
+
+        if ( $permission == PermissionStatus::NOTALLOWED ) {
             return false;
         }
 
