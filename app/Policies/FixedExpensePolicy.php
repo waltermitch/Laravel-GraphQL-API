@@ -38,6 +38,9 @@ class FixedExpensePolicy
     public function viewAny(User $user)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'fixed-expense')->first();
         if ( $roleId == null || $menu == null ) {
@@ -65,6 +68,9 @@ class FixedExpensePolicy
     public function view(User $user, FixedExpense $fixedExpense)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'fixed-expense')->first();
         if ( $roleId == null || $menu == null ) {
@@ -90,7 +96,9 @@ class FixedExpensePolicy
      */
     public function create(User $user)
     {
-        if ( !$user->isAdministrator() ) {
+        if ($user->isAdministrator()) {
+            return true;
+        } else {
 
             // permission check
             $roleId = $user->role_id;
@@ -120,7 +128,9 @@ class FixedExpensePolicy
      */
     public function update(User $user, FixedExpense $fixedExpense)
     {
-        if ( !$user->isAdministrator() ) {
+        if ($user->isAdministrator()) {
+            return true;
+        } else {
 
             // permission check
             $roleId = $user->role_id;
@@ -150,7 +160,9 @@ class FixedExpensePolicy
      */
     public function delete(User $user, FixedExpense $fixedExpense)
     {
-        if ( !$user->isAdministrator() ) {
+        if ($user->isAdministrator()) {
+            return true;
+        } else {
 
             // permission check
             $roleId = $user->role_id;

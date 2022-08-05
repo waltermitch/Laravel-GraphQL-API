@@ -8,7 +8,6 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\DB;
 use App\Enums\PermissionStatus;
 
-
 class CateringOrderPolicy
 {
     use HandlesAuthorization;
@@ -38,6 +37,10 @@ class CateringOrderPolicy
     public function viewAny(User $user)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
+
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'catering-sales')->first();
         if ( $roleId == null || $menu == null ) {
@@ -64,6 +67,10 @@ class CateringOrderPolicy
     public function view(User $user, CateringOrder $cateringOrder)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
+
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'catering-sales')->first();
         if ( $roleId == null || $menu == null ) {
@@ -88,7 +95,9 @@ class CateringOrderPolicy
      */
     public function create(User $user)
     {
-        if ( !$user->isAdministrator() ) {
+        if ($user->isAdministrator()) {
+            return true;
+        } else {
 
             // permission check
             $roleId = $user->role_id;
@@ -118,10 +127,14 @@ class CateringOrderPolicy
     public function update(User $user, CateringOrder $cateringOrder, array $injectedArgs)
     {
         // TODO: refactor
+        if ($user->isAdministrator()) {
+            return true;
+        }
+
         $updateIds = array_column($injectedArgs['items']['update'] ?? [], 'id');
 
         $deleteIds = $injectedArgs['items']['delete'] ?? [];
-        
+
         if ($user->activePeriod()?->id === $cateringOrder->period_id &&
             $user->id === $cateringOrder->user_id &&
             !$user->isAdministrator() &&
@@ -155,6 +168,9 @@ class CateringOrderPolicy
      */
     public function delete(User $user, CateringOrder $cateringOrder)
     {
+        if ($user->isAdministrator()) {
+            return true;
+        }
         if ($user->activePeriod()?->id === $cateringOrder->period_id &&
             $user->id === $cateringOrder->user_id &&
             !$user->isAdministrator()) {

@@ -37,6 +37,9 @@ class PurchasePolicy
     public function viewAny(User $user)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'purchase-orders')->first();
         if ( $roleId == null || $menu == null ) {
@@ -63,6 +66,9 @@ class PurchasePolicy
     public function view(User $user, Purchase $purchase)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'purchase-orders')->first();
         if ( $roleId == null || $menu == null ) {
@@ -87,7 +93,9 @@ class PurchasePolicy
      */
     public function create(User $user)
     {
-        if ( !$user->isAdministrator() ) {
+        if ($user->isAdministrator()) {
+            return true;
+        } else {
 
             // permission check
             $roleId = $user->role_id;
@@ -117,6 +125,10 @@ class PurchasePolicy
     public function update(User $user, Purchase $purchase, array $injectedArgs)
     {
         // TODO: refactor
+        if ($user->isAdministrator()) {
+            return true;
+        }
+
         $updateIds = array_column($injectedArgs['items']['update'] ?? [], 'id');
        
         $deleteIds = $injectedArgs['items']['delete'] ?? [];
@@ -154,6 +166,9 @@ class PurchasePolicy
      */
     public function delete(User $user, Purchase $purchase)
     {
+        if ($user->isAdministrator()) {
+            return true;
+        }
         if ($user->activePeriod()?->id === $purchase->period_id &&
             $user->id === $purchase->user_id &&
             !$user->isAdministrator()) {

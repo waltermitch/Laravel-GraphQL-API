@@ -40,6 +40,9 @@ class ExpensePolicy
     public function viewAny(User $user)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'expenses')->first();
         if ( $roleId == null || $menu == null ) {
@@ -66,6 +69,9 @@ class ExpensePolicy
     public function view(User $user, Expense $expense)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'expenses')->first();
         if ( $roleId == null || $menu == null ) {
@@ -91,7 +97,9 @@ class ExpensePolicy
      */
     public function create(User $user, array $injectedArgs)
     {   
-        if ( !$user->isAdministrator() ) {
+        if ($user->isAdministrator()) {
+            return true;
+        } else {
             // permission check
             $roleId = $user->role_id;
 
@@ -132,6 +140,9 @@ class ExpensePolicy
      */
     public function update(User $user, Expense $expense, array $injectedArgs)
     {
+        if ($user->isAdministrator()) {
+            return true;
+        }
         if ($user->activePeriod()?->id === $expense->period_id &&
             $user->id === $expense->user_id &&
             !$user->isAdministrator()) {
@@ -173,6 +184,9 @@ class ExpensePolicy
      */
     public function delete(User $user, Expense $expense, array $injectedArgs)
     {
+        if ($user->isAdministrator()) {
+            return true;
+        }
         if ($user->activePeriod()?->id === $expense->period_id &&
             $user->id === $expense->user_id &&
             !$user->isAdministrator()) {

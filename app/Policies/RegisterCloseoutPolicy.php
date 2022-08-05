@@ -37,6 +37,9 @@ class RegisterCloseoutPolicy
     public function viewAny(User $user)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'close-register')->first();
         if ( $roleId == null || $menu == null ) {
@@ -63,6 +66,9 @@ class RegisterCloseoutPolicy
     public function view(User $user, RegisterCloseout $registerCloseout)
     {
         // permission check
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $roleId = $user->role_id;
         $menu = DB::table('menus')->where('slug_name', '=', 'close-register')->first();
         if ( $roleId == null || $menu == null ) {
@@ -87,7 +93,9 @@ class RegisterCloseoutPolicy
      */
     public function create(User $user)
     {
-        if ( !$user->isAdministrator() ) {
+        if ($user->isAdministrator()) {
+            return true;
+        } else {
 
             // permission check
             $roleId = $user->role_id;
@@ -117,6 +125,9 @@ class RegisterCloseoutPolicy
     public function update(User $user, RegisterCloseout $registerCloseout, array $injectedArgs)
     {   
         // TODO: refactor
+        if ($user->isAdministrator()) {
+            return true;
+        }
         $updateIds = array_column($injectedArgs['items']['update'] ?? [], 'id');
 
         $deleteIds = $injectedArgs['items']['delete'] ?? [];
@@ -154,6 +165,9 @@ class RegisterCloseoutPolicy
      */
     public function delete(User $user, RegisterCloseout $registerCloseout)
     {
+        if ($user->isAdministrator()) {
+            return true;
+        }
         if ($user->activePeriod()?->id === $registerCloseout->period_id &&
             $user->id === $registerCloseout->user_id &&
             !$user->isAdministrator()) {
