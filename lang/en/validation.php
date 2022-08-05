@@ -324,7 +324,7 @@ return [
         'periodInput.week' => '"Week Number"',
 
         'PurchaseInput.number' => '"Purchase Number"',
-        'PurchaseInput.date' => '"Purchase Number"',
+        'PurchaseInput.date' => '"Purchase Date"',
         'PurchaseInput.vendor.connect' => '"Purchase Vendor"',
 
         'registerInput.code' => '"Reg Code"',

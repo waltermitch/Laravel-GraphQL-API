@@ -34,6 +34,20 @@ class OperatingReport
         // retrieve user
         $user = static::authenticatedUser();
 
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'reports')->first();
+        if ( $roleId == null || $menu == null ) {
+            return url("/");
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return url("/");
+        }
+        $permission = $roleMenu->is_create;
+        if ( $permission == 0 ) {
+            return url("/");
+        }
+        
         // Gate::allowIf(fn ($user) => $user->isAdministrator());
 
         $userId = $user->id;

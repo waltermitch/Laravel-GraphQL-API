@@ -28,6 +28,30 @@ class CloseWeek
     {   
         Gate::allowIf(fn ($user) => !$user->isAdministrator() && $user->hasSelectedUnit());
 
+        $user = static::authenticatedUser();
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'close-week')->first();
+        if ( $roleId == null || $menu == null ) {
+            return [
+                'status' => false,
+                'message' => 'Unknown Slug Name'
+            ];
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return [
+                'status' => false,
+                'message' => 'Unknown Permission'
+            ];
+        }
+        $permission = $roleMenu->is_create;
+        if ( $permission == 0 ) {
+            return [
+                'status' => false,
+                'message' => 'You must have a create permission'
+            ];
+        }
+
         DB::beginTransaction();
 
         try {

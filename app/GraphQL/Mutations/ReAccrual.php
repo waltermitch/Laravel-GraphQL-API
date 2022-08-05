@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Illuminate\Support\Facades\DB;
 
 class ReAccrual
 {   
@@ -27,6 +28,20 @@ class ReAccrual
         Gate::allowIf(fn ($user) => !$user->isAdministrator());
 
         $user = $this::authenticatedUser();
+
+        $roleId = $user->role_id;
+        $menu = DB::table('menus')->where('slug_name', '=', 'reaccruals')->first();
+        if ( $roleId == null || $menu == null ) {
+            return false;
+        }
+        $roleMenu = DB::table('role_menus')->where('role_id', '=', $roleId)->where('menu_id', '=', $menu->id)->first();
+        if ( $roleMenu == null ) {
+            return false;
+        }
+        $permission = $roleMenu->is_create;
+        if ( $permission == 0 ) {
+            return false;
+        }
 
         $reAccrualAlreadyExists = $user->expenses()
             ->where('period_id', $user->activePeriod()?->id)

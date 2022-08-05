@@ -20,8 +20,19 @@ input InventoryInput {
     amount: Float! @rules(apply: ["regex:/^\\d{1,6}(\\.\\d{1,2})?$/"])
 }
 
+type InventoryPemssionResponse {
+    "Status."
+    status: Boolean
+
+    "Response Message."
+    message: String
+
+    "Inventory Category List."
+    category: [InventoryCategory!]!
+}
+
 extend type Mutation {
     updateInventories(
         inventoriesInput: [InventoryInput!]!
-    ): [InventoryCategory!]! @guard
+    ): InventoryPemssionResponse @guard
 }

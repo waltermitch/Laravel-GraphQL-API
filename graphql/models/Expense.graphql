@@ -130,7 +130,7 @@ extend type Mutation {
     ): Expense 
         @create
         @guard
-        @can(ability: "create")
+        @can(ability: "create", injectArgs: true)
         @inject(context: "user.id", name: "user_id")
 
     "Update an existing expense."
@@ -141,7 +141,7 @@ extend type Mutation {
         @update
         @guard
         @inject(context: "user.id", name: "user_id")
-        @can(ability: "update", query: true)
+        @can(ability: "update", query: true, injectArgs: true)
 
     "Delete an existing expense."
     deleteExpense(
@@ -150,5 +150,5 @@ extend type Mutation {
     ): Expense 
         @delete
         @guard
-        @can(ability: "delete", query: true)
+        @can(ability: "delete", query: true, injectArgs: true)
 }
