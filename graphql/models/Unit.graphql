@@ -447,10 +447,16 @@ extend type Query {
         @can(ability: "view", query: true)
 
     "List multiple units."
-    units(
+    units: [Unit!]!
+        @all
+        @guard
+        @can(ability: "viewAny")
+
+    "Get all of the units by pagination."
+    unitList(
         code: String @where(operator: "like") @rules(apply: ["max:255"])
     ): [Unit!]!
-        @all
+        @paginate(defaultCount: 15)
         @guard
         @can(ability: "viewAny")
 }

@@ -34,6 +34,7 @@ input CreatePurchaseChargeInput {
 
 input UpdatePurchaseChargeInput {
     "Id."
+
     id: ID!
 
     "Gl Account."
