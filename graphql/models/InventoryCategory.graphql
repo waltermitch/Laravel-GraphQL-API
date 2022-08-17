@@ -61,11 +61,13 @@ input ConnectBelongsToGlAccount {
 
 extend type Query {
     "List multiple inventory categories."
-    inventoryCategories: [InventoryCategory!]!
+    inventoryCategories(
+        vending: String @where(operator: "!=")
+    ): [InventoryCategory!]!
         @all
         @guard
         @can(ability: "viewAny")
-    
+
     "Get all of the inventory categories by pagination."
     inventoryCategoryList: [InventoryCategory!]!
         @paginate(defaultCount: 15)
