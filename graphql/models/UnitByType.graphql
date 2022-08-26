@@ -1,0 +1,27 @@
+type UnitByType {
+    "Unique primary key."
+    id: ID!
+
+    "Unique code."
+    code: String!
+
+    "Name."
+    name: String!
+
+    "The unit type that owns the unit."
+    unitType: UnitType
+
+    "When the unit type was created."
+    createdAt: DateTime! @rename(attribute: "created_at")
+
+    "When the unit type was last updated."
+    updatedAt: DateTime! @rename(attribute: "updated_at")
+}
+
+extend type Query {
+    "Get all of the units with UnitType"
+    unitsByType: [UnitByType!]!
+        @all
+        @guard
+        @can(ability: "viewAny")
+}

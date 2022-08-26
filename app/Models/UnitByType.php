@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UnitType extends Model
+class UnitByType extends Model
 {
     use HasFactory;
+
+    protected $table = 'units';
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +38,12 @@ class UnitType extends Model
     protected $casts = [
 
     ];
+
+    /**
+     * Get the unit type owns the unit.
+     */
+    public function unitType(): BelongsTo
+    {
+        return $this->belongsTo(UnitType::class);
+    }
 }
