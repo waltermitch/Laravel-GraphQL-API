@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Vendor extends Model
+class UnitByCity extends Model
 {
     use HasFactory;
+
+    protected $table = 'units';
 
     /**
      * The attributes that are mass assignable.
@@ -34,14 +36,15 @@ class Vendor extends Model
      * @var array<string, string>
      */
     protected $casts = [
-    
+
     ];
 
     /**
-     * The terms that belongs to the vendor.
+     * Get the city that owns the unit.
      */
-    public function terms(): BelongsToMany
+    public function city(): BelongsTo
     {
-        return $this->belongsToMany(Term::class);
+        return $this->belongsTo(City::class);
     }
+
 }

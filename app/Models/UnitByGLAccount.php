@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Vendor extends Model
+class UnitByGLAccount extends Model
 {
     use HasFactory;
+
+    protected $table = 'units';
 
     /**
      * The attributes that are mass assignable.
@@ -34,14 +36,14 @@ class Vendor extends Model
      * @var array<string, string>
      */
     protected $casts = [
-    
+        
     ];
 
     /**
-     * The terms that belongs to the vendor.
+     * The gl accounts that belong to the unit.
      */
-    public function terms(): BelongsToMany
+    public function glAccounts(): BelongsToMany
     {
-        return $this->belongsToMany(Term::class);
+        return $this->belongsToMany(GlAccount::class, 'gl_account_unit', 'unit_id', 'gl_account_id');
     }
 }
