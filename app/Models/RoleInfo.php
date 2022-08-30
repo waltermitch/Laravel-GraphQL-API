@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Term extends Model
+class RoleInfo extends Model
 {
     use HasFactory;
+
+    protected $table = 'roles';
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +36,6 @@ class Term extends Model
      * @var array<string, string>
      */
     protected $casts = [
-    
+
     ];
 }
