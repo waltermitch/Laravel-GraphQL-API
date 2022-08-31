@@ -177,7 +177,10 @@ type UpdateProfileResponse {
 }
 
 type RolePrivileges {
+    "SlugName."
     slugName: String
+
+    "PermissionType."
     permissionType: PermissionType
 }
 
