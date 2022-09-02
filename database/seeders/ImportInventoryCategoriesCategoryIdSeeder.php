@@ -36,7 +36,7 @@ class ImportInventoryCategoriesCategoryIdSeeder extends Seeder
             '800;Paper;5100;000;B',
             '900;Cleaning;5300;002;B',
         ];
-
+∑
         foreach($data as $dataItem) {
             $item = explode(';', $dataItem);
 
